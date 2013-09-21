@@ -19,7 +19,7 @@ Yii::app()->clientScript->registerScript('search', "
 <h1>
     
     <?php echo Yii::t('crud', 'Ccmp Companies'); ?>
-    <small><?php echo Yii::t('crud', 'Manage'); ?></small>
+    <small><?php echo Yii::t('d2companyModule.p3crud','Manage'); ?></small>
     
 </h1>
 

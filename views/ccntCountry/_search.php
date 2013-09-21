@@ -31,7 +31,7 @@
 
     
     <div class="row buttons">
-        <?php echo CHtml::submitButton(Yii::t('crud', 'Search')); ?>
+        <?php echo CHtml::submitButton(Yii::t('d2companyModule.p3crud','Search')); ?>
     </div>
 
     <?php $this->endWidget(); ?>

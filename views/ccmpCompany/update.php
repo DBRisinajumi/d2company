@@ -39,7 +39,7 @@ $this->widget('bootstrap.widgets.TbTabs', array(
             'content' => $this->clips['company_group'],
             'active' => ($active_tab == 'company_group'),
         ),
-        array('label' => Yii::t('crud', 'company_branches'),
+        array('label' => Yii::t('crud', 'Company branches'),
             'content' => $this->clips['company_branches'],
             'active' => ($active_tab == 'company_branches'),
         ),
