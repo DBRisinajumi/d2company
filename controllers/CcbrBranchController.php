@@ -1,7 +1,7 @@
 <?php
 
 
-class CcgrGroupController extends Controller
+class CcbrBranchController extends Controller
 {
     #public $layout='//layouts/column2';
 
@@ -22,7 +22,7 @@ return array(
 array(
 'allow',
 'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view'),
-'roles' => array('DataCardEditor'),
+'roles' => array('D2company.CcbrBranch.*'),
 ),
 array(
 'deny',
@@ -40,49 +40,49 @@ array(
         return true;
     }
 
-    public function actionView($ccgr_id)
+    public function actionView($ccbr_id)
     {
-        $model = $this->loadModel($ccgr_id);
+        $model = $this->loadModel($ccbr_id);
         $this->render('view', array('model' => $model,));
     }
 
     public function actionCreate()
     {
-        $model = new CcgrGroup;
+        $model = new CcbrBranch;
         $model->scenario = $this->scenario;
 
-        $this->performAjaxValidation($model, 'ccgr-group-form');
+        $this->performAjaxValidation($model, 'ccbr-branch-form');
 
-        if (isset($_POST['CcgrGroup'])) {
-            $model->attributes = $_POST['CcgrGroup'];
+        if (isset($_POST['CcbrBranch'])) {
+            $model->attributes = $_POST['CcbrBranch'];
 
             try {
                 if ($model->save()) {
                     if (isset($_GET['returnUrl'])) {
                         $this->redirect($_GET['returnUrl']);
                     } else {
-                        $this->redirect(array('view', 'ccgr_id' => $model->ccgr_id));
+                        $this->redirect(array('view', 'ccbr_id' => $model->ccbr_id));
                     }
                 }
             } catch (Exception $e) {
-                $model->addError('ccgr_id', $e->getMessage());
+                $model->addError('ccbr_id', $e->getMessage());
             }
-        } elseif (isset($_GET['CcgrGroup'])) {
-            $model->attributes = $_GET['CcgrGroup'];
+        } elseif (isset($_GET['CcbrBranch'])) {
+            $model->attributes = $_GET['CcbrBranch'];
         }
 
         $this->render('create', array('model' => $model));
     }
 
-    public function actionUpdate($ccgr_id)
+    public function actionUpdate($ccbr_id)
     {
-        $model = $this->loadModel($ccgr_id);
+        $model = $this->loadModel($ccbr_id);
         $model->scenario = $this->scenario;
 
-        $this->performAjaxValidation($model, 'ccgr-group-form');
+        $this->performAjaxValidation($model, 'ccbr-branch-form');
 
-        if (isset($_POST['CcgrGroup'])) {
-            $model->attributes = $_POST['CcgrGroup'];
+        if (isset($_POST['CcbrBranch'])) {
+            $model->attributes = $_POST['CcbrBranch'];
 
 
             try {
@@ -90,11 +90,11 @@ array(
                     if (isset($_GET['returnUrl'])) {
                         $this->redirect($_GET['returnUrl']);
                     } else {
-                        $this->redirect(array('view', 'ccgr_id' => $model->ccgr_id));
+                        $this->redirect(array('view', 'ccbr_id' => $model->ccbr_id));
                     }
                 }
             } catch (Exception $e) {
-                $model->addError('ccgr_id', $e->getMessage());
+                $model->addError('ccbr_id', $e->getMessage());
             }
         }
 
@@ -104,15 +104,15 @@ array(
     public function actionEditableSaver()
     {
         Yii::import('EditableSaver'); //or you can add import 'ext.editable.*' to config
-        $es = new EditableSaver('CcgrGroup'); // classname of model to be updated
+        $es = new EditableSaver('CcbrBranch'); // classname of model to be updated
         $es->update();
     }
 
-    public function actionDelete($ccgr_id)
+    public function actionDelete($ccbr_id)
     {
         if (Yii::app()->request->isPostRequest) {
             try {
-                $this->loadModel($ccgr_id)->delete();
+                $this->loadModel($ccbr_id)->delete();
             } catch (Exception $e) {
                 throw new CHttpException(500, $e->getMessage());
             }
@@ -131,15 +131,15 @@ array(
 
     public function actionAdmin()
     {
-        $model = new CcgrGroup('search');
+        $model = new CcbrBranch('search');
         $scopes = $model->scopes();
         if (isset($scopes[$this->scope])) {
             $model->{$this->scope}();
         }
         $model->unsetAttributes();
 
-        if (isset($_GET['CcgrGroup'])) {
-            $model->attributes = $_GET['CcgrGroup'];
+        if (isset($_GET['CcbrBranch'])) {
+            $model->attributes = $_GET['CcbrBranch'];
         }
 
         $this->render('admin', array('model' => $model,));
@@ -147,7 +147,7 @@ array(
 
     public function loadModel($id)
     {
-        $m = CcgrGroup::model();
+        $m = CcbrBranch::model();
         // apply scope, if available
         $scopes = $m->scopes();
         if (isset($scopes[$this->scope])) {
@@ -162,7 +162,7 @@ array(
 
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'ccgr-group-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'ccbr-branch-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

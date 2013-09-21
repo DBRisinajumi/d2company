@@ -1,13 +1,13 @@
 
 
 <?php
-//$this->breadcrumbs[Yii::t('crud','Ccmp Companies')] = array('admin');
-//$this->breadcrumbs[] = Yii::t('crud', 'Create');
+$this->breadcrumbs[Yii::t('crud','Ccbr Branches')] = array('admin');
+$this->breadcrumbs[] = Yii::t('crud', 'Create');
 ?>
-<?php //$this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
+<?php $this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
     <h1>
         
-        <?php echo Yii::t('crud','Ccmp Company')?>
+        <?php echo Yii::t('crud','Ccbr Branch')?>
         <small><?php echo Yii::t('crud','Create')?></small>
             </h1>
 

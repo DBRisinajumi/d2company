@@ -1,6 +1,6 @@
 
 <?php
-$this->breadcrumbs[] = Yii::t('crud','Ccmp Companies');
+//$this->breadcrumbs[] = Yii::t('crud','Ccmp Companies');
 Yii::app()->clientScript->registerScript('search', "
     $('.search-button').click(function(){
         $('.search-form').toggle();
@@ -16,7 +16,6 @@ Yii::app()->clientScript->registerScript('search', "
     ");
 ?>
 
-<?php $this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
 <h1>
     
     <?php echo Yii::t('crud', 'Ccmp Companies'); ?>
@@ -113,13 +112,13 @@ $this->widget('TbGridView',
             array(
                 'class'=>'TbButtonColumn',
                 'buttons' => array(
-                    'view' => array('visible' => 'Yii::app()->user->checkAccess("D2company.CcmpCompany.View")'),
+                    'view' => array('visible' => 'FALSE'),
                     'update' => array('visible' => 'Yii::app()->user->checkAccess("D2company.CcmpCompany.Update")'),
-                    'delete' => array('visible' => 'Yii::app()->user->checkAccess("D2company.CcmpCompany.Delete")'),
+                    'delete' => array('visible' => 'FALSE'),
                 ),
-                'viewButtonUrl'   => 'Yii::app()->controller->createUrl("view", array("ccmp_id" => $data->ccmp_id))',
+                'viewButtonUrl'   => null,
                 'updateButtonUrl' => 'Yii::app()->controller->createUrl("update", array("ccmp_id" => $data->ccmp_id))',
-                'deleteButtonUrl' => 'Yii::app()->controller->createUrl("delete", array("ccmp_id" => $data->ccmp_id))',
+                'deleteButtonUrl' => null,
             ),
         )
     )

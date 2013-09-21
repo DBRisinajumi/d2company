@@ -22,7 +22,7 @@ return array(
 array(
 'allow',
 'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view'),
-'roles' => array('D2company.CcxgCompanyXGroup.*'),
+'roles' => array('DataCardEditor'),
 ),
 array(
 'deny',
