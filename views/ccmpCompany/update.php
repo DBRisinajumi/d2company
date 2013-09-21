@@ -1,20 +1,10 @@
 <?php
-//$this->breadcrumbs[Yii::t('crud', 'Ccmp Companies')] = array('admin');
-//$this->breadcrumbs[$model->{$model->tableSchema->primaryKey}] = array('view', 'id' => $model->{$model->tableSchema->primaryKey});
-//$this->breadcrumbs[] = Yii::t('crud', 'Update');
-?>
-
-<?php //$this->widget("TbBreadcrumbs", array("links" => $this->breadcrumbs)) ?>
-
-<?php
 $this->renderPartial("_toolbar", array("model" => $model));
 ?>
 <h2>
-        <?php echo $model->itemLabel ?>
-
+    <?php echo $model->itemLabel ?>
 </h2>
 <?php
-
 //main update form
 $this->beginClip('main');
 $this->renderPartial('_form', array('model' => $model));
@@ -25,6 +15,17 @@ $this->beginClip('company_group');
 $this->renderPartial('_groups', array('model' => $model));
 $this->endClip();
 
+//company branches
+$this->beginClip('company_branches');
+if (isset($model_update_ccbr)) {
+    $this->renderPartial('_branch_form', array('model' => $model_update_ccbr));
+} elseif (isset($model_manage_ccbr)) {
+    $this->renderPartial('_branch_list', array('model' => $model_manage_ccbr,'ccmp_id'=>$model->ccmp_id));
+} elseif (isset($model_create_ccbr)) {
+    $this->renderPartial('_branch_form', array('model' => $model_create_ccbr));
+}
+$this->endClip();
+
 //tab
 $this->widget('bootstrap.widgets.TbTabs', array(
     'type' => 'tabs',
@@ -32,12 +33,16 @@ $this->widget('bootstrap.widgets.TbTabs', array(
     'tabs' => array(
         array('label' => Yii::t('crud', 'Main comapny data'),
             'content' => $this->clips['main'],
-        'active'  => CcmpCompanyController::isMainTabActive(),
+            'active' => ($active_tab == 'main'),
         ),
         array('label' => Yii::t('crud', 'Company groups'),
             'content' => $this->clips['company_group'],
-            'active'  => CcmpCompanyController::isCompanyGroupTabActive(),
+            'active' => ($active_tab == 'company_group'),
+        ),
+        array('label' => Yii::t('crud', 'company_branches'),
+            'content' => $this->clips['company_branches'],
+            'active' => ($active_tab == 'company_branches'),
         ),
     )
-    ));
+));
 ?>

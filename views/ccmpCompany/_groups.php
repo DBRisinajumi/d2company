@@ -40,9 +40,13 @@
         echo CHtml::resetButton(Yii::t('crud', 'Reset'), array(
 			'class' => 'btn'
 			));
-        echo ' '.CHtml::submitButton(Yii::t('crud', 'Save'), array(
-            'class' => 'btn btn-primary','name'=>'save_company_group'
-            ));
+        echo ' '.CHtml::submitButton(
+                    Yii::t('crud', 'Save'), 
+                    array(
+                        'class' => 'btn btn-primary',
+                        'name'=>'save_company_group'
+                    )
+                );
     ?>
     </div>    
     </div>    

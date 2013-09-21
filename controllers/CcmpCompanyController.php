@@ -21,7 +21,9 @@ public function accessRules()
 return array(
 array(
 'allow',
-'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view'),
+'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin'
+                    , 'view','updateccbr','manageccbr','updategroup',
+                    'createccbr'),
 'roles' => array('DataCardEditor'),
 ),
 array(
@@ -74,13 +76,139 @@ array(
         $this->render('create', array('model' => $model));
     }
 
-    public function actionUpdate($ccmp_id)
-    {
+    
+    public function actionCreateccbr($ccmp_id){
+       if (isset($_POST['CcmpCompany'])) {
+            $this->actionUpdate($ccmp_id);
+            return;
+        }
+        if(isset($_POST['save_company_group'])){
+            $this->actionUpdategroup($ccmp_id);
+            return;            
+        }
+        
+        if (isset($_POST['CcbrBranch'])) {
+            
+            $model = new CcbrBranch;
+            $model->attributes = $_POST['CcbrBranch'];
+            $model->ccbr_ccmp_id = $ccmp_id;
+            //var_dump($model->attributes);exit;
+            try {
+                if ($model->save()) {
+                    if (isset($_GET['returnUrl'])) {
+                        $this->redirect($_GET['returnUrl']);
+                    } else {
+                        $this->redirect(array('manageccbr','ccmp_id'=>$ccmp_id, 'ccbr_id' => $model->ccbr_id));
+                    }
+                }
+            } catch (Exception $e) {
+                $model->addError('ccbr_id', $e->getMessage());
+            }
+        }
+        
+        //company
         $model = $this->loadModel($ccmp_id);
         $model->scenario = $this->scenario;
         
-        if(self::isCompanyGroupTabActive()){
-            // submited company group form
+        //branch
+         $mCcbr = new CcbrBranch();
+        $this->render(
+                'update', 
+                array(
+                    'model' => $model,
+                    'active_tab' => 'company_branches',
+                    'model_create_ccbr' => $mCcbr,
+                )
+               );            
+        
+    }
+    public function actionManageccbr($ccmp_id,$ccbr_id){
+       if (isset($_POST['CcmpCompany'])) {
+            $this->actionUpdate($ccmp_id);
+            return;
+        }
+        if(isset($_POST['save_company_group'])){
+            $this->actionUpdategroup($ccmp_id);
+            return;            
+        }
+        
+        //company
+        $model = $this->loadModel($ccmp_id);
+        $model->scenario = $this->scenario;
+        
+        //branch
+        $criteria = new CDbCriteria;
+        $criteria->addCondition('ccbr_ccmp_id = :ccmp_id');
+        $criteria->params = array(':ccmp_id' => $model->ccmp_id);
+        $mCcbr = new CcbrBranch('search');
+        $mCcbr->findAll($criteria);        
+        $this->render(
+                'update', 
+                array(
+                    'model' => $model,
+                    'ccbr_id' => $ccbr_id,
+                    'active_tab' => 'company_branches',
+                    'model_manage_ccbr' => $mCcbr,
+                )
+               );        
+        
+    }
+    public function actionUpdateccbr($ccmp_id,$ccbr_id){
+        if (isset($_POST['CcmpCompany'])) {
+            $this->actionUpdate($ccmp_id);
+            return;
+        }
+        if(isset($_POST['save_company_group'])){
+            $this->actionUpdategroup($ccmp_id);
+            return;            
+        }
+
+        //company
+        $model = $this->loadModel($ccmp_id);
+        $model->scenario = $this->scenario;
+        
+        if (isset($_POST['CcbrBranch'])) {
+            
+            $m = CcbrBranch::model();
+            $model = $m->findByPk($ccbr_id);
+            $model->attributes = $_POST['CcbrBranch'];
+
+
+            try {
+                if ($model->save()) {
+                    if (isset($_GET['returnUrl'])) {
+                        $this->redirect($_GET['returnUrl']);
+                    } else {
+                        $this->redirect(array('manageccbr','ccmp_id'=>$ccmp_id, 'ccbr_id' => $model->ccbr_id));
+                    }
+                }
+            } catch (Exception $e) {
+                $model->addError('ccbr_id', $e->getMessage());
+            }
+        }
+        
+        //branch
+        $m = CcbrBranch::model();
+        $mCcbr = $m->findByPk($ccbr_id);        
+        $this->render(
+                'update', 
+                array(
+                    'model' => $model,
+                    'ccbr_id' => $ccbr_id,
+                    'active_tab' => 'company_branches',
+                    'model_update_ccbr' => $mCcbr,
+                    )
+                );
+    }
+    
+    public function actionUpdategroup($ccmp_id){
+
+       //company        
+        $model = $this->loadModel($ccmp_id);
+        $model->scenario = $this->scenario;
+        
+        //update record
+        if(isset($_POST['save_company_group'])){
             $mCcxg = new CcxgCompanyXGroup();
             
             //get DB checked
@@ -124,8 +252,38 @@ array(
             }
             //reload record, jo attēlos veco tipus
             $model = $this->loadModel($ccmp_id);            
-        }
+            $this->redirect(array('updategroup', 'ccmp_id' => $model->ccmp_id));
 
+        }
+        
+        //branc
+        $criteria = new CDbCriteria;
+        $criteria->addCondition('ccbr_ccmp_id = :ccmp_id');
+        $criteria->params = array(':ccmp_id' => $model->ccmp_id);
+        $mCcbr = new CcbrBranch('search');
+        $mCcbr->findAll($criteria);   
+        
+        $this->render(
+                'update', 
+                array(
+                    'model' => $model,
+                    'active_tab' => 'company_group',
+                    'model_manage_ccbr' => $mCcbr,
+                    )
+                );
+    }
+    
+    public function actionUpdate($ccmp_id)
+    {
+        //company group forma submitita
+        if(isset($_POST['save_company_group'])){
+            $this->actionUpdategroup($ccmp_id);
+            return;
+        }
+        
+        $model = $this->loadModel($ccmp_id);
+        $model->scenario = $this->scenario;
+        
         $this->performAjaxValidation($model, 'ccmp-company-form');
 
         if (isset($_POST['CcmpCompany'])) {
@@ -137,15 +295,32 @@ array(
                     if (isset($_GET['returnUrl'])) {
                         $this->redirect($_GET['returnUrl']);
                     } else {
-                        $this->redirect(array('view', 'ccmp_id' => $model->ccmp_id));
+                        $this->redirect(array(
+                                        'update', 
+                                        'ccmp_id' => $model->ccmp_id,
+                                        'active_tab' => 'main',
+                                ));
                     }
                 }
             } catch (Exception $e) {
                 $model->addError('ccmp_id', $e->getMessage());
             }
         }
-
-        $this->render('update', array('model' => $model,));
+       //branc
+        $criteria = new CDbCriteria;
+        $criteria->addCondition('ccbr_ccmp_id = :ccmp_id');
+        $criteria->params = array(':ccmp_id' => $model->ccmp_id);
+        $mCcbr = new CcbrBranch('search');
+        $mCcbr->findAll($criteria); 
+        
+        $this->render(
+                'update', 
+                array(
+                    'model' => $model,
+                    'active_tab' => 'main',
+                    'model_manage_ccbr' => $mCcbr,
+                    )
+                );
     }
 
     public function actionEditableSaver()
@@ -216,11 +391,19 @@ array(
     }
     
     static function isMainTabActive(){
-        return !self::isCompanyGroupTabActive();
+        return !self::isCompanyGroupTabActive()
+                && !self::isBrancTabActive();
     }
     
     static function isCompanyGroupTabActive(){
         return isset($_POST['save_company_group']);
+    }
+
+    static function isBrancTabActive(){
+        return self::isActionBrancEdit();
+    }
+    static function isActionBrancEdit(){
+        return isset($_GET['ccbr_id']);
     }
 
 
