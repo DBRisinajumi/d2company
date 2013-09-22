@@ -56,12 +56,12 @@
                         "url"=>array("admin"),
                         "visible"=>Yii::app()->user->checkAccess("D2company.CcntCountry.View")
                     ));
-                    $this->widget("bootstrap.widgets.TbButton", array(
-                        "label"=>Yii::t("d2companyModule.p3crud","View"),
-                        "icon"=>"icon-eye-open",
-                        "url"=>array("view","ccnt_id"=>$model->{$model->tableSchema->primaryKey}),
-                        "visible"=>Yii::app()->user->checkAccess("D2company.CcntCountry.View")
-                    ));
+//                    $this->widget("bootstrap.widgets.TbButton", array(
+//                        "label"=>Yii::t("d2companyModule.p3crud","View"),
+//                        "icon"=>"icon-eye-open",
+//                        "url"=>array("view","ccnt_id"=>$model->{$model->tableSchema->primaryKey}),
+//                        "visible"=>Yii::app()->user->checkAccess("D2company.CcntCountry.View")
+//                    ));
                     $this->widget("bootstrap.widgets.TbButton", array(
                         "label"=>Yii::t("d2companyModule.p3crud","Delete"),
                         "type"=>"danger",

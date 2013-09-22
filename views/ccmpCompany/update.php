@@ -31,15 +31,15 @@ $this->widget('bootstrap.widgets.TbTabs', array(
     'type' => 'tabs',
     'placement' => 'left', // 'above', 'right', 'below' or 'left'
     'tabs' => array(
-        array('label' => Yii::t('crud', 'Main comapny data'),
+        array('label' => Yii::t('d2companyModule.crud', 'Main comapny data'),
             'content' => $this->clips['main'],
             'active' => ($active_tab == 'main'),
         ),
-        array('label' => Yii::t('crud', 'Company groups'),
+        array('label' => Yii::t('d2companyModule.crud', 'Company groups'),
             'content' => $this->clips['company_group'],
             'active' => ($active_tab == 'company_group'),
         ),
-        array('label' => Yii::t('crud', 'Company branches'),
+        array('label' => Yii::t('d2companyModule.crud', 'Company branches'),
             'content' => $this->clips['company_branches'],
             'active' => ($active_tab == 'company_branches'),
         ),

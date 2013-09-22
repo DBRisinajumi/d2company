@@ -1,6 +1,6 @@
 
 <?php
-$this->breadcrumbs[] = Yii::t('crud','Ccnt Countries');
+//$this->breadcrumbs[] = Yii::t('crud','Ccnt Countries');
 Yii::app()->clientScript->registerScript('search', "
     $('.search-button').click(function(){
         $('.search-form').toggle();
@@ -16,10 +16,10 @@ Yii::app()->clientScript->registerScript('search', "
     ");
 ?>
 
-<?php $this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
+<?php //$this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
 <h1>
     
-    <?php echo Yii::t('crud', 'Ccnt Countries'); ?>
+    <?php echo Yii::t('d2companyModule.crud', 'Ccnt Countries'); ?>
     <small><?php echo Yii::t('d2companyModule.p3crud','Manage'); ?></small>
     
 </h1>
@@ -33,27 +33,27 @@ $this->widget('TbGridView',
     array(
         'id'=>'ccnt-country-grid',
         'dataProvider'=>$model->search(),
-        'filter'=>$model,
+//        'filter'=>$model,
         'template'=>'{pager}{summary}{items}{pager}',
         'pager' => array(
             'class' => 'TbPager',
             'displayFirstAndLast' => true,
         ),
         'columns'=> array(
-            array(
-                'class'=>'CLinkColumn',
-                'header'=>'',
-                'labelExpression'=> '$data->itemLabel',
-                'urlExpression'=> 'Yii::app()->controller->createUrl("view", array("ccnt_id" => $data["ccnt_id"]))'
-            ),
-                    array(
-            'class' => 'editable.EditableColumn',
-            'name' => 'ccnt_id',
-            'editable' => array(
-                'url' => $this->createUrl('/d2company/ccntCountry/editableSaver'),
-                //'placement' => 'right',
-            )
-        ),
+//            array(
+//                'class'=>'CLinkColumn',
+//                'header'=>'',
+//                'labelExpression'=> '$data->itemLabel',
+//                'urlExpression'=> 'Yii::app()->controller->createUrl("view", array("ccnt_id" => $data["ccnt_id"]))'
+//            ),
+//                    array(
+//            'class' => 'editable.EditableColumn',
+//            'name' => 'ccnt_id',
+//            'editable' => array(
+//                'url' => $this->createUrl('/d2company/ccntCountry/editableSaver'),
+//                //'placement' => 'right',
+//            )
+//        ),
         array(
             'class' => 'editable.EditableColumn',
             'name' => 'ccnt_name',
@@ -74,9 +74,9 @@ $this->widget('TbGridView',
             array(
                 'class'=>'TbButtonColumn',
                 'buttons' => array(
-                    'view' => array('visible' => 'Yii::app()->user->checkAccess("D2company.CcntCountry.View")'),
+                    'view' => array('visible' => 'FALSE'),
                     'update' => array('visible' => 'Yii::app()->user->checkAccess("D2company.CcntCountry.Update")'),
-                    'delete' => array('visible' => 'Yii::app()->user->checkAccess("D2company.CcntCountry.Delete")'),
+                    'delete' => array('visible' => 'FALSE'),
                 ),
                 'viewButtonUrl'   => 'Yii::app()->controller->createUrl("view", array("ccnt_id" => $data->ccnt_id))',
                 'updateButtonUrl' => 'Yii::app()->controller->createUrl("update", array("ccnt_id" => $data->ccnt_id))',

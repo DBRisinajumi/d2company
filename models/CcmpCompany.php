@@ -23,12 +23,15 @@ class CcmpCompany extends BaseCcmpCompany
         return parent::getItemLabel();
     }
 
-    public function behaviors()
-    {
+    public function behaviors() {
         return array_merge(
-            parent::behaviors(),
-            array()
-        );    }
+                parent::behaviors(), array(
+             //auditrail       
+            'LoggableBehavior' => array(
+                'class' => 'vendor.sammaye.audittrail.behaviors.LoggableBehavior'
+            )
+        ));
+    }
 
     public function rules()
     {

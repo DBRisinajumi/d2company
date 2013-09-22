@@ -87,22 +87,6 @@
                             </div>
         </div>
         <!-- main inputs -->
-
-        <div class="span5"> <!-- sub inputs -->
-            <h2>
-                <?php echo Yii::t('d2companyModule.p3crud','Relations')?>
-            </h2>
-            
-                
-                
-                <h3>
-                    <?php echo Yii::t('crud', 'CcmpCompanies'); ?>
-                </h3>
-                <?php echo '<i>Switch to view mode to edit related records.</i>' ?>
-                
-            
-
-        </div>
         <!-- sub inputs -->
     </div>
 
