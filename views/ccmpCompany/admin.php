@@ -1,6 +1,10 @@
 
 <?php
-//$this->breadcrumbs[] = Yii::t('crud','Ccmp Companies');
+$this->setPageTitle(
+        Yii::t('d2companyModule.crud', 'Ccmp Companies')
+        . ' - '
+        . Yii::t('d2companyModule.p3crud', 'Manage')
+);
 Yii::app()->clientScript->registerScript('search', "
     $('.search-button').click(function(){
         $('.search-form').toggle();

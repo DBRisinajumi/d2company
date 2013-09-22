@@ -1,6 +1,11 @@
 
 <?php
-//$this->breadcrumbs[] = Yii::t('crud','Ccnt Countries');
+$this->setPageTitle(
+        Yii::t('d2companyModule.crud', 'Ccnt Countries')
+        . ' - '
+        . Yii::t('d2companyModule.p3crud', 'Manage')
+);
+
 Yii::app()->clientScript->registerScript('search', "
     $('.search-button').click(function(){
         $('.search-form').toggle();
@@ -15,20 +20,14 @@ Yii::app()->clientScript->registerScript('search', "
     });
     ");
 ?>
-
-<?php //$this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
 <h1>
-    
     <?php echo Yii::t('d2companyModule.crud', 'Ccnt Countries'); ?>
     <small><?php echo Yii::t('d2companyModule.p3crud','Manage'); ?></small>
-    
 </h1>
 
-<?php $this->renderPartial("_toolbar", array("model"=>$model)); ?>
+<?php 
+$this->renderPartial("_toolbar", array("model"=>$model));
 
-
-
-<?php
 $this->widget('TbGridView',
     array(
         'id'=>'ccnt-country-grid',

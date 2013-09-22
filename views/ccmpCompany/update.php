@@ -1,4 +1,11 @@
 <?php
+$this->setPageTitle(
+        Yii::t('d2companyModule.crud', 'Ccmp Company')
+        . ' - '
+        . Yii::t('d2companyModule.p3crud', 'Update')
+        . ': '
+        . $model->getItemLabel()
+);
 $this->renderPartial("_toolbar", array("model" => $model));
 ?>
 <h2>

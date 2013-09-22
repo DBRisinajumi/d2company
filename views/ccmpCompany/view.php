@@ -1,4 +1,9 @@
 <?php
+$this->setPageTitle(
+        Yii::t('d2companyModule.crud', 'Ccmp Company')
+        . ' - '
+        . Yii::t('d2companyModule.p3crud', 'View')
+);
 $this->breadcrumbs[Yii::t('d2companyModule.crud','Ccmp Companies')] = array('admin');
 $this->breadcrumbs[$model->{$model->tableSchema->primaryKey}] = array('view','id'=>$model->{$model->tableSchema->primaryKey});
 $this->breadcrumbs[] = Yii::t('d2companyModule.p3crud','View');
