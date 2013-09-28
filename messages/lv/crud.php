@@ -82,4 +82,6 @@ return array (
   'Company branches' => 'Filiāles',
   'Company groups' => 'Grupas',
   'Main comapny data' => 'Pamatdati',
+  'Companies' => 'Firmas',
+  'Name'  => 'Nosaukums', 
 );

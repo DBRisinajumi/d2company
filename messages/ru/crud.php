@@ -82,4 +82,10 @@ return array (
   'Company branches' => '',
   'Company groups' => '',
   'Main comapny data' => '',
+   'Companies' => 'Компании',
+   'Name' => 'Название', 
+   'Country' => 'Страна',
+   'Registration Nr' => 'Номер регистрации',
+   'State' => 'Статус',
+   'Registration Address' => 'Адрес', 
 );

@@ -1,9 +1,10 @@
 
 <?php
+echo "Admin";
 $this->setPageTitle(
-        Yii::t('d2companyModule.crud', 'Ccmp Companies')
+        Yii::t('d2companyModule.crud', 'Companies')
         . ' - '
-        . Yii::t('d2companyModule.p3crud', 'Manage')
+        . Yii::t('d2companyModule.p3crud', 'List')
 );
 Yii::app()->clientScript->registerScript('search', "
     $('.search-button').click(function(){
@@ -22,8 +23,8 @@ Yii::app()->clientScript->registerScript('search', "
 
 <h1>
     
-    <?php echo Yii::t('d2companyModule.crud', 'Ccmp Companies'); ?>
-    <small><?php echo Yii::t('d2companyModule.p3crud','Manage'); ?></small>
+    <?php echo Yii::t('d2companyModule.crud', 'Companies'); ?>
+    <small><?php echo Yii::t('d2companyModule.p3crud','List'); ?></small>
     
 </h1>
 
@@ -58,21 +59,24 @@ $this->widget('TbGridView',
 //            )
 //        ),
         array(
-            'class' => 'editable.EditableColumn',
+      //      'class' => 'editable.EditableColumn',
             'name' => 'ccmp_name',
-            'editable' => array(
-                'url' => $this->createUrl('/d2company/ccmpCompany/editableSaver'),
+            'header' =>  Yii::t('d2companyModule.crud', 'Name'),
+    //        'editable' => array(
+    //            'url' => $this->createUrl('/d2company/ccmpCompany/editableSaver'),
                 //'placement' => 'right',
-            )
+          //  )
         ),
         array(
                     'name'=>'ccmp_ccnt_id',
+                    'header' =>  Yii::t('d2companyModule.crud', 'Country'),
                     'value'=>'CHtml::value($data,\'ccmpCcnt.itemLabel\')',
                             'filter'=>CHtml::listData(CcntCountry::model()->findAll(array('limit'=>1000)), 'ccnt_id', 'itemLabel'),
                             ),
         array(
             'class' => 'editable.EditableColumn',
             'name' => 'ccmp_registrtion_no',
+            'header' =>  Yii::t('d2companyModule.crud', 'Registration Nr'),
             'editable' => array(
                 'url' => $this->createUrl('/d2company/ccmpCompany/editableSaver'),
                 //'placement' => 'right',
@@ -89,6 +93,7 @@ $this->widget('TbGridView',
         array(
             'class' => 'editable.EditableColumn',
             'name' => 'ccmp_registration_address',
+            'header' =>  Yii::t('d2companyModule.crud', 'Registration Address'),
             'editable' => array(
                 'url' => $this->createUrl('/d2company/ccmpCompany/editableSaver'),
                 //'placement' => 'right',
@@ -105,6 +110,7 @@ $this->widget('TbGridView',
         array(
             'class' => 'editable.EditableColumn',
             'name' => 'ccmp_statuss',
+            'header' =>  Yii::t('d2companyModule.crud', 'State'),
             'editable' => array(
                 'url' => $this->createUrl('/d2company/ccmpCompany/editableSaver'),
                 //'placement' => 'right',
