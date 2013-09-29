@@ -18,6 +18,12 @@
                     "url" => array("create"),
                     "visible" => Yii::app()->user->checkAccess("D2company.CcmpCompany.Create")
                 ));
+        //         $this->widget("bootstrap.widgets.TbButton",
+        //           array("label"=>Yii::t('d2companyModule.p3crud','Search'),
+        //        "icon"=>"icon-search",
+        //        "htmlOptions"=>array("class"=>"search-button")
+        //       ));
+                 
                 break;
             case "view":
                 $this->widget("bootstrap.widgets.TbButton", array(
@@ -80,8 +86,9 @@
         }
         ?>    </div>
 </div>
+ 
 
-<?php if ($this->action->id == 'admin'): ?><div class="search-form" style="display:none">
+<?php if ($this->action->id == 'admin'): ?><div class="search-form" style="display:inline-block">
         <?php $this->renderPartial('_search', array('model' => $model,)); ?>
     </div>
 <?php endif; ?>

@@ -1,6 +1,6 @@
 
 <?php
-echo "Admin";
+
 $this->setPageTitle(
         Yii::t('d2companyModule.crud', 'Companies')
         . ' - '
