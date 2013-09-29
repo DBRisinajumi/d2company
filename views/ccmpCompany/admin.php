@@ -21,15 +21,26 @@ Yii::app()->clientScript->registerScript('search', "
     ");
 ?>
 
+<table>
+<tr> 
+<td>    
 <h1>
     
     <?php echo Yii::t('d2companyModule.crud', 'Companies'); ?>
     <small><?php echo Yii::t('d2companyModule.p3crud','List'); ?></small>
     
 </h1>
+</td>
 
+<td>
 <?php $this->renderPartial("_toolbar", array("model"=>$model)); ?>
+</td>    
+</tr>
+</table>    
 
+<div class="search-form" style="display:inline-block">
+        <?php $this->renderPartial('_search', array('model' => $model,)); ?>
+    </div>
 
 
 <?php
