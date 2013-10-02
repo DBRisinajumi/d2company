@@ -69,9 +69,9 @@ abstract class BaseCcbrBranch extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'ccbr_id' => Yii::t('d2companyModule.crud', 'Ccbr'),
+            'ccbr_id' => Yii::t('d2companyModule.crud', 'Fuel Station'),
             'ccbr_ccmp_id' => Yii::t('d2companyModule.crud', 'Ccbr Ccmp'),
-            'ccbr_name' => Yii::t('d2companyModule.crud', 'Ccbr Name'),
+            'ccbr_name' => Yii::t('d2companyModule.crud', 'Fuel Station'),
             'ccrb_code' => Yii::t('d2companyModule.crud', 'Ccrb Code'),
             'ccbr_notes' => Yii::t('d2companyModule.crud', 'Ccbr Notes'),
             'ccbr_hide' => Yii::t('d2companyModule.crud', 'Ccbr Hide'),
