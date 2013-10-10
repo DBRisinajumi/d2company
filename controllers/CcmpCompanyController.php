@@ -22,7 +22,7 @@ return array(
 array(
 'allow',
 'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin'
-                    , 'view','updateccbr','manageccbr','updategroup',
+                    , 'view','updateccbr','manageccbr','updategroup','updatemanager',
                     'createccbr'),
 'roles' => array('DataCardEditor'),
 ),
@@ -275,11 +275,89 @@ array(
                 );
     }
     
+    public function actionUpdatemanager($ccmp_id){
+
+       //company        
+        $model = $this->loadModel($ccmp_id);
+        $model->scenario = $this->scenario;
+        
+        //update record
+        if(isset($_POST['save_company_manager'])){
+            $mCcuc = new CcucUserCompany();
+            
+            //get DB checked
+            $aExistTypes = array();
+            foreach($model->ccucUserCompany as $modelCcuc){
+                $mCcuc = $modelCcuc;
+                $aExistTypes[] = $mCcuc->ccuc_user_id;
+            }            
+            
+            //get in form checked
+            $aPostType = array();
+            if (isset($_POST['ccuc_user_id'])) {
+                foreach ($_POST['ccuc_user_id'] as $nPtypId) {
+                    $aPostType[] = $nPtypId;
+                }
+            }
+            
+            $aDelType = array_diff($aExistTypes,$aPostType);
+            $aNewType = array_diff($aPostType,$aExistTypes);
+              
+            foreach ($aNewType as $nType) {
+                $postCcuc = new CcucUserCompany;                            
+                $postCcuc->ccuc_ccmp_id = $model->ccmp_id;
+                $postCcuc->ccuc_user_id = $nType;
+                if (!$postCcuc->save()) {
+                    print_r($postCcuc->errors);
+                    exit;
+                }
+            }
+
+            //criteria for deleting
+            $criteria = new CDbCriteria;
+            $criteria->condition='ccuc_ccmp_id=:ccuc_ccmp_id AND ccuc_user_id=:ccuc_user_id';
+
+            foreach ($aDelType as $nType){
+                $criteria->params=array(
+                    ':ccuc_ccmp_id'=>$model->ccmp_id, 
+                    ':ccuc_user_id'=>$nType);
+                $Ppxt = CcucUserCompany::model()->find($criteria);
+                $Ppxt->delete();
+            }
+            //reload record, jo attēlos veco tipus
+            $model = $this->loadModel($ccmp_id);            
+            $this->redirect(array('updatemanager', 'ccmp_id' => $model->ccmp_id));
+
+        }
+        
+        //branc
+        $criteria = new CDbCriteria;
+        $criteria->addCondition('ccbr_ccmp_id = :ccmp_id');
+        $criteria->params = array(':ccmp_id' => $model->ccmp_id);
+        $mCcbr = new CcbrBranch('search');
+        $mCcbr->findAll($criteria);   
+        
+        $this->render(
+                'update', 
+                array(
+                    'model' => $model,
+                    'active_tab' => 'company_manager',
+                    'model_manage_ccbr' => $mCcbr,
+                    )
+                );
+    }
+    
     public function actionUpdate($ccmp_id)
     {
         //company group forma submitita
         if(isset($_POST['save_company_group'])){
             $this->actionUpdategroup($ccmp_id);
+            return;
+        }
+        
+        //company manager forma submitita
+        if(isset($_POST['save_company_manager'])){
+            $this->actionUpdatemanager($ccmp_id);
             return;
         }
         
