@@ -1,10 +1,10 @@
 <?php
 
 // auto-loading
-Yii::setPathOfAlias('CcxgCompanyXGroup', dirname(__FILE__));
-Yii::import('CcxgCompanyXGroup.*');
+Yii::setPathOfAlias('CcucUserCompany', dirname(__FILE__));
+Yii::import('CcucUserCompany.*');
 
-class CcxgCompanyXGroup extends BaseCcxgCompanyXGroup
+class CcucUserCompany extends BaseCcucUserCompany
 {
 
     // Add your model-specific methods here. This file will not be overriden by gtc except you force it.
