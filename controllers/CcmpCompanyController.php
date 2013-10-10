@@ -137,11 +137,13 @@ array(
         $model->scenario = $this->scenario;
         
         //branch
-        $criteria = new CDbCriteria;
-        $criteria->addCondition('ccbr_ccmp_id = :ccmp_id');
-        $criteria->params = array(':ccmp_id' => $model->ccmp_id);
+        //$criteria = new CDbCriteria;
+        //$criteria->addCondition('ccbr_ccmp_id = :ccmp_id');
+        //$criteria->params = array(':ccmp_id' => $model->ccmp_id);
         $mCcbr = new CcbrBranch('search');
-        $mCcbr->findAll($criteria);        
+        //$mCcbr->findAll($criteria);
+        $mCcbr->setAttribute('ccbr_ccmp_id',$ccmp_id);
+        //$mCcbr->dbCriteria->order='ccbr_name ASC';
         $this->render(
                 'update', 
                 array(
