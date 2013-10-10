@@ -7,10 +7,10 @@
             <?php 
             
             $aChecked = array();
-            $mCcgr = new CcgrGroup();
-            foreach($model->ccxgCompanyXGroups as $modelCcxg){
-                $mCcgr = $modelCcxg;
-                $aChecked[] = $mCcgr->ccxg_ccgr_id;
+     //       $mCcuc = new CcgrGroup();
+            foreach($model->ccucUserCompany as $modelCcuc){
+             //   $mCcgr = $modelCcxg;
+                $aChecked[] = $modelCcuc->ccuc_user_id;
             }
             
             if (count($aChecked) == 1){
@@ -20,10 +20,10 @@
             //var_dump($aChecked);exit;
             
             echo CHtml::checkBoxList(
-                    'ccxg_ccgr_id', 
+                    'ccuc_user_id', 
                     $aChecked, 
                     CHtml::listData(
-                        CcgrGroup::model()->findAll(), 'ccgr_id', 'ccgr_name')
+                        DbrUser::model()->findAll(), 'id', 'fullname')
                     );
              
              
@@ -44,7 +44,7 @@
                     Yii::t('d2companyModule.p3crud','Save'), 
                     array(
                         'class' => 'btn btn-primary',
-                        'name'=>'save_company_group'
+                        'name'=>'save_company_manager'
                     )
                 );
     ?>

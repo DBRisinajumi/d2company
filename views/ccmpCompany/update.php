@@ -33,6 +33,11 @@ if (isset($model_update_ccbr)) {
 }
 $this->endClip();
 
+//company manager checkboxes
+$this->beginClip('company_manager');
+$this->renderPartial('_managers', array('model' => $model));
+$this->endClip();
+
 //tab
 $this->widget('bootstrap.widgets.TbTabs', array(
     'type' => 'tabs',
@@ -49,6 +54,10 @@ $this->widget('bootstrap.widgets.TbTabs', array(
         array('label' => Yii::t('d2companyModule.crud', 'Company branches'),
             'content' => $this->clips['company_branches'],
             'active' => ($active_tab == 'company_branches'),
+        ),
+          array('label' => Yii::t('d2companyModule.crud', 'Company managers'),
+            'content' => $this->clips['company_manager'],
+            'active' => ($active_tab == 'company_manager'),
         ),
     )
 ));

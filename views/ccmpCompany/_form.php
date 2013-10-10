@@ -86,6 +86,36 @@
                                                             </span>
                         </div>
                     </div>
+                
+                
+                <div class="control-group">
+                        <div class='control-label'>
+                            <?php echo $form->labelEx($model,'ccmp_ccit_id') ?>
+                        </div>
+                        <div class='controls'>
+                            <?php
+                            $this->widget(
+                        '\GtcRelation',
+                        array(
+                            'model' => $model,
+                            'relation' => 'ccmpCcnt',
+                            'fields' => 'itemLabel',
+                            'allowEmpty' => true,
+                            'style' => 'dropdownlist',
+                            'htmlOptions' => array(
+                                'checkAll' => 'all'),
+                            )
+                        );
+                            echo $form->error($model,'ccmp_ccnt_id')
+                            ?>
+                            <span class="help-block">
+                                
+                                <?php
+                                echo ($t = Yii::t('crud', 'CcmpCompany.ccmp_ccnt_id') != 'CcmpCompany.ccmp_ccnt_id')?$t:''
+                                ?>
+                                                            </span>
+                        </div>
+                    </div>
 
                 
                     <div class="control-group">
