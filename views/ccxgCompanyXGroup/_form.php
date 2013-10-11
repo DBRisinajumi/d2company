@@ -18,7 +18,7 @@
     <div class="row">
         <div class="span7"> <!-- main inputs -->
             <h2>
-                <?php echo Yii::t('d2companyModule.p3crud','Data')?>                <small>
+                <?php echo Yii::t('d2companyModule.crud_static','Data')?>                <small>
                     <?php //echo $model->itemLabel ?>
                 </small>
 
@@ -112,7 +112,7 @@
 
         <div class="span5"> <!-- sub inputs -->
             <h2>
-                <?php echo Yii::t('d2companyModule.p3crud','Relations')?>
+                <?php echo Yii::t('d2companyModule.crud_static','Relations')?>
             </h2>
             
                 
@@ -125,7 +125,7 @@
     <p class="alert">
 
         
-        <?php echo Yii::t('d2companyModule.p3crud','Fields with <span class="required">*</span> are required.');?>
+        <?php echo Yii::t('d2companyModule.crud_static','Fields with <span class="required">*</span> are required.');?>
         
     </p>
 
@@ -133,11 +133,11 @@
         
         <?php
             echo CHtml::Button(
-            Yii::t('d2companyModule.p3crud','Cancel'), array(
+            Yii::t('d2companyModule.crud_static','Cancel'), array(
                 'submit' => (isset($_GET['returnUrl']))?$_GET['returnUrl']:array('ccxgCompanyXGroup/admin'),
                 'class' => 'btn'
             ));
-            echo ' '.CHtml::submitButton(Yii::t('d2companyModule.p3crud','Save'), array(
+            echo ' '.CHtml::submitButton(Yii::t('d2companyModule.crud_static','Save'), array(
                 'class' => 'btn btn-primary'
             ));
         ?>

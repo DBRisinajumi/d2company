@@ -2,7 +2,7 @@
 $this->setPageTitle(
         Yii::t('d2companyModule.crud', 'Ccmp Company')
         . ' - '
-        . Yii::t('d2companyModule.p3crud', 'Update')
+        . Yii::t('d2companyModule.crud_static', 'Update')
         . ': '
         . $model->getItemLabel()
 );

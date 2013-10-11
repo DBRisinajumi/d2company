@@ -2,7 +2,7 @@
 $this->setPageTitle(
         Yii::t('d2companyModule.crud', 'Ccnt Country')
         . ' - '
-        . Yii::t('d2companyModule.p3crud', 'Update')
+        . Yii::t('d2companyModule.crud_static', 'Update')
         . ': '
         . $model->getItemLabel()
 );
@@ -12,7 +12,7 @@ $this->setPageTitle(
 
     <?php echo Yii::t('d2companyModule.crud','Ccnt Country'); ?>
     <small>
-        <?php echo Yii::t('d2companyModule.p3crud','Update')?>: <?php echo $model->ccnt_name ?>
+        <?php echo Yii::t('d2companyModule.crud_static','Update')?>: <?php echo $model->ccnt_name ?>
     </small>
 
 </h1>

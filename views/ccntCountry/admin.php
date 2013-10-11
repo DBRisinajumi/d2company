@@ -3,7 +3,7 @@
 $this->setPageTitle(
         Yii::t('d2companyModule.crud', 'Ccnt Countries')
         . ' - '
-        . Yii::t('d2companyModule.p3crud', 'Manage')
+        . Yii::t('d2companyModule.crud_static', 'Manage')
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -22,7 +22,7 @@ Yii::app()->clientScript->registerScript('search', "
 ?>
 <h1>
     <?php echo Yii::t('d2companyModule.crud', 'Ccnt Countries'); ?>
-    <small><?php echo Yii::t('d2companyModule.p3crud','Manage'); ?></small>
+    <small><?php echo Yii::t('d2companyModule.crud_static','Manage'); ?></small>
 </h1>
 
 <?php 

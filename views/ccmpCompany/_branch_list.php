@@ -1,6 +1,6 @@
 <?php
 $this->widget("bootstrap.widgets.TbButton", array(
-    "label" => Yii::t("d2companyModule.p3crud", "Create"),
+    "label" => Yii::t("d2companyModule.crud_static", "Create"),
     "icon" => "icon-plus",
     "url" => array("createccbr",'ccmp_id'=>$ccmp_id),
     //"visible" => Yii::app()->user->checkAccess("D2company.CcmpCompany.Create")

@@ -37,11 +37,11 @@
     <div class="form-actions">
         
     <?php
-        echo CHtml::resetButton(Yii::t('d2companyModule.p3crud','Reset'), array(
+        echo CHtml::resetButton(Yii::t('d2companyModule.crud_static','Reset'), array(
 			'class' => 'btn'
 			));
         echo ' '.CHtml::submitButton(
-                    Yii::t('d2companyModule.p3crud','Save'), 
+                    Yii::t('d2companyModule.crud_static','Save'), 
                     array(
                         'class' => 'btn btn-primary',
                         'name'=>'save_company_group'

@@ -4,7 +4,7 @@
 $this->setPageTitle(
         Yii::t('d2companyModule.crud', 'Companies')
         . ' - '
-        . Yii::t('d2companyModule.p3crud', 'List')
+        . Yii::t('d2companyModule.crud_static', 'List')
 );
 Yii::app()->clientScript->registerScript('search', "
     $('.search-button').click(function(){
@@ -27,7 +27,7 @@ Yii::app()->clientScript->registerScript('search', "
 <h1>
     
     <?php echo Yii::t('d2companyModule.crud', 'Companies'); ?>
-    <small><?php echo Yii::t('d2companyModule.p3crud','List'); ?></small>
+    <small><?php echo Yii::t('d2companyModule.crud_static','List'); ?></small>
     
 </h1>
 </td>
@@ -49,7 +49,7 @@ $this->widget('TbGridView',
         'id'=>'ccmp-company-grid',
         'dataProvider'=>$model->search(),
         'filter'=>$model,
-        'template'=>'{pager}{summary}{items}{pager}',
+        'template'=>'{items}{summary}{pager}',
         'pager' => array(
             'class' => 'TbPager',
             'displayFirstAndLast' => true,
@@ -84,6 +84,12 @@ $this->widget('TbGridView',
                     'value'=>'CHtml::value($data,\'ccmpCcnt.itemLabel\')',
                             'filter'=>CHtml::listData(CcntCountry::model()->findAll(array('limit'=>1000)), 'ccnt_id', 'itemLabel'),
                             ),
+         array(
+                    'name'=>'ccmp_office_ccit_id',
+                    'header' =>  Yii::t('d2companyModule.crud', 'City'),
+                    'value'=>'CHtml::value($data,\'ccmpOfficeCcit.itemLabel\')',
+                            'filter'=>CHtml::listData(CcitCity::model()->findAll(array('limit'=>1000)), 'ccit_id', 'itemLabel'),
+                            ),    
         array(
             'class' => 'editable.EditableColumn',
             'name' => 'ccmp_registrtion_no',
@@ -110,22 +116,19 @@ $this->widget('TbGridView',
                 //'placement' => 'right',
             )
         ),
-//        array(
-//            'class' => 'editable.EditableColumn',
-//            'name' => 'ccmp_official_address',
-//            'editable' => array(
-//                'url' => $this->createUrl('/d2company/ccmpCompany/editableSaver'),
-//                //'placement' => 'right',
-//            )
-//        ),
         array(
             'class' => 'editable.EditableColumn',
+            'name' => 'cccdCustomData.number_cars',
+            'header' => Yii::t('d2companyModule.crud', 'Trucks'),
+           
+        ),
+        array(
             'name' => 'ccmp_statuss',
             'header' =>  Yii::t('d2companyModule.crud', 'State'),
-            'editable' => array(
-                'url' => $this->createUrl('/d2company/ccmpCompany/editableSaver'),
+            //'editable' => array(
+            //    'url' => $this->createUrl('/d2company/ccmpCompany/editableSaver'),
                 //'placement' => 'right',
-            )
+            
         ),
         
         #'ccmp_description',
@@ -144,4 +147,16 @@ $this->widget('TbGridView',
         )
     )
 );
+
+
+//$this->widget('EExcelView', array(
+//     'title'=>'Title',
+//    'dataProvider'=>$model->search(),
+//     'autoWidth'=>false,
+//      'grid_mode'=>'export',
+//            'title'=>'Title',
+//            'filename'=>'report.xlsx',
+//            'stream'=>false,
+//            'exportType'=>'Excel2007',
+//));
 ?>

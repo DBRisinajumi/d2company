@@ -20,7 +20,7 @@ Yii::app()->clientScript->registerScript('search', "
 <h1>
     
     <?php echo Yii::t('crud', 'Ccbr Branches'); ?>
-    <small><?php echo Yii::t('d2companyModule.p3crud','Manage'); ?></small>
+    <small><?php echo Yii::t('d2companyModule.crud_static','Manage'); ?></small>
     
 </h1>
 

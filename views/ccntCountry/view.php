@@ -1,13 +1,13 @@
 <?php
 $this->breadcrumbs[Yii::t('crud','Ccnt Countries')] = array('admin');
 $this->breadcrumbs[$model->{$model->tableSchema->primaryKey}] = array('view','id'=>$model->{$model->tableSchema->primaryKey});
-$this->breadcrumbs[] = Yii::t('d2companyModule.p3crud','View');
+$this->breadcrumbs[] = Yii::t('d2companyModule.crud_static','View');
 ?>
 
 <?php $this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
 <h1>
     <?php echo Yii::t('crud','Ccnt Country')?>
-    <small><?php echo Yii::t('d2companyModule.p3crud','View')?> #<?php echo $model->ccnt_id ?></small>
+    <small><?php echo Yii::t('d2companyModule.crud_static','View')?> #<?php echo $model->ccnt_id ?></small>
     </h1>
 
 
@@ -18,7 +18,7 @@ $this->breadcrumbs[] = Yii::t('d2companyModule.p3crud','View');
 <div class="row">
     <div class="span7">
         <h2>
-            <?php echo Yii::t('d2companyModule.p3crud','Data')?>            <small>
+            <?php echo Yii::t('d2companyModule.crud_static','Data')?>            <small>
                 <?php echo $model->itemLabel?>            </small>
         </h2>
 
