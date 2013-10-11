@@ -361,14 +361,34 @@ array(
             return;
         }
         
+            
         $model = $this->loadModel($ccmp_id);
         $model->scenario = $this->scenario;
+        $custom = $model->cccdCustomData;
+        
+        if (isset($_POST['BaseCccdCompanyData'])){
+            
+             $custom->attributes=$_POST['BaseCccdCompanyData'];
+             if($custom->validate()){
+                 $custom->save();
+                  $this->redirect(array(
+                                        'update', 
+                                        'ccmp_id' => $model->ccmp_id,
+                                        'active_tab' => 'company_custom',
+                                ));
+             }
+                 
+        }
+            
+            
+          
+    
         
         $this->performAjaxValidation($model, 'ccmp-company-form');
 
         if (isset($_POST['CcmpCompany'])) {
             $model->attributes = $_POST['CcmpCompany'];
-
+           
 
             try {
                 if ($model->save()) {
