@@ -11,6 +11,7 @@ class D2companyModule extends CWebModule
 		$this->setImport(array(
 			'd2company.models.*',
 			'd2company.components.*',
+                        'user.components',
 		));
 	}
 
