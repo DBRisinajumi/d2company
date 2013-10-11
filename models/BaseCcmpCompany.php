@@ -85,6 +85,7 @@ abstract class BaseCcmpCompany extends CActiveRecord
             'ccmpOfficialCcit' => array(self::BELONGS_TO, 'CcitCity', 'ccmp_official_ccit_id'),
             'ccxgCompanyXGroups' => array(self::HAS_MANY, 'CcxgCompanyXGroup', 'ccxg_ccmp_id'),
             'ccucUserCompany' => array(self::HAS_MANY, 'CcucUserCompany', 'ccuc_ccmp_id'),
+            'cccdCustomData' => array(self::HAS_ONE, 'BaseCccdCompanyData', 'cccd_ccmp_id')
         );
     }
 
