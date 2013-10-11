@@ -18,6 +18,11 @@ $this->renderPartial('_form', array('model' => $model));
 $this->endClip();
 
 //company group checkboxes
+$this->beginClip('company_custom');
+$this->renderPartial('_form_custom', array('model' => $model->cccdCustomData));
+$this->endClip();
+
+//company group checkboxes
 $this->beginClip('company_group');
 $this->renderPartial('_groups', array('model' => $model));
 $this->endClip();
@@ -46,6 +51,10 @@ $this->widget('bootstrap.widgets.TbTabs', array(
         array('label' => Yii::t('d2companyModule.crud', 'Main comapny data'),
             'content' => $this->clips['main'],
             'active' => ($active_tab == 'main'),
+        ),
+        array('label' => Yii::t('d2companyModule.crud', 'Custom data'),
+            'content' => $this->clips['company_custom'],
+            'active' => ($active_tab == 'company_custom'),
         ),
         array('label' => Yii::t('d2companyModule.crud', 'Company groups'),
             'content' => $this->clips['company_group'],
