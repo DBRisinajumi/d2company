@@ -45,13 +45,13 @@ abstract class BaseCcmpCompany extends CActiveRecord
     {
         return array_merge(
             parent::rules(), array(
-                array('ccmp_name', 'required'),
+                array('ccmp_name, ccmp_ccnt_id,ccmp_office_ccit_id ', 'required'),
                 array('ccmp_ccnt_id, ccmp_registrtion_no, ccmp_vat_registrtion_no, ccmp_registration_address, ccmp_official_ccit_id, ccmp_official_address, ccmp_official_zip_code, ccmp_office_ccit_id, ccmp_office_address, ccmp_office_zip_code, ccmp_statuss, ccmp_description', 'default', 'setOnEmpty' => true, 'value' => null),
                 array('ccmp_ccnt_id', 'numerical', 'integerOnly' => true),
                 array('ccmp_name, ccmp_registration_address, ccmp_official_address, ccmp_office_address', 'length', 'max' => 200),
                 array('ccmp_registrtion_no, ccmp_vat_registrtion_no, ccmp_official_zip_code, ccmp_office_zip_code', 'length', 'max' => 20),
                 array('ccmp_official_ccit_id, ccmp_office_ccit_id', 'length', 'max' => 10),
-                array('ccmp_statuss', 'length', 'max' => 6),
+                array('ccmp_statuss', 'length', 'max' => 10),
                 array('ccmp_description', 'safe'),
                 array('ccmp_id, ccmp_name, ccmp_ccnt_id, ccmp_registrtion_no, ccmp_vat_registrtion_no, ccmp_registration_address, ccmp_official_ccit_id, ccmp_official_address, ccmp_official_zip_code, ccmp_office_ccit_id, ccmp_office_address, ccmp_office_zip_code, ccmp_statuss, ccmp_description', 'safe', 'on' => 'search'),
             )
@@ -92,20 +92,20 @@ abstract class BaseCcmpCompany extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'ccmp_id' => Yii::t('d2companyModule.crud', 'Ccmp'),
-            'ccmp_name' => Yii::t('d2companyModule.crud', 'Ccmp Name'),
-            'ccmp_ccnt_id' => Yii::t('d2companyModule.crud', 'Ccmp Ccnt'),
-            'ccmp_registrtion_no' => Yii::t('d2companyModule.crud', 'Ccmp Registrtion No'),
-            'ccmp_vat_registrtion_no' => Yii::t('d2companyModule.crud', 'Ccmp Vat Registrtion No'),
+            'ccmp_id' => Yii::t('d2companyModule.crud', 'CcmpId'),
+            'ccmp_name' => Yii::t('d2companyModule.crud', 'Name'),
+            'ccmp_ccnt_id' => Yii::t('d2companyModule.crud', 'Country'),
+            'ccmp_registrtion_no' => Yii::t('d2companyModule.crud', 'Registration No'),
+            'ccmp_vat_registrtion_no' => Yii::t('d2companyModule.crud', 'Vat Registrtion No'),
             'ccmp_registration_address' => Yii::t('d2companyModule.crud', 'Ccmp Registration Address'),
-            'ccmp_official_ccit_id' => Yii::t('d2companyModule.crud', 'Ccmp Official Ccit'),
-            'ccmp_official_address' => Yii::t('d2companyModule.crud', 'Ccmp Official Address'),
-            'ccmp_official_zip_code' => Yii::t('d2companyModule.crud', 'Ccmp Official Zip Code'),
-            'ccmp_office_ccit_id' => Yii::t('d2companyModule.crud', 'Ccmp Office Ccit'),
-            'ccmp_office_address' => Yii::t('d2companyModule.crud', 'Ccmp Office Address'),
-            'ccmp_office_zip_code' => Yii::t('d2companyModule.crud', 'Ccmp Office Zip Code'),
-            'ccmp_statuss' => Yii::t('d2companyModule.crud', 'Ccmp Statuss'),
-            'ccmp_description' => Yii::t('d2companyModule.crud', 'Ccmp Description'),
+            'ccmp_official_ccit_id' => Yii::t('d2companyModule.crud', 'Legal address city'),
+            'ccmp_official_address' => Yii::t('d2companyModule.crud', 'Legal address'),
+            'ccmp_official_zip_code' => Yii::t('d2companyModule.crud', 'Legal address Zip code'),
+            'ccmp_office_ccit_id' => Yii::t('d2companyModule.crud', 'Office City'),
+            'ccmp_office_address' => Yii::t('d2companyModule.crud', 'Office address'),
+            'ccmp_office_zip_code' => Yii::t('d2companyModule.crud', 'Office Zip code'),
+            'ccmp_statuss' => Yii::t('d2companyModule.crud', 'State'),
+            'ccmp_description' => Yii::t('d2companyModule.crud', 'Description'),
         );
     }
 

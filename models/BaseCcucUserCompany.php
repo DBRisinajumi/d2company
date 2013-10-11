@@ -33,10 +33,9 @@ class BaseCcucUserCompany extends CActiveRecord
 			array('ccuc_ccmp_id, ccuc_user_id', 'required'),
 			array('ccuc_user_id', 'numerical', 'integerOnly'=>true),
 			array('ccuc_ccmp_id', 'length', 'max'=>10),
-			array('ccuc_type', 'length', 'max'=>12),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('ccuc_id, ccuc_ccmp_id, ccuc_user_id, ccuc_type', 'safe', 'on'=>'search'),
+			array('ccuc_id, ccuc_ccmp_id, ccuc_user_id ', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,8 +60,7 @@ class BaseCcucUserCompany extends CActiveRecord
 			'ccuc_id' => 'Ccuc',
 			'ccuc_ccmp_id' => 'Ccuc Ccmp',
 			'ccuc_user_id' => 'Ccuc User',
-			'ccuc_type' => 'Ccuc Type',
-		);
+					);
 	}
 
 	/**
@@ -86,8 +84,7 @@ class BaseCcucUserCompany extends CActiveRecord
 		$criteria->compare('ccuc_id',$this->ccuc_id);
 		$criteria->compare('ccuc_ccmp_id',$this->ccuc_ccmp_id,true);
 		$criteria->compare('ccuc_user_id',$this->ccuc_user_id);
-		$criteria->compare('ccuc_type',$this->ccuc_type,true);
-
+		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
