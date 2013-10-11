@@ -326,7 +326,7 @@ array(
             }
             //reload record, jo attēlos veco tipus
             $model = $this->loadModel($ccmp_id);            
-            $this->redirect(array('updatemanager', 'ccmp_id' => $model->ccmp_id));
+            $this->redirect(array('updatemanager', 'ccmp_id' => $model->ccmp_id,'active_tab' => 'company_branches'));
 
         }
         
