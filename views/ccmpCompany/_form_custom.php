@@ -1,4 +1,4 @@
-<div class="form">
+<div class="crud-form">
 
     
     <?php
@@ -20,7 +20,7 @@
             <div class="form-horizontal">
 
                 
-                    <div class="control-group">
+                  
                         
                 
                    <?php 
@@ -28,8 +28,12 @@
 		if ($customFields) {
 			foreach($customFields as $field) {
 			?>
-	<div class="row">
+          <div class="control-group">        
+	
+            <div class="control-label">
 		<?php echo $form->labelEx($model,$field->varname); ?>
+            </div> 
+            <div class="controls">  
 		<?php 
 		if ($widgetEdit = $field->widgetEdit($model)) {
 			echo $widgetEdit;
@@ -40,15 +44,15 @@
 		} else {
 			echo $form->textField($model,$field->varname,array('size'=>60,'maxlength'=>(($field->field_size)?$field->field_size:255)));
 		}
-		 ?>
-		<?php echo $form->error($model,$field->varname); ?>
+		  echo $form->error($model,$field->varname); ?>
 	</div>
-			<?php
+          </div>            
+		<?php
 			}
 		}
 ?>
 
-                    </div>      
+                  
          
 
         <!-- sub inputs -->
@@ -56,7 +60,7 @@
     <p class="alert">
 
         
-        <?php echo Yii::t('d2companyModule.p3crud','Fields with <span class="required">*</span> are required.');?>
+        <?php echo Yii::t('d2companyModule.crud_static','Fields with <span class="required">*</span> are required.');?>
         
     </p>
 
@@ -64,11 +68,11 @@
         
         <?php
             echo CHtml::Button(
-            Yii::t('d2companyModule.p3crud','Cancel'), array(
+            Yii::t('d2companyModule.crud_static','Cancel'), array(
                 'submit' => (isset($_GET['returnUrl']))?$_GET['returnUrl']:array('ccmpCompany/admin'),
                 'class' => 'btn'
             ));
-            echo ' '.CHtml::submitButton(Yii::t('d2companyModule.p3crud','Save'), array(
+            echo ' '.CHtml::submitButton(Yii::t('d2companyModule.crud_static','Save'), array(
                 'class' => 'btn btn-primary'
             ));
         ?>

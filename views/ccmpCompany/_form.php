@@ -73,7 +73,7 @@
                             'allowEmpty' => true,
                             'style' => 'dropdownlist',
                             'htmlOptions' => array(
-                                'checkAll' => 'all'),
+                                'checkAll' => 'all','style' => 'width: 200px;'),
                             )
                         );
                             echo $form->error($model,'ccmp_ccnt_id')
@@ -90,7 +90,7 @@
                 
                 <div class="control-group">
                         <div class='control-label'>
-                            <?php echo $form->labelEx($model,'ccmp_ccit_id') ?>
+                            <?php echo $form->labelEx($model,'ccmp_office_ccit_id') ?>
                         </div>
                         <div class='controls'>
                             <?php
@@ -98,20 +98,20 @@
                         '\GtcRelation',
                         array(
                             'model' => $model,
-                            'relation' => 'ccmpCcnt',
+                            'relation' => 'ccmpOfficeCcit',
                             'fields' => 'itemLabel',
                             'allowEmpty' => true,
                             'style' => 'dropdownlist',
                             'htmlOptions' => array(
-                                'checkAll' => 'all'),
+                                'checkAll' => 'all','style' => 'width: 200px;'),
                             )
                         );
-                            echo $form->error($model,'ccmp_ccnt_id')
+                            echo $form->error($model,'ccmp_office_ccit_id')
                             ?>
                             <span class="help-block">
                                 
                                 <?php
-                                echo ($t = Yii::t('crud', 'CcmpCompany.ccmp_ccnt_id') != 'CcmpCompany.ccmp_ccnt_id')?$t:''
+                                echo ($t = Yii::t('crud', 'CcmpCompany.ccmp_office_ccit_id') != 'CcmpCompany.ccmp_office_ccit_id')?$t:''
                                 ?>
                                                             </span>
                         </div>
@@ -158,17 +158,17 @@
                 
                     <div class="control-group">
                         <div class='control-label'>
-                            <?php echo $form->labelEx($model,'ccmp_registration_address') ?>
+                            <?php echo $form->labelEx($model,'ccmp_office_address') ?>
                         </div>
                         <div class='controls'>
                             <?php
-                            echo $form->textField($model,'ccmp_registration_address',array('size'=>60,'maxlength'=>200));
-                            echo $form->error($model,'ccmp_registration_address')
+                            echo $form->textField($model,'ccmp_office_address',array('size'=>60,'maxlength'=>200));
+                            echo $form->error($model,'ccmp_office_address')
                             ?>
                             <span class="help-block">
                                 
                                 <?php
-                                echo ($t = Yii::t('crud', 'CcmpCompany.ccmp_registration_address') != 'CcmpCompany.ccmp_registration_address')?$t:''
+                                echo ($t = Yii::t('crud', 'CcmpCompany.ccmp_office_address') != 'CcmpCompany.ccmp_office_address')?$t:'';
                                 ?>
                                                             </span>
                         </div>
@@ -203,6 +203,7 @@
                             echo CHtml::activeDropDownList($model, 'ccmp_statuss', array(
             'ACTIVE' => 'ACTIVE' ,
             'CLOSED' => 'CLOSED' ,
+            'POTENTIAL' => 'POTENTIAL' ,
 ));
                             echo $form->error($model,'ccmp_statuss')
                             ?>
@@ -243,7 +244,7 @@
     <p class="alert">
 
         
-        <?php echo Yii::t('d2companyModule.p3crud','Fields with <span class="required">*</span> are required.');?>
+        <?php echo Yii::t('d2companyModule.crud_static','Fields with <span class="required">*</span> are required.');?>
         
     </p>
 
@@ -251,11 +252,11 @@
         
         <?php
             echo CHtml::Button(
-            Yii::t('d2companyModule.p3crud','Cancel'), array(
+            Yii::t('d2companyModule.crud_static','Cancel'), array(
                 'submit' => (isset($_GET['returnUrl']))?$_GET['returnUrl']:array('ccmpCompany/admin'),
                 'class' => 'btn'
             ));
-            echo ' '.CHtml::submitButton(Yii::t('d2companyModule.p3crud','Save'), array(
+            echo ' '.CHtml::submitButton(Yii::t('d2companyModule.crud_static','Save'), array(
                 'class' => 'btn btn-primary'
             ));
         ?>
