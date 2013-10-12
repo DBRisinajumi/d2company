@@ -18,6 +18,12 @@
                     "url" => array("create"),
                     "visible" => Yii::app()->user->checkAccess("D2company.CcmpCompany.Create")
                 ));
+                  $this->widget("bootstrap.widgets.TbButton", array(
+                    "label" => Yii::t("d2companyModule.crud_static", "Export"),
+                    "url" => array("admin","export" => " xls"),
+                    "visible" => Yii::app()->user->checkAccess("D2company.CcmpCompany.Export"),
+                     "htmlOptions"=>array("class"=>"export-button")
+                ));
         //         $this->widget("bootstrap.widgets.TbButton",
         //           array("label"=>Yii::t('d2companyModule.crud_static','Search'),
         //        "icon"=>"icon-search",

@@ -19,27 +19,32 @@ Yii::app()->clientScript->registerScript('search', "
         return false;
     });
     ");
+
+Yii::app()->clientScript->registerScript('export', "
+    $('.export-button').click(function(){
+        $('.export-form').toggle();
+        return false;
+    });  
+    ");
 ?>
 
-<table>
-<tr> 
-<td>    
+<div class="header">
+    <div>    
 <h1>
-    
     <?php echo Yii::t('d2companyModule.crud', 'Companies'); ?>
     <small><?php echo Yii::t('d2companyModule.crud_static','List'); ?></small>
-    
-</h1>
-</td>
+</h1>    
+    </div>
 
-<td>
 <?php $this->renderPartial("_toolbar", array("model"=>$model)); ?>
-</td>    
-</tr>
-</table>    
+   
+</div>    
 
 <div class="search-form" style="display:none">
         <?php $this->renderPartial('_search', array('model' => $model,)); ?>
+    </div>
+<div class="export-form" style="display:none">
+        <?php $this->renderPartial('_export', array('model' => $model,)); ?>
     </div>
 
 
@@ -149,14 +154,5 @@ $this->widget('TbGridView',
 );
 
 
-//$this->widget('EExcelView', array(
-//     'title'=>'Title',
-//    'dataProvider'=>$model->search(),
-//     'autoWidth'=>false,
-//      'grid_mode'=>'export',
-//            'title'=>'Title',
-//            'filename'=>'report.xlsx',
-//            'stream'=>false,
-//            'exportType'=>'Excel2007',
-//));
+
 ?>
