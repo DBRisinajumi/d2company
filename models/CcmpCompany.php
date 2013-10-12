@@ -29,10 +29,18 @@ class CcmpCompany extends BaseCcmpCompany
              //auditrail       
             'LoggableBehavior' => array(
                 'class' => 'vendor.sammaye.audittrail.behaviors.LoggableBehavior'
-            )
+            ),
+                    
+             // remember grid filter       
+            'ERememberFiltersBehavior' => array(
+               'class' => 'application.components.ERememberFiltersBehavior',
+               'defaults'=>array(),           /* optional line */
+               'defaultStickOnClear'=>false   /* optional line */
+           ),
+             
         ));
     }
-
+    
     public function rules()
     {
         return array_merge(
