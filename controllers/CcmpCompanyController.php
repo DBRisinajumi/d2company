@@ -22,7 +22,7 @@ return array(
 array(
 'allow',
 'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin'
-                    , 'view','updateccbr','manageccbr','updategroup','updatemanager',
+                    , 'view','updateccbr','manageccbr','updategroup','updatemanager', 'export',
                     'createccbr'),
 'roles' => array('DataCardEditor'),
 ),
@@ -458,13 +458,38 @@ array(
         if (isset($scopes[$this->scope])) {
             $model->{$this->scope}();
         }
-        $model->unsetAttributes();
+       
 
         if (isset($_GET['CcmpCompany'])) {
             $model->attributes = $_GET['CcmpCompany'];
         }
 
         $this->render('admin', array('model' => $model,));
+    }
+    
+     public function actionExport()
+    {
+        $model = new CcmpCompany('search');
+        $scopes = $model->scopes();
+        if (isset($scopes[$this->scope])) {
+            $model->{$this->scope}();
+        }
+      
+
+        if (isset($_GET['CcmpCompany'])) {
+            $model->attributes = $_GET['CcmpCompany'];
+        }
+
+       $this->widget('EExcelView', array(
+      'title'=>'Title',
+      'dataProvider'=>$model->search(),
+      'autoWidth'=>true,
+      'grid_mode'=>'export',
+            'title'=>'Title',
+            'filename'=>(isset($_POST['filename'])?$_POST['filename']:'report'),
+            'stream'=>true,
+            'exportType'=>'Excel2007',
+));
     }
 
     public function loadModel($id)
