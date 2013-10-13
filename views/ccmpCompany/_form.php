@@ -16,7 +16,7 @@
     ?>
     
     <div class="row">
-        <div class="span7"> <!-- main inputs -->
+        <div class="span9"> <!-- main inputs -->
             <div class="form-horizontal">
 
                 
@@ -56,7 +56,66 @@
                                                             </span>
                         </div>
                     </div>
-
+                
+                 <div class="control-group">
+                        <div class='control-label'>
+                            <?php echo $form->labelEx($model,'ccmp_office_phone') ?>
+                        </div>
+                        <div class='controls'>
+                            <?php
+                            echo $form->textField($model,'ccmp_office_phone',array('size'=>60,'maxlength'=>20));
+                            echo $form->error($model,'ccmp_office_phone')
+                            ?>
+                            <span class="help-block">
+                                
+                                <?php
+                                echo ($t = Yii::t('crud', 'CcmpCompany.ccmp_office_phone') != 'CcmpCompany.ccmp_office_phone')?$t:''
+                                ?>
+                                                            </span>
+                        </div>
+                    </div>
+                  <div class="control-group">
+                        <div class='control-label'>
+                            <?php echo $form->labelEx($model,'ccmp_office_email') ?>
+                        </div>
+                        <div class='controls'>
+                            <?php
+                            echo $form->textField($model,'ccmp_office_email',array('size'=>60,'maxlength'=>100));
+                            echo $form->error($model,'ccmp_office_email')
+                            ?>
+                                                      
+                            <span class="help-block">
+                                
+                                <?php
+                                echo ($t = Yii::t('crud', 'CcmpCompany.ccmp_office_email') != 'CcmpCompany.ccmp_office_email')?$t:''
+                                ?>
+                                                            </span>
+                        </div>
+                    </div>
+                
+                
+                
+                <? 
+                // only for new customers
+                if(!isset($model->ccmp_id)){ ?>
+                
+                 <div class="control-group">
+                        <div class='control-label'>
+                            <?php echo CHtml::label(Yii::t('d2companyModule.crud', 'Username'),FALSE); ?>
+                        </div>
+                        <div class='controls'>
+                            <?php
+                             echo CHtml::textField('username', '' ,array('size'=>100,'maxlength'=>100)); 
+                            
+                            ?>
+                            <span class="hint">
+                            If entered, customer user will be created automaticaly
+                            </span>
+                            
+                           
+                        </div>
+                    </div>
+                <? }  ?>
                 
                     <div class="control-group">
                         <div class='control-label'>

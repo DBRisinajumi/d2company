@@ -6,11 +6,24 @@ $this->setPageTitle(
         . ': '
         . $model->getItemLabel()
 );
-$this->renderPartial("_toolbar", array("model" => $model));
+
 ?>
+
+
+
+<table class="toolbar">
+    <tr>  
+      <td>  
 <h2>
     <?php echo $model->itemLabel ?>
 </h2>
+      </td>  
+<td>
+<?php $this->renderPartial("_toolbar", array("model"=>$model)); ?>
+</td>
+</tr> 
+</table> 
+
 <?php
 //main update form
 $this->beginClip('main');

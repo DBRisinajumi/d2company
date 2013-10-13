@@ -23,7 +23,7 @@
                     'ccuc_user_id', 
                     $aChecked, 
                     CHtml::listData(
-                        DbrUser::model()->findAll(), 'id', 'fullname')
+                        DbrUser::model()->findAll(), 'id', 'fullnameusernameroles')
                     );
              
              
