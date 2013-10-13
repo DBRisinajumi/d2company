@@ -54,18 +54,67 @@ array(
         $model->scenario = $this->scenario;
 
         $this->performAjaxValidation($model, 'ccmp-company-form');
-
+        
         if (isset($_POST['CcmpCompany'])) {
             $model->attributes = $_POST['CcmpCompany'];
 
             try {
+                
+                // user validation before company save 
+                if (isset($_POST['username'])){
+                    
+                       $user = new User;
+                       $user->username = $_POST['username'];
+                       $user->email = $model->ccmp_office_email;
+                       $user->superuser = 0;
+                       $user->status = 1;
+                       if (!$user->validate()) throw new Exception('Username or email is not unique, try again or add manually');
+                }       
+                
+                
                 if ($model->save()) {
+                    
+                    
+                    // custom data creation
+                    
+                    $custom = new BaseCccdCompanyData();
+                    $custom->cccd_ccmp_id = $model->ccmp_id;
+                    $custom->save();
+                    
+                    // user creation
+                    
+                    $user->password = UserModule::encrypting(DbrLib::rand_string(8));
+		    if($user->save()) {
+                                        $profile=new Profile;
+					$profile->user_id=$user->id;
+					$profile->save();
+                                        
+                                        // role assignment Customer
+                                        
+                                        //assign role
+                                        $authorizer = Yii::app()->getModule("rights")->getAuthorizer();
+                                        $authorizer->authManager->assign('Customer', $user->id);
+                                        
+                                        
+                                        //company user
+                                        $companyuser = new CcucUserCompany;
+                                        $companyuser->ccuc_ccmp_id = $model->ccmp_id;
+                                        $companyuser->ccuc_user_id = $user->id;
+                                        if ($companyuser->validate()) $companyuser->save();
+				}
+				
+			
+                            
+                    }
+                    
+               
+                    
                     if (isset($_GET['returnUrl'])) {
                         $this->redirect($_GET['returnUrl']);
                     } else {
-                        $this->redirect(array('view', 'ccmp_id' => $model->ccmp_id));
+                        $this->redirect(array('update', 'ccmp_id' => $model->ccmp_id));
                     }
-                }
+                
             } catch (Exception $e) {
                 $model->addError('ccmp_id', $e->getMessage());
             }
