@@ -28,17 +28,19 @@ Yii::app()->clientScript->registerScript('export', "
     ");
 ?>
 
-<div class="header">
-    <div>    
-<h1>
+<table class="toolbar">
+    <tr>  
+      <td>  
+<h2>
     <?php echo Yii::t('d2companyModule.crud', 'Companies'); ?>
     <small><?php echo Yii::t('d2companyModule.crud_static','List'); ?></small>
-</h1>    
-    </div>
-
+</h2>    
+      </td>  
+<td>
 <?php $this->renderPartial("_toolbar", array("model"=>$model)); ?>
-   
-</div>    
+</td>
+</tr> 
+</table>    
 
 <div class="search-form" style="display:none">
         <?php $this->renderPartial('_search', array('model' => $model,)); ?>
