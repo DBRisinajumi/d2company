@@ -14,6 +14,19 @@ class DbrUser extends User
 	}
     
      public function getFullName() {return $this->profile->first_name." ".$this->profile->last_name; }
+     public function getFullNameUsername() {return $this->profile->first_name." ".$this->profile->last_name." (".$this->username.")"; }
+     
+     public function getFullNameUsernameRoles() {
+       
+         $roles=Rights::getAssignedRoles($this->id);
+         $rolestring=array();
+         foreach($roles as $role)
+         {
+             $rolestring[] = $role->name;
+         }
+         return $this->getFullNameUsername()." Roles:".implode(",", $rolestring);
+
+     }
 }
 
 ?>
