@@ -45,7 +45,7 @@ abstract class BaseCcmpCompany extends CActiveRecord
     {
         return array_merge(
             parent::rules(), array(
-                array('ccmp_name, ccmp_ccnt_id,ccmp_office_ccit_id ', 'required'),
+                array('ccmp_name, ccmp_ccnt_id,ccmp_office_ccit_id , ccmp_office_phone, ccmp_office_email', 'required'),
                 array('ccmp_ccnt_id, ccmp_registrtion_no, ccmp_vat_registrtion_no, ccmp_registration_address, ccmp_official_ccit_id, ccmp_official_address, ccmp_official_zip_code, ccmp_office_ccit_id, ccmp_office_address, ccmp_office_zip_code, ccmp_statuss, ccmp_description', 'default', 'setOnEmpty' => true, 'value' => null),
                 array('ccmp_ccnt_id', 'numerical', 'integerOnly' => true),
                 array('ccmp_name, ccmp_registration_address, ccmp_official_address, ccmp_office_address', 'length', 'max' => 200),
@@ -53,7 +53,10 @@ abstract class BaseCcmpCompany extends CActiveRecord
                 array('ccmp_official_ccit_id, ccmp_office_ccit_id', 'length', 'max' => 10),
                 array('ccmp_statuss', 'length', 'max' => 10),
                 array('ccmp_description', 'safe'),
+                array('ccmp_office_email', 'email'),
+                array('ccmp_office_phone', 'length', 'max' => 15),
                 array('ccmp_id, ccmp_name, ccmp_ccnt_id, ccmp_registrtion_no, ccmp_vat_registrtion_no, ccmp_registration_address, ccmp_official_ccit_id, ccmp_official_address, ccmp_official_zip_code, ccmp_office_ccit_id, ccmp_office_address, ccmp_office_zip_code, ccmp_statuss, ccmp_description', 'safe', 'on' => 'search'),
+                array('ccmp_name', 'unique'),
             )
         );
     }
@@ -106,6 +109,8 @@ abstract class BaseCcmpCompany extends CActiveRecord
             'ccmp_office_zip_code' => Yii::t('d2companyModule.crud', 'Office Zip code'),
             'ccmp_statuss' => Yii::t('d2companyModule.crud', 'State'),
             'ccmp_description' => Yii::t('d2companyModule.crud', 'Description'),
+            'ccmp_office_email' => Yii::t('d2companyModule.crud', 'Office email'),
+            'ccmp_office_phone' => Yii::t('d2companyModule.crud', 'Office phone'),
         );
     }
 
@@ -129,6 +134,8 @@ abstract class BaseCcmpCompany extends CActiveRecord
         $criteria->compare('t.ccmp_office_zip_code', $this->ccmp_office_zip_code, true);
         $criteria->compare('t.ccmp_statuss', $this->ccmp_statuss, true);
         $criteria->compare('t.ccmp_description', $this->ccmp_description, true);
+        $criteria->compare('t.ccmp_office_email', $this->ccmp_office_email, true);
+        $criteria->compare('t.ccmp_office_phone', $this->ccmp_office_phone, true);
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
