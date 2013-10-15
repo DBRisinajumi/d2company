@@ -12,7 +12,7 @@
             'enableClientValidation'=>true,
         ));
 
-        echo $form->errorSummary($model);
+        //echo $form->errorSummary($model);
     ?>
     
     <div class="row">
@@ -73,7 +73,8 @@
                 'class' => 'btn'
             ));
             echo ' '.CHtml::submitButton(Yii::t('d2companyModule.crud_static','Save'), array(
-                'class' => 'btn btn-primary'
+                'class' => 'btn btn-primary',
+                'name'=>'save_custom'
             ));
         ?>
     </div>

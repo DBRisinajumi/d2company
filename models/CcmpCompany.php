@@ -33,7 +33,7 @@ class CcmpCompany extends BaseCcmpCompany
                     
              // remember grid filter       
             'ERememberFiltersBehavior' => array(
-               'class' => 'application.components.ERememberFiltersBehavior',
+               'class' => 'ERememberFiltersBehavior',
                'defaults'=>array(),           /* optional line */
                'defaultStickOnClear'=>false   /* optional line */
            ),
