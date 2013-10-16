@@ -58,7 +58,7 @@ $this->widget(
             'url' => Yii::app()->controller->createUrl(
                     'adminManagers', array('ccmp_id' => $model->ccmp_id)),
             'active' => 
-                    ($active_tab == 'company_manager')
+                    ($active_tab == 'company_manager_create')
                     || ($active_tab == 'company_manager_list')
                     || ($active_tab == 'company_manager_update')
               ,
@@ -100,13 +100,6 @@ switch ($active_tab) {
             'model' => $mCcbr,
         ));
         break;
-
-    case 'company_manager':
-        $this->renderPartial('_managers_list', array(
-            'ccmp_id' => $model->ccmp_id,
-            'model' => $mCcuc,
-        ));
-        break;
     case 'company_manager_list':
         $this->renderPartial('_managers_list', array(
             'ccmp_id' => $model->ccmp_id,
@@ -119,7 +112,12 @@ switch ($active_tab) {
             'model' => $mCcuc,
         ));
         break;
-
+    case 'company_manager_create':
+        $this->renderPartial('_form_managers', array(
+            'ccmp_id' => $model->ccmp_id,
+            'model' => $mCcuc,
+        ));
+        break;
     default:
         break;
 }

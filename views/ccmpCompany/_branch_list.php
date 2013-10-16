@@ -4,9 +4,6 @@ $this->widget("bootstrap.widgets.TbButton", array(
     "icon" => "icon-plus",
     "url" => array("createccbr",'ccmp_id'=>$ccmp_id),
 ));
-?>                
-
-<?php
 
 $this->widget('TbGridView', array(
     'id' => 'ccbr-branch-grid',
@@ -54,4 +51,3 @@ $this->widget('TbGridView', array(
     )
         )
 );
-?>
