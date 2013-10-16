@@ -22,15 +22,9 @@ return array(
 array(
 'allow',
 'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin'
-<<<<<<< HEAD
-                    , 'view','updateccbr','manageccbr','updateGroup','updatemanager', 'export',
+                   , 'view','updateccbr','manageccbr','updateGroup','updatemanager', 'export',
                     'createccbr','updateExtended','updateCustom'),
-'roles' => array('DataCardEditor'),
-=======
-                    , 'view','updateccbr','manageccbr','updategroup','updatemanager', 'export',
-                    'createccbr'),
 'roles' => array('Company.fullcontrol'),
->>>>>>> 2463ce78483e3200fd20a8d516a88b9590c10dff
 ),
     
 array(

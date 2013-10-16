@@ -19,12 +19,12 @@ abstract class BaseCcucUserCompany extends CActiveRecord
         return parent::model($className);
     }
 
-<<<<<<< HEAD
+
     public function tableName()
     {
         return 'ccuc_user_company';
     }
-=======
+
 	/**
 	 * @return array relational rules.
 	 */
@@ -38,7 +38,7 @@ abstract class BaseCcucUserCompany extends CActiveRecord
                     
                     );
 	}
->>>>>>> 2463ce78483e3200fd20a8d516a88b9590c10dff
+
 
     public function rules()
     {
@@ -65,13 +65,6 @@ abstract class BaseCcucUserCompany extends CActiveRecord
                     'class' => '\GtcSaveRelationsBehavior'
                 )
             )
-        );
-    }
-
-    public function relations()
-    {
-        return array(
-            'ccucCcmp' => array(self::BELONGS_TO, 'CcmpCompany', 'ccuc_ccmp_id'),
         );
     }
 
