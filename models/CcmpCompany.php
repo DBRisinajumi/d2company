@@ -55,6 +55,7 @@ class CcmpCompany extends BaseCcmpCompany
     
     public function getCssClass() {
         
+      
         return "row-".strtolower($this->ccmp_statuss);
         
            
