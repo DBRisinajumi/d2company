@@ -24,8 +24,22 @@ array(
 'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin'
                     , 'view','updateccbr','manageccbr','updategroup','updatemanager', 'export',
                     'createccbr'),
-'roles' => array('DataCardEditor'),
+'roles' => array('Company.fullcontrol'),
 ),
+    
+array(
+'allow',
+'actions' => array( 'editableSaver', 'update', 'admin'
+                    , 'view', 'export',
+                    ),
+'roles' => array('Company.edit'),
+),   
+array(
+'allow',
+'actions' => array(  'admin' , 'view', 'export',
+                    ),
+'roles' => array('Company.readonly'),
+),    
 array(
 'deny',
 'users' => array('*'),
