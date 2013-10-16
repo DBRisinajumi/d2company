@@ -22,8 +22,8 @@ return array(
 array(
 'allow',
 'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin'
-                    , 'view','updateccbr','manageccbr','updategroup','updatemanager', 'export',
-                    'createccbr'),
+                    , 'view','updateccbr','manageccbr','updateGroup','updatemanager', 'export',
+                    'createccbr','updateExtended','updateCustom'),
 'roles' => array('DataCardEditor'),
 ),
 array(
@@ -121,14 +121,6 @@ array(
 
     
     public function actionCreateccbr($ccmp_id){
-       if (isset($_POST['CcmpCompany'])) {
-            $this->actionUpdate($ccmp_id);
-            return;
-        }
-        if(isset($_POST['save_company_group'])){
-            $this->actionUpdategroup($ccmp_id);
-            return;            
-        }
         
         if (isset($_POST['CcbrBranch'])) {
             
@@ -156,16 +148,16 @@ array(
         //branch
          $mCcbr = new CcbrBranch();
         $this->render(
-                'update', 
+                'update_extended',
                 array(
                     'model' => $model,
-                    'active_tab' => 'company_branches',
-                    'model_create_ccbr' => $mCcbr,
+                    'active_tab' => 'createccbr',
+                    'mCcbr' => $mCcbr,
                 )
                );            
         
     }
-    public function actionManageccbr($ccmp_id,$ccbr_id){
+    public function actionManageccbr($ccmp_id,$ccbr_id=FALSE){
        if (isset($_POST['CcmpCompany'])) {
             $this->actionUpdate($ccmp_id);
             return;
@@ -188,25 +180,17 @@ array(
         $mCcbr->setAttribute('ccbr_ccmp_id',$ccmp_id);
         //$mCcbr->dbCriteria->order='ccbr_name ASC';
         $this->render(
-                'update', 
+                'update_extended',
                 array(
                     'model' => $model,
                     'ccbr_id' => $ccbr_id,
                     'active_tab' => 'company_branches',
-                    'model_manage_ccbr' => $mCcbr,
+                    'mCcbr' => $mCcbr,
                 )
                );        
         
     }
-    public function actionUpdateccbr($ccmp_id,$ccbr_id){
-        if (isset($_POST['CcmpCompany'])) {
-            $this->actionUpdate($ccmp_id);
-            return;
-        }
-        if(isset($_POST['save_company_group'])){
-            $this->actionUpdategroup($ccmp_id);
-            return;            
-        }
+    public function actionUpdateccbr($ccmp_id,$ccbr_id=FALSE){
 
         //company
         $model = $this->loadModel($ccmp_id);
@@ -234,19 +218,19 @@ array(
         
         //branch
         $m = CcbrBranch::model();
-        $mCcbr = $m->findByPk($ccbr_id);        
+        $mCcbr = $m->findByPk($ccbr_id);
         $this->render(
-                'update', 
+                'update_extended',
                 array(
                     'model' => $model,
                     'ccbr_id' => $ccbr_id,
-                    'active_tab' => 'company_branches',
-                    'model_update_ccbr' => $mCcbr,
+                    'active_tab' => 'updateccbr',
+                    'mCcbr' => $mCcbr,
                     )
                 );
     }
     
-    public function actionUpdategroup($ccmp_id){
+    public function actionUpdateGroup($ccmp_id){
 
        //company        
         $model = $this->loadModel($ccmp_id);
@@ -309,14 +293,25 @@ array(
         $mCcbr->findAll($criteria);   
         
         $this->render(
-                'update', 
+                'update_extended',
                 array(
                     'model' => $model,
                     'active_tab' => 'company_group',
-                    'model_manage_ccbr' => $mCcbr,
+                    'mCcbr' => $mCcbr,
                     )
                 );
     }
+    
+    public function actionCreateManager($ccmp_id){
+        $model=new User;
+		$profile=new Profile;
+        $this->render('update_extended',array(
+			'model'=>$model,
+            'active_tab' => 'company_manager',
+			'profile'=>$profile,
+		));
+    }
+
     
     public function actionUpdatemanager($ccmp_id){
 
@@ -368,24 +363,19 @@ array(
                 $Ppxt->delete();
             }
             //reload record, jo attēlos veco tipus
-            $model = $this->loadModel($ccmp_id);            
-            $this->redirect(array('updatemanager', 'ccmp_id' => $model->ccmp_id,'active_tab' => 'company_branches'));
+            $this->redirect(array('updatemanager', 'ccmp_id' => $ccmp_id,'active_tab' => 'company_branches'));
 
         }
-        
-        //branc
-        $criteria = new CDbCriteria;
-        $criteria->addCondition('ccbr_ccmp_id = :ccmp_id');
-        $criteria->params = array(':ccmp_id' => $model->ccmp_id);
-        $mCcbr = new CcbrBranch('search');
-        $mCcbr->findAll($criteria);   
-        
+        $mCcuc = new CcucUserCompany();
+                $mCcbr = new CcbrBranch('search');
+
+        $mCcuc->setAttribute('ccuc_ccmp_id',$ccmp_id);
         $this->render(
-                'update', 
+                'update_extended',
                 array(
                     'model' => $model,
+                    'mCcuc' => $mCcuc,
                     'active_tab' => 'company_manager',
-                    'model_manage_ccbr' => $mCcbr,
                     )
                 );
     }
@@ -393,8 +383,6 @@ array(
     public function actionUpdateCustom($ccmp_id){
 
        //company
-        $model = $this->loadModel($ccmp_id);
-        $model->scenario = $this->scenario;
 
         //update record
         if(isset($_POST['save_custom'])){
@@ -402,25 +390,19 @@ array(
             $custom = new BaseCccdCompanyData();
             $custom->cccd_ccmp_id = $model->ccmp_id;
             $custom->save();
-
-            $model = $this->loadModel($ccmp_id);
-            $this->redirect(array('actionUpdateCustom', 'ccmp_id' => $model->ccmp_id,'active_tab' => 'company_custom'));
+            
+            $this->redirect(array('actionUpdateCustom', 'ccmp_id' => $ccmp_id,'active_tab' => 'company_custom'));
 
         }
 
-        //branc
-        $criteria = new CDbCriteria;
-        $criteria->addCondition('ccbr_ccmp_id = :ccmp_id');
-        $criteria->params = array(':ccmp_id' => $model->ccmp_id);
-        $mCcbr = new CcbrBranch('search');
-        $mCcbr->findAll($criteria);
+        $model = $this->loadModel($ccmp_id);
+        $model->scenario = $this->scenario;
 
         $this->render(
-                'update',
+                'update_extended',
                 array(
                     'model' => $model,
                     'active_tab' => 'company_custom',
-                    'model_manage_ccbr' => $mCcbr,
                     )
                 );
     }
@@ -462,10 +444,6 @@ array(
              }
                  
         }
-            
-            
-          
-    
         
         $this->performAjaxValidation($model, 'ccmp-company-form');
 
@@ -502,6 +480,45 @@ array(
                     'model' => $model,
                     'active_tab' => 'main',
                     'model_manage_ccbr' => $mCcbr,
+                    )
+                );
+    }
+
+    public function actionUpdateExtended($ccmp_id)
+    {
+
+        $model = $this->loadModel($ccmp_id);
+        $model->scenario = $this->scenario;
+        $custom = $model->cccdCustomData;
+
+        $this->performAjaxValidation($model, 'ccmp-company-form');
+
+        if (isset($_POST['CcmpCompany'])) {
+            $model->attributes = $_POST['CcmpCompany'];
+
+
+            try {
+                if ($model->save()) {
+                    if (isset($_GET['returnUrl'])) {
+                        $this->redirect($_GET['returnUrl']);
+                    } else {
+                        $this->redirect(array(
+                                        'updateExtended',
+                                        'ccmp_id' => $model->ccmp_id,
+                                        'active_tab' => 'company_data',
+                                ));
+                    }
+                }
+            } catch (Exception $e) {
+                $model->addError('ccmp_id', $e->getMessage());
+            }
+        }
+
+        $this->render(
+                'update_extended',
+                array(
+                    'model' => $model,
+                    'active_tab' => 'company_data',
                     )
                 );
     }
