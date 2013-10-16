@@ -48,7 +48,9 @@ class BaseCcucUserCompany extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'ccucCcmp' => array(self::BELONGS_TO, 'CcmpCompany', 'ccuc_ccmp_id'),
-		);
+		        'ccucUsers' => array(self::BELONGS_TO, 'DbrUser', 'ccuc_user_id')
+                    
+                    );
 	}
 
 	/**
