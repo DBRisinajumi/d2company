@@ -27,6 +27,13 @@ class DbrUser extends User
          return $this->getFullNameUsername()." Roles:".implode(",", $rolestring);
 
      }
+     
+      public function getRoles() {
+       
+         $roles=Rights::getAssignedRoles($this->id); 
+         return $roles;
+        
+     }
 }
 
 ?>

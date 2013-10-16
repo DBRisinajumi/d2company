@@ -57,6 +57,7 @@ $this->widget('TbGridView',
         'dataProvider'=>$model->search(),
         'filter'=>$model,
         'template'=>'{items}{summary}{pager}',
+        'rowCssClassExpression' => '$data->cssclass',
         'pager' => array(
             'class' => 'TbPager',
             'displayFirstAndLast' => true,
@@ -85,6 +86,12 @@ $this->widget('TbGridView',
                 //'placement' => 'right',
           //  )
         ),
+            
+       array(
+            'name' => 'managers',
+            'header' =>  Yii::t('d2companyModule.crud', 'Managers'),
+   
+        ),     
         array(
                     'name'=>'ccmp_ccnt_id',
                     'header' =>  Yii::t('d2companyModule.crud', 'Country'),
@@ -144,7 +151,7 @@ $this->widget('TbGridView',
                 'class'=>'TbButtonColumn',
                 'buttons' => array(
                     'view' => array('visible' => 'FALSE'),
-                    'update' => array('visible' => 'Yii::app()->user->checkAccess("D2company.CcmpCompany.Update")'),
+                    'update' => array('visible' => 'Yii::app()->user->checkAccess("Company.fullcontrol")'),
                     'delete' => array('visible' => 'FALSE'),
                 ),
                 'viewButtonUrl'   => null,

@@ -51,5 +51,33 @@ class CcmpCompany extends BaseCcmpCompany
           ) */
         );
     }
+    
+    
+    public function getCssClass() {
+        
+      
+        return "row-".strtolower($this->ccmp_statuss);
+        
+           
+           
+        
+    }
+    
+    
+    public function getManagers() {
+        
+       
+        $mCcuc=$this->ccucUserCompany; 
+        foreach($mCcuc as $user)
+        {
+            $roles = $user->ccucUsers->roles; 
+            if (array_key_exists('Manager',$roles ))
+                $managers[]= $user->ccucUsers->fullname;
+        }
+        
+        if (isset($managers)) return implode(',' ,$managers);
+        else return "";
+        
+    }
 
 }

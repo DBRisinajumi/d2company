@@ -22,7 +22,7 @@ return array(
 array(
 'allow',
 'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view'),
-'roles' => array('DataCardEditor'),
+'roles' => array('Company.fullcontrol'),
 ),
 array(
 'deny',

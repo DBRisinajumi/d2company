@@ -19,10 +19,26 @@ abstract class BaseCcucUserCompany extends CActiveRecord
         return parent::model($className);
     }
 
+<<<<<<< HEAD
     public function tableName()
     {
         return 'ccuc_user_company';
     }
+=======
+	/**
+	 * @return array relational rules.
+	 */
+	public function relations()
+	{
+		// NOTE: you may need to adjust the relation name and the related
+		// class name for the relations automatically generated below.
+		return array(
+			'ccucCcmp' => array(self::BELONGS_TO, 'CcmpCompany', 'ccuc_ccmp_id'),
+		        'ccucUsers' => array(self::BELONGS_TO, 'DbrUser', 'ccuc_user_id')
+                    
+                    );
+	}
+>>>>>>> 2463ce78483e3200fd20a8d516a88b9590c10dff
 
     public function rules()
     {
