@@ -7,6 +7,9 @@
  * @property integer $ccuc_id
  * @property string $ccuc_ccmp_id
  * @property integer $ccuc_user_id
+ * @property string $ccuc_first_name
+ * @property string $cucc_last_name
+ * @property string $ccuc_status
  *
  * Relations of table "ccuc_user_company" available as properties of the model:
  * @property CcmpCompany $ccucCcmp
@@ -19,35 +22,22 @@ abstract class BaseCcucUserCompany extends CActiveRecord
         return parent::model($className);
     }
 
-
     public function tableName()
     {
         return 'ccuc_user_company';
     }
-
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'ccucCcmp' => array(self::BELONGS_TO, 'CcmpCompany', 'ccuc_ccmp_id'),
-		        'ccucUsers' => array(self::BELONGS_TO, 'DbrUser', 'ccuc_user_id')
-                    
-                    );
-	}
-
 
     public function rules()
     {
         return array_merge(
             parent::rules(), array(
                 array('ccuc_ccmp_id, ccuc_user_id', 'required'),
+                array('ccuc_first_name, cucc_last_name, ccuc_status', 'default', 'setOnEmpty' => true, 'value' => null),
                 array('ccuc_user_id', 'numerical', 'integerOnly' => true),
                 array('ccuc_ccmp_id', 'length', 'max' => 10),
-                array('ccuc_id, ccuc_ccmp_id, ccuc_user_id', 'safe', 'on' => 'search'),
+                array('ccuc_first_name, cucc_last_name', 'length', 'max' => 255),
+                array('ccuc_status', 'length', 'max' => 8),
+                array('ccuc_id, ccuc_ccmp_id, ccuc_user_id, ccuc_first_name, cucc_last_name, ccuc_status', 'safe', 'on' => 'search'),
             )
         );
     }
@@ -68,12 +58,22 @@ abstract class BaseCcucUserCompany extends CActiveRecord
         );
     }
 
+    public function relations()
+    {
+        return array(
+            'ccucCcmp' => array(self::BELONGS_TO, 'CcmpCompany', 'ccuc_ccmp_id'),
+        );
+    }
+
     public function attributeLabels()
     {
         return array(
-            'ccuc_id' => Yii::t('crud', 'Ccuc'),
-            'ccuc_ccmp_id' => Yii::t('crud', 'Ccuc Ccmp'),
-            'ccuc_user_id' => Yii::t('crud', 'Ccuc User'),
+            'ccuc_id' => Yii::t('d2companyModule.crud', 'Ccuc'),
+            'ccuc_ccmp_id' => Yii::t('d2companyModule.crud', 'Ccuc Ccmp'),
+            'ccuc_user_id' => Yii::t('d2companyModule.crud', 'Ccuc User'),
+            'ccuc_first_name' => Yii::t('d2companyModule.crud', 'Ccuc First Name'),
+            'cucc_last_name' => Yii::t('d2companyModule.crud', 'Cucc Last Name'),
+            'ccuc_status' => Yii::t('d2companyModule.crud', 'Ccuc Status'),
         );
     }
 
@@ -86,6 +86,9 @@ abstract class BaseCcucUserCompany extends CActiveRecord
         $criteria->compare('t.ccuc_id', $this->ccuc_id);
         $criteria->compare('t.ccuc_ccmp_id', $this->ccuc_ccmp_id);
         $criteria->compare('t.ccuc_user_id', $this->ccuc_user_id);
+        $criteria->compare('t.ccuc_first_name', $this->ccuc_first_name, true);
+        $criteria->compare('t.cucc_last_name', $this->cucc_last_name, true);
+        $criteria->compare('t.ccuc_status', $this->ccuc_status, true);
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,

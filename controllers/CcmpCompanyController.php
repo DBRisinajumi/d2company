@@ -23,7 +23,7 @@ array(
 'allow',
 'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin'
                    , 'view','updateccbr','manageccbr','updateGroup','updatemanager', 'export',
-                    'createccbr','updateExtended','updateCustom'),
+                    'createccbr','updateExtended','updateCustom','AdminManagers','UpdateManagers'),
 'roles' => array('Company.fullcontrol'),
 ),
     
@@ -393,6 +393,60 @@ array(
                     )
                 );
     }
+
+    public function actionAdminManagers($ccmp_id)
+    {
+        $model = $this->loadModel($ccmp_id);
+        $model->scenario = $this->scenario;
+        $mCcuc = new CcucUserCompany('search');
+        $mCcuc->setAttribute('ccuc_ccmp_id',$ccmp_id);
+        $this->render(
+                'update_extended',
+                array(
+                    'model' => $model,
+                    'mCcuc' => $mCcuc,
+                    'active_tab' => 'company_manager_list',
+                    )
+                );
+    }
+
+    public function actionUpdateManagers($ccmp_id,$ccuc_id)
+    {
+        $m = new CcucUserCompany();
+        $mCcuc = $m->findByPk($ccuc_id);
+
+        $this->performAjaxValidation($mCcuc, 'ccuc-user-company-form');
+
+        if (isset($_POST['CcucUserCompany'])) {
+            $mCcuc->attributes = $_POST['CcucUserCompany'];
+
+
+            try {
+                if ($mCcuc->save()) {
+                    if (isset($_GET['returnUrl'])) {
+                        $this->redirect($_GET['returnUrl']);
+                    } else {
+                        $this->redirect(array(
+                            'adminManagers',
+                            'ccmp_id' => $ccmp_id,
+                            ));
+                    }
+                }
+            } catch (Exception $e) {
+                $model->addError('ccuc_id', $e->getMessage());
+            }
+        }
+
+        $model = $this->loadModel($ccmp_id);
+        $model->scenario = $this->scenario;
+
+        $this->render('update_extended', array(
+                        'model' => $model,
+                        'mCcuc' => $mCcuc,
+                         'active_tab' => 'company_manager_update',
+                            ));
+    }
+
 
     public function actionUpdateCustom($ccmp_id){
 

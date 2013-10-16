@@ -56,8 +56,12 @@ $this->widget(
         ),
           array('label' => Yii::t('d2companyModule.crud', 'Company managers'),
             'url' => Yii::app()->controller->createUrl(
-                    'updatemanager', array('ccmp_id' => $model->ccmp_id)),
-            'active' => ($active_tab == 'company_manager'),
+                    'adminManagers', array('ccmp_id' => $model->ccmp_id)),
+            'active' => 
+                    ($active_tab == 'company_manager')
+                    || ($active_tab == 'company_manager_list')
+                    || ($active_tab == 'company_manager_update')
+              ,
         ),
     )
 ));
@@ -99,6 +103,18 @@ switch ($active_tab) {
 
     case 'company_manager':
         $this->renderPartial('_managers_list', array(
+            'ccmp_id' => $model->ccmp_id,
+            'model' => $mCcuc,
+        ));
+        break;
+    case 'company_manager_list':
+        $this->renderPartial('_managers_list', array(
+            'ccmp_id' => $model->ccmp_id,
+            'model' => $mCcuc,
+        ));
+        break;
+    case 'company_manager_update':
+        $this->renderPartial('_form_managers', array(
             'ccmp_id' => $model->ccmp_id,
             'model' => $mCcuc,
         ));
