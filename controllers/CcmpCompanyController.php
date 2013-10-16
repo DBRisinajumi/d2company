@@ -89,12 +89,6 @@ array(
                 if ($model->save()) {
                     
                     
-                    // custom data creation
-                    
-                    $custom = new BaseCccdCompanyData();
-                    $custom->cccd_ccmp_id = $model->ccmp_id;
-                    $custom->save();
-                    
                     // user creation
                     
                     $user->password = UserModule::encrypting(DbrLib::rand_string(8));
@@ -409,6 +403,41 @@ array(
                     )
                 );
     }
+
+    public function actionUpdateCustom($ccmp_id){
+
+       //company
+        $model = $this->loadModel($ccmp_id);
+        $model->scenario = $this->scenario;
+
+        //update record
+        if(isset($_POST['save_custom'])){
+
+            $custom = new BaseCccdCompanyData();
+            $custom->cccd_ccmp_id = $model->ccmp_id;
+            $custom->save();
+
+            $model = $this->loadModel($ccmp_id);
+            $this->redirect(array('actionUpdateCustom', 'ccmp_id' => $model->ccmp_id,'active_tab' => 'company_custom'));
+
+        }
+
+        //branc
+        $criteria = new CDbCriteria;
+        $criteria->addCondition('ccbr_ccmp_id = :ccmp_id');
+        $criteria->params = array(':ccmp_id' => $model->ccmp_id);
+        $mCcbr = new CcbrBranch('search');
+        $mCcbr->findAll($criteria);
+
+        $this->render(
+                'update',
+                array(
+                    'model' => $model,
+                    'active_tab' => 'company_custom',
+                    'model_manage_ccbr' => $mCcbr,
+                    )
+                );
+    }
     
     public function actionUpdate($ccmp_id)
     {
@@ -423,7 +452,12 @@ array(
             $this->actionUpdatemanager($ccmp_id);
             return;
         }
-        
+
+        //company group forma submitita
+        if(isset($_POST['save_custom'])){
+            $this->actionUpdateCustom($ccmp_id);
+            return;
+        }
             
         $model = $this->loadModel($ccmp_id);
         $model->scenario = $this->scenario;
