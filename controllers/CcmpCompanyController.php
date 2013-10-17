@@ -453,18 +453,24 @@ class CcmpCompanyController extends Controller {
 
         //company
         //update record
-        if (isset($_POST['save_custom'])) {
-
-            $custom = new BaseCccdCompanyData();
-            $custom->cccd_ccmp_id = $model->ccmp_id;
-            $custom->save();
-
-            $this->redirect(array('actionUpdateCustom', 'ccmp_id' => $ccmp_id, 'active_tab' => 'company_custom'));
-        }
-
         $model = $this->loadModel($ccmp_id);
         $model->scenario = $this->scenario;
+        $custom = $model->cccdCustomData;
+        
+        if (isset($_POST['BaseCccdCompanyData'])) {
 
+            $custom->attributes = $_POST['BaseCccdCompanyData'];
+        //    if ($custom->validate()) {
+                $custom->save();
+//                $this->redirect(array(
+//                    'actionUpdateCustom',
+//                    'ccmp_id' => $ccmp_id,
+//                    'active_tab' => 'company_custom',
+//                ));
+        //    }
+        }
+        
+ 
         $this->render(
                 'update_extended', array(
             'model' => $model,
@@ -487,27 +493,16 @@ class CcmpCompanyController extends Controller {
         }
 
         //company group forma submitita
-        if (isset($_POST['save_custom'])) {
-            $this->actionUpdateCustom($ccmp_id);
-            return;
-        }
+//        if (isset($_POST['save_custom'])) {
+//            $this->actionUpdateCustom($ccmp_id);
+//            return;
+//        }
 
         $model = $this->loadModel($ccmp_id);
         $model->scenario = $this->scenario;
         $custom = $model->cccdCustomData;
 
-        if (isset($_POST['BaseCccdCompanyData'])) {
-
-            $custom->attributes = $_POST['BaseCccdCompanyData'];
-            if ($custom->validate()) {
-                $custom->save();
-                $this->redirect(array(
-                    'update',
-                    'ccmp_id' => $model->ccmp_id,
-                    'active_tab' => 'company_custom',
-                ));
-            }
-        }
+        
 
         $this->performAjaxValidation($model, 'ccmp-company-form');
 
@@ -551,7 +546,7 @@ class CcmpCompanyController extends Controller {
 
         $model = $this->loadModel($ccmp_id);
         $model->scenario = $this->scenario;
-        $custom = $model->cccdCustomData;
+    //    $custom = $model->cccdCustomData;
 
         $this->performAjaxValidation($model, 'ccmp-company-form');
 
