@@ -19,12 +19,6 @@ class DbrUser extends User
      */
     private static $_aUserRoles = FALSE;
 
-    /**
-     * user all roles
-     * @var array
-     */
-    private static $_aClientOfficeCompanies = FALSE;
-
     public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -70,22 +64,4 @@ class DbrUser extends User
          return isset($a[self::RoleClientOffice]);
      }
 
-     /**
-      * get all client companies
-      * @return array
-      */
-      static public function getOfficeClientCompanies(){
-         if(self::$_aClientOfficeCompanies === FALSE){
-
-            $criteria=new CDbCriteria;
-            //$criteria->select='ccmp_id,ccmp_name';  // only select the 'title' column
-            //$criteria->join = 'INNER JOIN ccmp_company ON ccuc_ccmp_id = ccmp_id';
-            $criteria->condition='ccuc_user_id=:user_id';
-            $criteria->params=array(':user_id' => Yii::app()->getModule('user')->user()->id);
-            self::$_aClientOfficeCompanies  = CcucUserCompany::model()->findAll($criteria); // $params is not needed
-         }
-         return self::$_aClientOfficeCompanies;
-     }
 }
-
-?>
