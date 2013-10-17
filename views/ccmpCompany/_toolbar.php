@@ -8,7 +8,7 @@
                     "label" => Yii::t("d2companyModule.crud_static", "Manage"),
                     "icon" => "icon-list-alt",
                     "url" => array("admin"),
-                    "visible" => Yii::app()->user->checkAccess("D2company.CcmpCompany.View")
+                    "visible" => Yii::app()->user->checkAccess("Company.*")
                 ));
                 break;
             case "admin":
@@ -16,12 +16,12 @@
                     "label" => Yii::t("d2companyModule.crud_static", "Create"),
                     "icon" => "icon-plus",
                     "url" => array("create"),
-                    "visible" => Yii::app()->user->checkAccess("D2company.CcmpCompany.Create")
+                    "visible" => Yii::app()->user->checkAccess("Company.*")
                 ));
                   $this->widget("bootstrap.widgets.TbButton", array(
                     "label" => Yii::t("d2companyModule.crud_static", "Export"),
                     "url" => array("admin","export" => " xls"),
-                    "visible" => Yii::app()->user->checkAccess("D2company.CcmpCompany.Export"),
+                    "visible" => Yii::app()->user->checkAccess("Company.*"),
                      "htmlOptions"=>array("class"=>"export-button")
                 ));
         //         $this->widget("bootstrap.widgets.TbButton",
@@ -36,13 +36,13 @@
                     "label" => Yii::t("d2companyModule.crud_static", "Manage"),
                     "icon" => "icon-list-alt",
                     "url" => array("admin"),
-                    "visible" => Yii::app()->user->checkAccess("D2company.CcmpCompany.View")
+                    "visible" => Yii::app()->user->checkAccess("Company.*")
                 ));
                 $this->widget("bootstrap.widgets.TbButton", array(
                     "label" => Yii::t("d2companyModule.crud_static", "Update"),
                     "icon" => "icon-edit",
                     "url" => array("update", "ccmp_id" => $model->{$model->tableSchema->primaryKey}),
-                    "visible" => Yii::app()->user->checkAccess("D2company.CcmpCompany.Update")
+                    "visible" => Yii::app()->user->checkAccess("Company.*")
                 ));
 //                    $this->widget("bootstrap.widgets.TbButton", array(
 //                        "label"=>Yii::t("d2companyModule.crud_static","Create"),
@@ -58,10 +58,11 @@
                         "submit" => array("delete", "ccmp_id" => $model->{$model->tableSchema->primaryKey}, "returnUrl" => (Yii::app()->request->getParam("returnUrl")) ? Yii::app()->request->getParam("returnUrl") : $this->createUrl("admin")),
                         "confirm" => Yii::t("d2companyModule.crud_static", "Do you want to delete this item?")
                     ),
-                    "visible" => Yii::app()->user->checkAccess("D2company.CcmpCompany.Delete")
+                    "visible" => Yii::app()->user->checkAccess("Company.*")
                 ));
                 break;
             case "update":
+            case "updateExtended":
             case "updateccbr":
             case "manageccbr":
             case "updategroup":
@@ -70,7 +71,7 @@
                     "label" => Yii::t("d2companyModule.crud_static", "Manage"),
                     "icon" => "icon-list-alt",
                     "url" => array("admin"),
-                    "visible" => Yii::app()->user->checkAccess("D2company.CcmpCompany.View")
+                    "visible" => Yii::app()->user->checkAccess("Company.*")
                 ));
 //                    $this->widget("bootstrap.widgets.TbButton", array(
 //                        "label"=>Yii::t("d2companyModule.crud_static","View"),
@@ -86,7 +87,7 @@
                         "submit" => array("delete", "ccmp_id" => $model->{$model->tableSchema->primaryKey}, "returnUrl" => (Yii::app()->request->getParam("returnUrl")) ? Yii::app()->request->getParam("returnUrl") : $this->createUrl("admin")),
                         "confirm" => Yii::t("d2companyModule.crud_static", "Do you want to delete this item?")
                     ),
-                    "visible" => Yii::app()->user->checkAccess("D2company.CcmpCompany.Delete")
+                    "visible" => Yii::app()->user->checkAccess("Company.*")
                 ));
                 break;
         }
