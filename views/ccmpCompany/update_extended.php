@@ -72,7 +72,7 @@ switch ($active_tab) {
         break;
 
     case 'company_custom':
-        $this->renderPartial('_form_custom', array('model' => $model));
+        $this->renderPartial('_form_custom', array('model' => $model->cccdCustomData));
         break;
 
     case 'company_group':
