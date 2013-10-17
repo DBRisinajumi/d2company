@@ -50,7 +50,7 @@ class DbrUser extends User
 
 
      
-      public function getRoles() {
+     static public function getRoles() {
          if(self::$_aUserRoles === FALSE){
             self::$_aUserRoles = Rights::getAssignedRoles(Yii::app()->getModule('user')->user()->id);
          }
@@ -74,7 +74,7 @@ class DbrUser extends User
       * get all client companies
       * @return array
       */
-     static public function getOfficeClientCompanies(){
+      static public function getOfficeClientCompanies(){
          if(self::$_aClientOfficeCompanies === FALSE){
 
             $criteria=new CDbCriteria;

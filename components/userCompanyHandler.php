@@ -95,6 +95,12 @@ class userCompanyHandler extends CApplicationComponent
         return $this->_activeCompany;
     }
 
+    public function getActiveCompanyName(){
+    
+            return $this->_activeCompanyName;
+    
+    }
+
      /**
       * get all client companies
       * @return array
@@ -122,12 +128,22 @@ class userCompanyHandler extends CApplicationComponent
 
      private function _setActiveCompany($ccmp_id){
 
-         Yii::app()->getModule('user')->user()->profile->ccmp_id = $ccmp_id;
-         Yii::app()->getModule('user')->user()->profile->save();
+         if(Yii::app()->getModule('user')->user()->profile->ccmp_id != $ccmp_id){
+            //update 
+            $sSql = "
+                UPDATE profiles 
+                SET ccmp_id = ".$ccmp_id." 
+                WHERE 
+                    user_id = ".Yii::app()->getModule('user')->user()->id
+                ;
+            Yii::app()->db->createCommand($sSql)->query();             
+         }
 
          $this->_activeCompany = $ccmp_id;
-         foreach($this->getOfficeClientCompanies as $company){
-             if($company['ccmp_id'] == $company->ccuc_ccmp_id){
+         
+         //set comapny name
+         foreach($this->getOfficeClientCompanies() as $company){
+             if($ccmp_id == $company->ccuc_ccmp_id){
                  $this->_activeCompanyName = $company->ccucCcmp->ccmp_name;
                  return TRUE;
              }
