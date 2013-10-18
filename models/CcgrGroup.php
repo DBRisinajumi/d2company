@@ -28,7 +28,7 @@ class CcgrGroup extends BaseCcgrGroup
                 parent::behaviors(), array(
              //auditrail       
             'LoggableBehavior' => array(
-                'class' => 'vendor.sammaye.audittrail.behaviors.LoggableBehavior'
+                'class' => 'vendor.sammaye.auditrail2.behaviors.LoggableBehavior'
             )
         ));
     }
