@@ -37,6 +37,11 @@ class CcmpCompanyController extends Controller {
                 'roles' => array('Company.readonly'),
             ),
             array(
+                'allow',
+                'actions' => array('view', 'editableSaver'),
+                'roles' => array('ClientOffice'),
+            ),            
+            array(
                 'deny',
                 'users' => array('*'),
             ),
