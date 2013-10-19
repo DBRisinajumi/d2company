@@ -51,7 +51,8 @@ class CcmpCompanyController extends Controller {
         return true;
     }
 
-    public function actionView($ccmp_id) {
+    public function actionView() {
+        $ccmp_id = Yii::app()->userCompany->getActiveCompany();
         $model = $this->loadModel($ccmp_id);
         $this->render('view', array('model' => $model,));
     }
