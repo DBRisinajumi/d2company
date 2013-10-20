@@ -345,11 +345,13 @@ class CcmpCompanyController extends Controller {
         ));
     }
 
-    public function actionUpdatemanager($ccmp_id) {
+    public function actionUpdateManagers($ccmp_id) {
 
         //company        
         $model = $this->loadModel($ccmp_id);
         $model->scenario = $this->scenario;
+        
+         
 
         //update record
         if (isset($_POST['save_company_manager'])) {
@@ -395,22 +397,18 @@ class CcmpCompanyController extends Controller {
                 $Ppxt->delete();
             }
             //reload record, jo attēlos veco tipus
-            $this->redirect(array('updatemanager', 'ccmp_id' => $ccmp_id, 'active_tab' => 'company_branches'));
+            $this->redirect(array('updatemanagers', 'ccmp_id' => $ccmp_id, 'active_tab' => 'company_managers'));
         }
-        $mCcuc = new CcucUserCompany();
-        $mCcbr = new CcbrBranch('search');
-
-        $mCcuc->setAttribute('ccuc_ccmp_id', $ccmp_id);
+       
         $this->render(
                 'update_extended', array(
             'model' => $model,
-            'mCcuc' => $mCcuc,
-            'active_tab' => 'company_manager',
+            'active_tab' => 'company_managers',
                 )
         );
     }
 
-    public function actionAdminManagers($ccmp_id) {
+    public function actionAdminCustomers($ccmp_id) {
         $model = $this->loadModel($ccmp_id);
         $model->scenario = $this->scenario;
         $mCcuc = new CcucUserCompany('search');
@@ -424,7 +422,7 @@ class CcmpCompanyController extends Controller {
         );
     }
 
-    public function actionUpdateManagers($ccmp_id, $ccuc_id) {
+    public function actionUpdateCustomers($ccmp_id, $ccuc_id) {
         $m = new CcucUserCompany();
         $mCcuc = $m->findByPk($ccuc_id);
 
@@ -622,7 +620,11 @@ class CcmpCompanyController extends Controller {
         if (isset($scopes[$this->scope])) {
             $model->{$this->scope}();
         }
-
+        
+        // clear filters
+      //  if (intval(Yii::app()->request->getParam('clearFilters'))==1) {
+      //      EButtonColumnWithClearFilters::clearFilters($this,$model);//where $this is the controller
+      //  }
 
         if (isset($_GET['CcmpCompany'])) {
             $model->attributes = $_GET['CcmpCompany'];
