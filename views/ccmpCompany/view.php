@@ -8,7 +8,7 @@ $this->setPageTitle(
 );
 ?>    
 <h2>
-    <?php echo Yii::t('d2companyModule.crud', 'Your Company data') ?>
+    <?php echo Yii::t('d2companyModule.crud', 'Company data') ?>
 </h2>
 
 <div class="row">
@@ -60,7 +60,7 @@ $this->setPageTitle(
                     )
                 ),
                 array(
-                    'name' => 'ccmp_registration_address',
+                    'name' => 'ccmp_official_address',
                     'type' => 'raw',
                     'value' => $this->widget(
                             'EditableField', array(
