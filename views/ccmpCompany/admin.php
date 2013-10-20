@@ -54,6 +54,7 @@ Yii::app()->clientScript->registerScript('export', "
 $this->widget('TbGridView',
     array(
         'id'=>'ccmp-company-grid',
+        'type'=>'bordered condensed',
         'dataProvider'=>$model->search(),
         'filter'=>$model,
         'template'=>'{items}{summary}{pager}',
@@ -87,11 +88,11 @@ $this->widget('TbGridView',
           //  )
         ),
             
-//       array(
-//            'name' => 'managers',
-//            'header' =>  Yii::t('d2companyModule.crud', 'Managers'),
-//
-//        ),
+       array(
+            'name' => 'managers',
+            'header' =>  Yii::t('d2companyModule.crud', 'Managers'),
+
+        ),
         array(
                     'name'=>'ccmp_ccnt_id',
                     'header' =>  Yii::t('d2companyModule.crud', 'Country'),
