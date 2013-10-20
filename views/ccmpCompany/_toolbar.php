@@ -58,7 +58,7 @@
                         "submit" => array("delete", "ccmp_id" => $model->{$model->tableSchema->primaryKey}, "returnUrl" => (Yii::app()->request->getParam("returnUrl")) ? Yii::app()->request->getParam("returnUrl") : $this->createUrl("admin")),
                         "confirm" => Yii::t("d2companyModule.crud_static", "Do you want to delete this item?")
                     ),
-                    "visible" => Yii::app()->user->checkAccess("Company.*")
+                    "visible" => Yii::app()->user->checkAccess("Company.fullcontrol")
                 ));
                 break;
             case "update":
@@ -87,7 +87,7 @@
                         "submit" => array("delete", "ccmp_id" => $model->{$model->tableSchema->primaryKey}, "returnUrl" => (Yii::app()->request->getParam("returnUrl")) ? Yii::app()->request->getParam("returnUrl") : $this->createUrl("admin")),
                         "confirm" => Yii::t("d2companyModule.crud_static", "Do you want to delete this item?")
                     ),
-                    "visible" => Yii::app()->user->checkAccess("Company.*")
+                    "visible" => Yii::app()->user->checkAccess("Company.fullcontrol")
                 ));
                 break;
         }
