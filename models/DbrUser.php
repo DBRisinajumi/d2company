@@ -44,9 +44,10 @@ class DbrUser extends User
 
 
      
-     static public function getRoles() {
+     public function getRoles() {
          if(self::$_aUserRoles === FALSE){
-            self::$_aUserRoles = Rights::getAssignedRoles(Yii::app()->getModule('user')->user()->id);
+         //   self::$_aUserRoles = Rights::getAssignedRoles(Yii::app()->getModule('user')->user()->id);
+             self::$_aUserRoles = Rights::getAssignedRoles($this->id);
          }
          return   self::$_aUserRoles;
         
