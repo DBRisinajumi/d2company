@@ -70,7 +70,7 @@ class CcmpCompany extends BaseCcmpCompany
         $mCcuc=$this->ccucUserCompany; 
         foreach($mCcuc as $user)
         {
-            $roles = $user->ccucUsers->roles; 
+            $roles = $user->ccucUsers->userroles; 
             if (array_key_exists('Manager',$roles ))
                 $managers[]= $user->ccucUsers->fullname;
         }
