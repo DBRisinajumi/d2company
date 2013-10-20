@@ -36,6 +36,13 @@ class CcmpCompanyController extends Controller {
                 ),
                 'roles' => array('Company.readonly'),
             ),
+            
+            array(
+                'allow',
+                'actions' => array( 'view', 'export','editableSaver'
+                ),
+                'roles' => array('ClientOffice'),
+            ),
             array(
                 'deny',
                 'users' => array('*'),
@@ -69,7 +76,7 @@ class CcmpCompanyController extends Controller {
             try {
 
                 // user validation before company save 
-                if (isset($_POST['username'])) {
+                if (!empty($_POST['username'])) {
 
                     $user = new User;
                     $user->username = $_POST['username'];
@@ -85,7 +92,7 @@ class CcmpCompanyController extends Controller {
 
 
                     // user creation
-
+                    if (!empty($_POST['username'])) {            
                     $user->password = UserModule::encrypting(DbrLib::rand_string(8));
                     if ($user->save()) {
                         $profile = new Profile;
@@ -106,14 +113,17 @@ class CcmpCompanyController extends Controller {
                             $companyuser->save();
                     }
                 }
-
-
-
-                if (isset($_GET['returnUrl'])) {
+                 if (isset($_GET['returnUrl'])) {
                     $this->redirect($_GET['returnUrl']);
                 } else {
-                    $this->redirect(array('update', 'ccmp_id' => $model->ccmp_id));
+                    $this->redirect(array('updateExtended', 'ccmp_id' => $model->ccmp_id));
                 }
+                
+                }
+
+
+
+               
             } catch (Exception $e) {
                 $model->addError('ccmp_id', $e->getMessage());
             }
