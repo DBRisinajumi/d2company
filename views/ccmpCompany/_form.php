@@ -260,10 +260,11 @@
                         <div class='controls'>
                             <?php
                             echo CHtml::activeDropDownList($model, 'ccmp_statuss', array(
-            'ACTIVE' => 'ACTIVE' ,
-            'CLOSED' => 'CLOSED' ,
-            'POTENTIAL' => 'POTENTIAL' ,
-));
+                                   'ACTIVE' => 'ACTIVE' ,
+                                   'CLOSED' => 'CLOSED' ,
+                                   'POTENTIAL' => 'POTENTIAL') ,
+                                 array('style' => 'width: 200px;' ));
+
                             echo $form->error($model,'ccmp_statuss')
                             ?>
                             <span class="help-block">
