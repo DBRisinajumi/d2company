@@ -44,6 +44,11 @@ class CcmpCompanyController extends Controller {
                 'roles' => array('ClientOffice'),
             ),
             array(
+                'allow',
+                'actions' => array('view', 'editableSaver'),
+                'roles' => array('ClientOffice'),
+            ),            
+            array(
                 'deny',
                 'users' => array('*'),
             ),
