@@ -149,7 +149,8 @@ $this->widget('TbGridView',
         #'ccmp_description',
 
             array(
-                'class'=>'TbButtonColumn',
+                //'class'=>'TbButtonColumn',
+                'class'=>'EButtonColumnWithClearFilters',
                 'buttons' => array(
                     'view' => array('visible' => 'FALSE'),
                     'update' => array('visible' => 'Yii::app()->user->checkAccess("Company.fullcontrol")'),
