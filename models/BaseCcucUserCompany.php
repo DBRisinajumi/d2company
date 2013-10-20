@@ -1,98 +1,105 @@
 <?php
 
 /**
- * This is the model base class for the table "ccuc_user_company".
+ * This is the model class for table "ccuc_user_company".
  *
- * Columns in table "ccuc_user_company" available as properties of the model:
+ * The followings are the available columns in table 'ccuc_user_company':
  * @property integer $ccuc_id
  * @property string $ccuc_ccmp_id
  * @property integer $ccuc_user_id
- * @property string $ccuc_first_name
- * @property string $cucc_last_name
- * @property string $ccuc_status
+ * @property string $ccuc_type
  *
- * Relations of table "ccuc_user_company" available as properties of the model:
+ * The followings are the available model relations:
  * @property CcmpCompany $ccucCcmp
  */
-abstract class BaseCcucUserCompany extends CActiveRecord
+class BaseCcucUserCompany extends CActiveRecord
 {
+	/**
+	 * @return string the associated database table name
+	 */
+	public function tableName()
+	{
+		return 'ccuc_user_company';
+	}
 
-    public static function model($className = __CLASS__)
-    {
-        return parent::model($className);
-    }
+	/**
+	 * @return array validation rules for model attributes.
+	 */
+	public function rules()
+	{
+		// NOTE: you should only define rules for those attributes that
+		// will receive user inputs.
+		return array(
+			array('ccuc_ccmp_id, ccuc_user_id', 'required'),
+			array('ccuc_user_id', 'numerical', 'integerOnly'=>true),
+			array('ccuc_ccmp_id', 'length', 'max'=>10),
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('ccuc_id, ccuc_ccmp_id, ccuc_user_id ', 'safe', 'on'=>'search'),
+		);
+	}
 
-    public function tableName()
-    {
-        return 'ccuc_user_company';
-    }
+	/**
+	 * @return array relational rules.
+	 */
+	public function relations()
+	{
+		// NOTE: you may need to adjust the relation name and the related
+		// class name for the relations automatically generated below.
+		return array(
+			'ccucCcmp' => array(self::BELONGS_TO, 'CcmpCompany', 'ccuc_ccmp_id'),
+		        'ccucUsers' => array(self::BELONGS_TO, 'DbrUser', 'ccuc_user_id')
+                    
+                    );
+	}
 
-    public function rules()
-    {
-        return array_merge(
-            parent::rules(), array(
-                array('ccuc_ccmp_id, ccuc_user_id', 'required'),
-                array('ccuc_first_name, cucc_last_name, ccuc_status', 'default', 'setOnEmpty' => true, 'value' => null),
-                array('ccuc_user_id', 'numerical', 'integerOnly' => true),
-                array('ccuc_ccmp_id', 'length', 'max' => 10),
-                array('ccuc_first_name, cucc_last_name', 'length', 'max' => 255),
-                array('ccuc_status', 'length', 'max' => 8),
-                array('ccuc_id, ccuc_ccmp_id, ccuc_user_id, ccuc_first_name, cucc_last_name, ccuc_status', 'safe', 'on' => 'search'),
-            )
-        );
-    }
+	/**
+	 * @return array customized attribute labels (name=>label)
+	 */
+	public function attributeLabels()
+	{
+		return array(
+			'ccuc_id' => 'Ccuc',
+			'ccuc_ccmp_id' => 'Ccuc Ccmp',
+			'ccuc_user_id' => 'Ccuc User',
+					);
+	}
 
-    public function getItemLabel()
-    {
-        return (string) $this->ccuc_ccmp_id;
-    }
+	/**
+	 * Retrieves a list of models based on the current search/filter conditions.
+	 *
+	 * Typical usecase:
+	 * - Initialize the model fields with values from filter form.
+	 * - Execute this method to get CActiveDataProvider instance which will filter
+	 * models according to data in model fields.
+	 * - Pass data provider to CGridView, CListView or any similar widget.
+	 *
+	 * @return CActiveDataProvider the data provider that can return the models
+	 * based on the search/filter conditions.
+	 */
+	public function search()
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
 
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(), array(
-                'savedRelated' => array(
-                    'class' => '\GtcSaveRelationsBehavior'
-                )
-            )
-        );
-    }
+		$criteria=new CDbCriteria;
 
-    public function relations()
-    {
-        return array(
-            'ccucCcmp' => array(self::BELONGS_TO, 'CcmpCompany', 'ccuc_ccmp_id'),
-        );
-    }
+		$criteria->compare('ccuc_id',$this->ccuc_id);
+		$criteria->compare('ccuc_ccmp_id',$this->ccuc_ccmp_id,true);
+		$criteria->compare('ccuc_user_id',$this->ccuc_user_id);
+		
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
 
-    public function attributeLabels()
-    {
-        return array(
-            'ccuc_id' => Yii::t('d2companyModule.crud', 'Ccuc'),
-            'ccuc_ccmp_id' => Yii::t('d2companyModule.crud', 'Ccuc Ccmp'),
-            'ccuc_user_id' => Yii::t('d2companyModule.crud', 'Ccuc User'),
-            'ccuc_first_name' => Yii::t('d2companyModule.crud', 'Ccuc First Name'),
-            'cucc_last_name' => Yii::t('d2companyModule.crud', 'Cucc Last Name'),
-            'ccuc_status' => Yii::t('d2companyModule.crud', 'Ccuc Status'),
-        );
-    }
-
-    public function search($criteria = null)
-    {
-        if (is_null($criteria)) {
-            $criteria = new CDbCriteria;
-        }
-
-        $criteria->compare('t.ccuc_id', $this->ccuc_id);
-        $criteria->compare('t.ccuc_ccmp_id', $this->ccuc_ccmp_id);
-        $criteria->compare('t.ccuc_user_id', $this->ccuc_user_id);
-        $criteria->compare('t.ccuc_first_name', $this->ccuc_first_name, true);
-        $criteria->compare('t.cucc_last_name', $this->cucc_last_name, true);
-        $criteria->compare('t.ccuc_status', $this->ccuc_status, true);
-
-        return new CActiveDataProvider(get_class($this), array(
-            'criteria' => $criteria,
-        ));
-    }
-
+	/**
+	 * Returns the static model of the specified AR class.
+	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+	 * @param string $className active record class name.
+	 * @return BaseCcucUserCompany the static model class
+	 */
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
+	}
 }
