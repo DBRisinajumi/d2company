@@ -56,7 +56,15 @@ $this->widget(
         ),
           array('label' => Yii::t('d2companyModule.crud', 'Company managers'),
             'url' => Yii::app()->controller->createUrl(
-                    'adminManagers', array('ccmp_id' => $model->ccmp_id)),
+                    'updateManagers', array('ccmp_id' => $model->ccmp_id)),
+            'active' => 
+                    ($active_tab == 'company_managers')
+                   
+              ,
+        ),
+         array('label' => Yii::t('d2companyModule.crud', 'Company customers'),
+            'url' => Yii::app()->controller->createUrl(
+                    'adminCustomers', array('ccmp_id' => $model->ccmp_id)),
             'active' => 
                     ($active_tab == 'company_manager_create')
                     || ($active_tab == 'company_manager_list')
@@ -100,22 +108,28 @@ switch ($active_tab) {
             'model' => $mCcbr,
         ));
         break;
-    case 'company_manager_list':
-        $this->renderPartial('_managers_list', array(
+    case 'company_customer_list':
+        $this->renderPartial('_customers_list', array(
             'ccmp_id' => $model->ccmp_id,
             'model' => $mCcuc,
         ));
         break;
-    case 'company_manager_update':
-        $this->renderPartial('_form_managers', array(
+    case 'company_customer_update':
+        $this->renderPartial('_form_customers', array(
             'ccmp_id' => $model->ccmp_id,
             'model' => $mCcuc,
         ));
         break;
-    case 'company_manager_create':
-        $this->renderPartial('_form_managers', array(
+    case 'company_customer_create':
+        $this->renderPartial('_form_customers', array(
             'ccmp_id' => $model->ccmp_id,
             'model' => $mCcuc,
+        ));
+        break;
+    case 'company_managers':
+        $this->renderPartial('_managers', array(
+            'ccmp_id' => $model->ccmp_id,
+            'model' => $model,
         ));
         break;
     default:
