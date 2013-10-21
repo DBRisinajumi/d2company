@@ -68,15 +68,20 @@ class CcmpCompany extends BaseCcmpCompany
         
        
         $mCcuc=$this->ccucUserCompany; 
-        foreach($mCcuc as $user)
+        
+        if (isset($mCcuc))
+        foreach($mCcuc as $u)
         {
-            $roles = $user->ccucUsers->userroles; 
-            if (array_key_exists('Manager',$roles ))
-                $managers[]= $user->ccucUsers->fullname;
+            $user = $u->ccucUsers;
+            if (isset($user)) {
+                $roles = $user->userroles; 
+                 if (array_key_exists('Manager',$roles ))            $managers[]= $user->fullname;
+            }
+           
         }
         
         if (isset($managers)) return implode(',' ,$managers);
-        else return "";
+        else return " ";
         
     }
 
