@@ -63,6 +63,7 @@
                 break;
             case "update":
             case "updateExtended":
+            case "updateCustom":    
             case "updateccbr":
             case "manageccbr":
             case "updategroup":
