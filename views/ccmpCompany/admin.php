@@ -99,6 +99,8 @@ $this->widget('TbGridView',
                     'header' =>  Yii::t('d2companyModule.crud', 'Country'),
                     'value'=>'CHtml::value($data,\'ccmpCcnt.itemLabel\')',
                             'filter'=>CHtml::listData(CcntCountry::model()->findAll(array('limit'=>1000)), 'ccnt_id', 'itemLabel'),
+                     'htmlOptions'=>array('style'=>'width:100px;'),
+
                             ),
          array(
                     'name'=>'ccmp_office_ccit_id',
@@ -133,7 +135,7 @@ $this->widget('TbGridView',
             )
         ),
         array(
-            'class' => 'editable.EditableColumn',
+            //'class' => 'editable.EditableColumn',
             'name' => 'cccdCustomData.number_cars',
             'header' => Yii::t('d2companyModule.crud', 'Trucks'),
            
