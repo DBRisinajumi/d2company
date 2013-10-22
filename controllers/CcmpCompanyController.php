@@ -94,12 +94,18 @@ class CcmpCompanyController extends Controller {
 
 
                 if ($model->save()) {
+                    
+                    // new Custom Data
+                    $custom = new BaseCccdCompanyData;
+                    $custom->cccd_ccmp_id = $model->ccmp_id;
+                    $custom->save();
 
 
                     // user creation
                     if (!empty($_POST['username'])) {            
                     $user->password = UserModule::encrypting(DbrLib::rand_string(8));
                     if ($user->save()) {
+                        
                         $profile = new Profile;
                         $profile->user_id = $user->id;
                         $profile->save();
@@ -152,13 +158,13 @@ class CcmpCompanyController extends Controller {
                     if (isset($_GET['returnUrl'])) {
                         $this->redirect($_GET['returnUrl']);
                     } else {
-                        $this->redirect(array('manageccbr', 'ccmp_id' => $ccmp_id, 'ccbr_id' => $model->ccbr_id));
+                          $this->redirect(array('manageccbr', 'ccmp_id' => $ccmp_id, 'ccbr_id' => $model->ccbr_id));     
                     }
                 }
             } catch (Exception $e) {
                 $model->addError('ccbr_id', $e->getMessage());
             }
-        }
+        } else {
 
         //company
         $model = $this->loadModel($ccmp_id);
@@ -173,6 +179,7 @@ class CcmpCompanyController extends Controller {
             'mCcbr' => $mCcbr,
                 )
         );
+        }
     }
 
     public function actionManageccbr($ccmp_id, $ccbr_id = FALSE) {
