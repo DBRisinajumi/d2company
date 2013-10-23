@@ -29,7 +29,7 @@ class userCompanyHandler extends CApplicationComponent
     public $_activeCompany = FALSE;
     public $_activeCompanyName = FALSE;
 
-    private $_aClientOfficeCompanies = FALSE;
+    private $_aUserCompanies = FALSE;
     /**
      * Handles company detection and application setting by URL parm specified in DATA_KEY
      */
@@ -106,14 +106,14 @@ class userCompanyHandler extends CApplicationComponent
       * @return array
       */
      public function getOfficeClientCompanies(){
-         if($this->_aClientOfficeCompanies === FALSE){
+         if($this->_aUserCompanies === FALSE){
 
             $criteria=new CDbCriteria;
             $criteria->condition='ccuc_user_id=:user_id';
             $criteria->params=array(':user_id' => Yii::app()->getModule('user')->user()->id);
-            $this->_aClientOfficeCompanies  = CcucUserCompany::model()->findAll($criteria); // $params is not needed
+            $this->_aUserCompanies  = CcucUserCompany::model()->findAll($criteria); // $params is not needed
          }
-         return $this->_aClientOfficeCompanies;
+         return $this->_aUserCompanies;
      }
 
      private function _isValidClientCompany($ccmp_id){
