@@ -41,12 +41,12 @@ class CcmpCompanyController extends Controller {
                 'allow',
                 'actions' => array( 'view', 'export','editableSaver'
                 ),
-                'roles' => array('ClientOffice'),
+                'roles' => array(DbrUser::RoleCustomerOffice),
             ),
             array(
                 'allow',
                 'actions' => array('view', 'editableSaver'),
-                'roles' => array('ClientOffice'),
+                'roles' => array(DbrUser::RoleCustomerOffice),
             ),            
             array(
                 'deny',

@@ -11,7 +11,7 @@ class DbrUser extends User
     /**
      * role name for Client Office
      */
-    const RoleClientOffice = 'ClientOffice';
+    const RoleCustomerOffice = 'CustomertOffice';
 
     /**
      * user all roles
@@ -62,15 +62,15 @@ class DbrUser extends User
      }
 
      /**
-      * verify has role ClientOffice
+      * verify has role OfficeUser
       * @return boolean
       */
-     static public function isOfficeClient(){
+     static public function isCustomerOfficeUser(){
          if(Yii::app()->user->isGuest){
              return FALSE;
          }
          $a = self::getRoles();
-         return isset($a[self::RoleClientOffice]);
+         return isset($a[self::RoleCustomerOffice]);
      }
 
 }
