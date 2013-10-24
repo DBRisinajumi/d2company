@@ -138,7 +138,8 @@ abstract class BaseCcmpCompany extends CActiveRecord
         $criteria->compare('t.ccmp_office_phone', $this->ccmp_office_phone, true);
 
         return new CActiveDataProvider(get_class($this), array(
-            'criteria' => $criteria,
+            'criteria' => $criteria, 
+             'sort'=>array('defaultOrder'=>'ccmp_name'),
         ));
     }
 
