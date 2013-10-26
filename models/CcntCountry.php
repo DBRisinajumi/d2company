@@ -28,7 +28,7 @@ class CcntCountry extends BaseCcntCountry
                 parent::behaviors(), array(
              //auditrail       
             'LoggableBehavior' => array(
-                'class' => 'vendor.sammaye.auditrail2.behaviors.LoggableBehavior'
+                'class' => 'LoggableBehavior'
             )
         ));
     }
