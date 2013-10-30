@@ -140,6 +140,8 @@ abstract class BaseCcmpCompany extends CActiveRecord
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria, 
              'sort'=>array('defaultOrder'=>'ccmp_name'),
+             'pagination'=>array('pageSize'=>50),
+
         ));
     }
 
