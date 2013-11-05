@@ -130,7 +130,7 @@ $this->widget('TbGridView',
             'name' => 'ccmp_registration_address',
             'header' =>  Yii::t('d2companyModule.crud', 'Registration Address'),
             'editable' => array(
-                'url' => $this->createUrl('/d2company/ccmpCompany/editableSaver'),
+                'url' => $this->createUrl('/d2company/bfrffuelrefill/editableSaver'),
                 //'placement' => 'right',
             )
         ),
@@ -152,7 +152,7 @@ $this->widget('TbGridView',
         #'ccmp_description',
 
             array(
-                //'class'=>'TbButtonColumn',
+             //   'class'=>'TbButtonColumn',
                 'class'=>'EButtonColumnWithClearFilters',
                 'buttons' => array(
                     'view' => array('visible' => 'FALSE'),
