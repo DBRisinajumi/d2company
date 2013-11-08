@@ -627,7 +627,7 @@ class CcmpCompanyController extends Controller {
     }
 
     public function actionAdmin() {
-        $model = new CcmpCompany('search');
+        $model = new RememberCcmpCompany('search');
         $scopes = $model->scopes();
         if (isset($scopes[$this->scope])) {
             $model->{$this->scope}();
@@ -646,7 +646,7 @@ class CcmpCompanyController extends Controller {
     }
 
     public function actionExport() {
-        $model = new CcmpCompany('search');
+        $model = new RememberCcmpCompany('search');
         $scopes = $model->scopes();
         if (isset($scopes[$this->scope])) {
             $model->{$this->scope}();
