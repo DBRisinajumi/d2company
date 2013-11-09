@@ -20,7 +20,7 @@ class CcmpCompanyController extends Controller {
                 'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin'
                     , 'view', 'updateccbr', 'manageccbr', 'updateGroup', 'updatemanager', 'export',
                     'createccbr', 'updateExtended', 'updateCustom', 'AdminManagers',
-                    'UpdateManagers', 'CreateManager'),
+                    'UpdateManagers', 'CreateManager', 'adminCars'),
                 'roles' => array('Company.fullcontrol'),
             ),
             array(
@@ -146,7 +146,11 @@ class CcmpCompanyController extends Controller {
     }
 
     public function actionCreateccbr($ccmp_id) {
+        
+         $model = new CcbrBranch;
 
+         $this->performAjaxValidation($model, 'ccbr-branch-form');
+        
         if (isset($_POST['CcbrBranch'])) {
 
             $model = new CcbrBranch;
@@ -183,15 +187,7 @@ class CcmpCompanyController extends Controller {
     }
 
     public function actionManageccbr($ccmp_id, $ccbr_id = FALSE) {
-        if (isset($_POST['CcmpCompany'])) {
-            $this->actionUpdate($ccmp_id);
-            return;
-        }
-        if (isset($_POST['save_company_group'])) {
-            $this->actionUpdategroup($ccmp_id);
-            return;
-        }
-
+        
         //company
         $model = $this->loadModel($ccmp_id);
         $model->scenario = $this->scenario;
@@ -420,6 +416,18 @@ class CcmpCompanyController extends Controller {
         );
     }
 
+      public function actionAdminCars($ccmp_id) {
+        $model = $this->loadModel($ccmp_id);
+        $model->scenario = $this->scenario;
+      
+        $this->render(
+            'update_extended', array(
+            'model' => $model,
+            'active_tab' => 'company_car_list',
+                )
+        );
+    }
+    
     public function actionAdminCustomers($ccmp_id) {
         $model = $this->loadModel($ccmp_id);
         $model->scenario = $this->scenario;
@@ -433,6 +441,8 @@ class CcmpCompanyController extends Controller {
                 )
         );
     }
+    
+    
 
     public function actionUpdateCustomers($ccmp_id, $ccuc_id) {
         $m = new CcucUserCompany();
