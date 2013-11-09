@@ -1,4 +1,4 @@
- <div id="branch-form-wrapper">
+  <div id="branch-form-wrapper">
 
     
     <?php
@@ -20,7 +20,7 @@
         $action = Yii::app()->createUrl('//ccbrBranch/createAjax', array('ccmp_id' => $ccmp_id));
        $form=$this->beginWidget('TbActiveForm', array(
             'id' => 'branch-form',
-           
+             'type'=>'inline', 
              'enableAjaxValidation'=>false,
               'htmlOptions'=>array(
                                'onsubmit'=>"return false;",/* Disable normal form submit */
@@ -30,39 +30,88 @@
        
        echo $form->hiddenField($model4update,'ccbr_ccmp_id');
 
-        echo $form->errorSummary($model4update);
-    ?>
-           <table class="horizontal-form" >
+        echo $form->errorSummary($model4update); ?>
+       <table class="horizontal-form" >
               
            <tr>
                      
                       
-                    <td style="width: 100px;">
-                       <?php echo $form->labelEx($model4update, 'ccbr_name') ?>
+                    <td >
+          <div class="control-group">
+                        <div class='control-label'>
+                            <?php echo $form->labelEx($model4update,'ccbr_name') ?>
+                        </div>
+                        <div class='controls'>
                             <?php
-                            echo $form->textField($model4update, 'ccbr_name', array('style' => "width:200px;", 'maxlength' => 255));
-                          
+                            echo $form->textField($model4update,'ccbr_name',array('size'=>60,'maxlength'=>350));
+                           
                             ?>
-                     </td>
-                     <td style="width: 100px;">
-                       <?php echo $form->labelEx($model4update, 'ccbr_code') ?>
+                            <span class="help-block">
+                                
+                                <?php
+                                echo ($t = Yii::t('crud', 'CcbrBranch.ccbr_name') != 'CcbrBranch.ccbr_name')?$t:''
+                                ?>
+                                                            </span>
+                        </div>
+                    </div>
+                    </td>
+                    <td>
+                        <div class="control-group">
+                        <div class='control-label'>
+                            <?php echo $form->labelEx($model4update,'ccbr_code') ?>
+                        </div>
+                        <div class='controls'>
                             <?php
-                            echo $form->textField($model4update, 'ccbr_code', array('style' => "width:100px;", 'maxlength' => 255));
-                          
+                            echo $form->textField($model4update,'ccbr_code',array('size'=>50,'maxlength'=>50));
+                           
                             ?>
-                     </td>
-                     
-                      <td style="width: 100px;">
-                       <?php echo $form->labelEx($model4update, 'ccbr_notes') ?>
+                            <span class="help-block">
+                                
+                                <?php
+                                echo ($t = Yii::t('crud', 'CcbrBranch.ccbr_code') != 'CcbrBranch.ccbr_code')?$t:''
+                                ?>
+                                                            </span>
+                        </div>
+                    </div>
+                        
+                    </td>
+                    <td>
+         <div class="control-group">
+                        <div class='control-label'>
+                            <?php echo $form->labelEx($model4update,'ccbr_notes') ?>
+                        </div>
+                        <div class='controls'>
                             <?php
-                            echo $form->textField($model4update, 'ccbr_notes', array('style' => "width:200px;", 'maxlength' => 255));
-                          
+                            echo $form->textField($model4update,'ccbr_notes',array('size'=>200,'maxlength'=>250));
+                           
                             ?>
-                     </td>
-                     
-                     <td>&nbsp;<br/>
+                            <span class="help-block">
+                                
+                                <?php
+                                echo ($t = Yii::t('crud', 'CcbrBranch.ccbr_code') != 'CcbrBranch.ccbr_code')?$t:''
+                                ?>
+                                                            </span>
+                        </div>
+                    </div>
+                    </td>
+           </tr>
+           <tr>
+               <td>
+                   <? echo $form->error($model4update,'ccbr_name') ; ?>
+               </td>
+               <td>
+                   <? echo $form->error($model4update,'ccbr_code'); ?>
+               </td>
+               <td>
+                    <? echo $form->error($model4update,'ccbr_notes'); ?>
+               </td>
+           </tr>
+       </table>
+                   
+                    <div class="form-actions">  
+                    
                          <?php  
-                         if($this->action->id == 'updateBfrf'){
+                         if($this->action->id == 'updateAjax'){
                          echo CHtml::Button(
                                  Yii::t('FuelingModule.crud_static', 'Cancel'), array(
                              'submit' => array('bcbdCompanyBranchDay/view', ),
@@ -73,23 +122,9 @@
                                  Yii::t('D2companyModule.crud_static', 'Add'), array('class' => 'btn btn-primary','onclick'=>'send();')
                          );
                         ;?>
-                     </td>
-                  </tr>   
-                  <tr>
-                       <td>
-                          <?echo $form->error($model4update,'ccbr_name');?>
-                       </td>
-                       <td>
-                          <?echo $form->error($model4update,'ccbr_code');?>
-                       </td>
-                        <td>
-                          <?echo $form->error($model4update,'ccbr_notes');?>
-                       </td>
-                       <td></td>
-                       
-               </tr> 
-             
-           </table>
+                   
+                    </div>    
+            
  
     <?php $this->endWidget() ?>
     
