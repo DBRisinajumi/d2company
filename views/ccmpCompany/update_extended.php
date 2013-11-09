@@ -71,6 +71,16 @@ $this->widget(
                     || ($active_tab == 'company_manager_update')
               ,
         ),
+        
+         array('label' => Yii::t('d2companyModule.crud', 'Cars'),
+            'url' => Yii::app()->controller->createUrl(
+                    'adminCars', array('ccmp_id' => $model->ccmp_id)),
+            'active' => 
+                    ($active_tab == 'company_car_admin')
+                    || ($active_tab == 'company_car_list')
+                    || ($active_tab == 'company_car_update')
+              ,
+        ),
     )
 ));
 
@@ -132,6 +142,16 @@ switch ($active_tab) {
             'model' => $model,
         ));
         break;
+     case 'company_car_list':
+         
+        $model4grid = new BcarId("search");
+        $model4grid->bcar_ccmp_id =  $model->ccmp_id; 
+        $this->renderPartial('fueling.views.bcarId._combo_form', array(
+            'ccmp_id' => $model->ccmp_id, 'model4grid' => $model4grid,
+            
+        ));
+        break;
+    
     default:
         break;
 }
