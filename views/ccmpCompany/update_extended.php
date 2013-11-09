@@ -100,22 +100,11 @@ switch ($active_tab) {
         ));
         break;
     case 'company_branches':
-        $this->renderPartial('_branch_list', array(
-            'ccmp_id' => $model->ccmp_id,
-            'model' => $mCcbr,
-        ));
-        break;
-    case 'createccbr':
-        $this->renderPartial('_branch_form', array(
-            'ccmp_id' => $model->ccmp_id,
-            'model' => $mCcbr,
-        ));
-        break;
-
-    case 'updateccbr':
-        $this->renderPartial('_branch_form', array(
-            'ccmp_id' => $model->ccmp_id,
-            'model' => $mCcbr,
+        $model4grid = new CcbrBranch("search");
+        $model4grid->ccbr_ccmp_id =  $model->ccmp_id; 
+        $this->renderPartial('/ccbrBranch/_combo_form', array(
+            'ccmp_id' => $model->ccmp_id, 'model4grid' => $model4grid,
+            
         ));
         break;
     case 'company_customer_list':
