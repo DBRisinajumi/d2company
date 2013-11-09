@@ -21,7 +21,7 @@ public function accessRules()
 return array(
 array(
 'allow',
-'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view'),
+'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view', 'adminAjax', 'createAjax'),
 'roles' => array('Company.fullcontrol'),
 ),
 array(
@@ -166,6 +166,56 @@ array(
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
+    }
+    
+     public function actionAdminAjax($ccmp_id)
+    {
+        $model4grid = new CcbrBranch('search');
+        $scopes = $model4grid->scopes();
+        if (isset($scopes[$this->scope])) {
+            $model4grid->{$this->scope}();
+        }
+        $model4grid->unsetAttributes();
+        
+         $model4grid->ccbr_ccmp_id = $ccmp_id;
+
+        if (isset($_GET['CcbrBranch'])) {
+            $model4grid->attributes = $_GET['CcbrBranch'];
+           
+        }
+           
+        $this->renderPartial("_branch_grid", array('model4grid' => $model4grid, 'ccmp_id' => $ccmp_id));
+    }
+    
+    
+    public function actionCreateAjax($ccmp_id) {
+      
+        $model4update = new CcbrBranch();
+        $model4update->scenario = $this->scenario;
+
+        if (isset($_POST['CcbrBranch'])) {
+
+            //  $this->performAjaxValidation($mBfrf, 'bfrf-fuel-refill-form');            
+
+            $model4update->attributes = $_POST['CcbrBranch'];
+            
+            if ($model4update->validate()) {
+
+                try {
+                       
+                       $model4update->save(); 
+                        
+                } catch (Exception $e) {
+                    $model4update->addError('ccbr_id', $e->getMessage());
+                }
+          }
+         } 
+        
+         $model4new = new CcbrBranch;
+         $model4new->ccbr_ccmp_id = $ccmp_id;
+
+         $this->renderPartial("_form_horizontal_ajax", array('ccmp_id' => $ccmp_id, 'model4update' => $model4new)); 
+        //$this->render('view', array('model' => $model, 'model4grid' => $model4grid, 'model4update' => $model4update));
     }
 
 }

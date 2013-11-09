@@ -698,6 +698,8 @@ class CcmpCompanyController extends Controller {
         }
         return $mUser->id;
     }
+    
+    
 
     public function loadModel($id) {
         $m = CcmpCompany::model();
