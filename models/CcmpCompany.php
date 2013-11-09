@@ -30,14 +30,6 @@ class CcmpCompany extends BaseCcmpCompany
             'LoggableBehavior' => array(
                 'class' => 'LoggableBehavior'
             ),
-                    
-             // remember grid filter       
-            'ERememberFiltersBehavior' => array(
-               'class' => 'ERememberFiltersBehavior',
-               'defaults'=>array(),           /* optional line */
-               'defaultStickOnClear'=>false   /* optional line */
-           ),
-             
         ));
     }
     
