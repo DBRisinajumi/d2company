@@ -195,7 +195,7 @@ array(
 
         if (isset($_POST['CcbrBranch'])) {
 
-            //  $this->performAjaxValidation($mBfrf, 'bfrf-fuel-refill-form');            
+            //$this->performAjaxValidation($model4update, 'branch-form');            
 
             $model4update->attributes = $_POST['CcbrBranch'];
             
@@ -208,6 +208,10 @@ array(
                 } catch (Exception $e) {
                     $model4update->addError('ccbr_id', $e->getMessage());
                 }
+          } else
+          {
+                $this->renderPartial("_form_horizontal_ajax", array('ccmp_id' => $ccmp_id, 'model4update' => $model4update)); 
+                exit();
           }
          } 
         
