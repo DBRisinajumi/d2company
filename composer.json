@@ -12,6 +12,6 @@
     ],
     "require": {
         "php": ">=5.3.2",
-        "sammaye/auditrail2": "*"
+        "dbrisinajumi/audittrail": "dev-master"
     }
 }
