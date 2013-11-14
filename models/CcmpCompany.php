@@ -100,4 +100,38 @@ class CcmpCompany extends BaseCcmpCompany
 //        return Yii::app()->db->createCommand($sql)->queryAll();
     }
     
+    
+    public static function createCustomerUser($usermodel ,$ccmp_id){
+        
+         // user creation
+        
+          if (!$usermodel->validate())
+                        throw new Exception('Username or email is not unique, try again or add manually');
+          
+          $pass = DbrLib::rand_string(8);
+          $usermodel->password = UserModule::encrypting($pass);
+          if ($usermodel->save()) {
+                        
+                        $profile = new Profile;
+                        $profile->user_id = $usermodel->id;
+                        $profile->save();
+
+                        // role assignment Customer
+                        //assign role
+                        $authorizer = Yii::app()->getModule("rights")->getAuthorizer();
+                        $authorizer->authManager->assign('CustomerOffice', $usermodel->id);
+
+
+                        //company user
+                        $companyuser = new CcucUserCompany;
+                        $companyuser->ccuc_ccmp_id = $ccmp_id;
+                        $companyuser->ccuc_user_id = $usermodel->id;
+                        if ($companyuser->validate())
+                            $companyuser->save();
+                  
+              
+                    }
+                
+       return $pass; 
+    }
 }
