@@ -11,7 +11,7 @@ class DbrUser extends User
     /**
      * role name for Client Office
      */
-    const RoleCustomerOffice = 'CustomertOffice';
+    const RoleCustomerOffice = 'CustomerOffice';
 
     /**
      * user all roles
@@ -72,5 +72,5 @@ class DbrUser extends User
          $a = self::getRoles();
          return isset($a[self::RoleCustomerOffice]);
      }
-
+          
 }

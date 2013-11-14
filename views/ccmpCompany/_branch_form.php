@@ -8,7 +8,7 @@
 
         $form=$this->beginWidget('TbActiveForm', array(
             'id'=>'ccbr-branch-form',
-            'enableAjaxValidation'=>true,
+            'enableAjaxValidation'=>false,
             'enableClientValidation'=>true,
         ));
 
