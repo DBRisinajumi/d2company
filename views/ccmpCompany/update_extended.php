@@ -66,9 +66,9 @@ $this->widget(
             'url' => Yii::app()->controller->createUrl(
                     'adminCustomers', array('ccmp_id' => $model->ccmp_id)),
             'active' => 
-                    ($active_tab == 'company_manager_create')
-                    || ($active_tab == 'company_manager_list')
-                    || ($active_tab == 'company_manager_update')
+                    ($active_tab == 'company_customer_create')
+                    || ($active_tab == 'company_customer_list')
+                    || ($active_tab == 'company_customer_update')
               ,
         ),
         
@@ -108,23 +108,15 @@ switch ($active_tab) {
         ));
         break;
     case 'company_customer_list':
-        $this->renderPartial('_customers_list', array(
+        
+        
+        
+        $this->renderPartial('../Customers/_combo_form', array(
             'ccmp_id' => $model->ccmp_id,
-            'model' => $mCcuc,
+            'model4grid' => $modelCcuc,
         ));
         break;
-    case 'company_customer_update':
-        $this->renderPartial('_form_customers', array(
-            'ccmp_id' => $model->ccmp_id,
-            'model' => $mCcuc,
-        ));
-        break;
-    case 'company_customer_create':
-        $this->renderPartial('_form_customers', array(
-            'ccmp_id' => $model->ccmp_id,
-            'model' => $mCcuc,
-        ));
-        break;
+ 
     case 'company_managers':
         $this->renderPartial('_managers', array(
             'ccmp_id' => $model->ccmp_id,
