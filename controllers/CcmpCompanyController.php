@@ -20,7 +20,7 @@ class CcmpCompanyController extends Controller {
                 'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin'
                     , 'view', 'updateccbr', 'manageccbr', 'updateGroup', 'updatemanager', 'export',
                     'createccbr', 'updateExtended', 'updateCustom', 'AdminManagers',
-                    'UpdateManagers', 'CreateManager', 'adminCars'),
+                    'UpdateManagers', 'CreateManager', 'adminCars','adminCustomers'),
                 'roles' => array('Company.fullcontrol'),
             ),
             array(
@@ -80,19 +80,6 @@ class CcmpCompanyController extends Controller {
 
             try {
 
-                // user validation before company save 
-                if (!empty($_POST['username'])) {
-
-                    $user = new User;
-                    $user->username = $_POST['username'];
-                    $user->email = $model->ccmp_office_email;
-                    $user->superuser = 0;
-                    $user->status = 1;
-                    if (!$user->validate())
-                        throw new Exception('Username or email is not unique, try again or add manually');
-                }
-
-
                 if ($model->save()) {
                     
                     // new Custom Data
@@ -100,29 +87,26 @@ class CcmpCompanyController extends Controller {
                     $custom->cccd_ccmp_id = $model->ccmp_id;
                     $custom->save();
 
-
+                     
                     // user creation
-                    if (!empty($_POST['username'])) {            
-                    $user->password = UserModule::encrypting(DbrLib::rand_string(8));
-                    if ($user->save()) {
+                    if (!empty($_POST['username'])) {   
                         
-                        $profile = new Profile;
-                        $profile->user_id = $user->id;
-                        $profile->save();
-
-                        // role assignment Customer
-                        //assign role
-                        $authorizer = Yii::app()->getModule("rights")->getAuthorizer();
-                        $authorizer->authManager->assign('Customer', $user->id);
-
-
-                        //company user
-                        $companyuser = new CcucUserCompany;
-                        $companyuser->ccuc_ccmp_id = $model->ccmp_id;
-                        $companyuser->ccuc_user_id = $user->id;
-                        if ($companyuser->validate())
-                            $companyuser->save();
-                    }
+                        try {
+                             
+                              $user = new User;
+                              $user->username = $_POST['username'];
+                              $user->email = $model->ccmp_office_email;
+                              $user->superuser = 0;
+                              $user->status = 1;
+                              CcmpCompany::createCustomerUser($user ,$model->ccmp_id);
+                             
+                        } catch (Exception $e) {
+                            
+                              $user = Yii::app()->getComponent('user');
+                              $user->setFlash('warning', $e->message); 
+                            
+                        }
+                    
                 }
                  if (isset($_GET['returnUrl'])) {
                     $this->redirect($_GET['returnUrl']);
@@ -144,7 +128,7 @@ class CcmpCompanyController extends Controller {
 
         $this->render('create', array('model' => $model));
     }
-
+    
     public function actionCreateccbr($ccmp_id) {
         
          $model = new CcbrBranch;
@@ -319,40 +303,6 @@ class CcmpCompanyController extends Controller {
         );
     }
 
-    public function actionCreateManager($ccmp_id) {
-        $model = new CcucUserCompany;
-        $model->scenario = $this->scenario;
-
-        $this->performAjaxValidation($model, 'ccuc-user-company-form');
-
-        if (isset($_POST['CcucUserCompany'])) {
-
-            $user_id = $this->_createUser('a1a4', 'aa4@a1.lv','111');
-            if ($user_id) {
-                $model->attributes = $_POST['CcucUserCompany'];
-                $model->ccuc_user_id = $user_id;
-
-                try {
-                    if ($model->save()) {
-                        if (isset($_GET['returnUrl'])) {
-                            $this->redirect($_GET['returnUrl']);
-                        } else {
-                            $this->redirect(array('adminManagers', 'ccmp_id' => $ccmp_id));
-                        }
-                    }
-                } catch (Exception $e) {
-                    $model->addError('ccuc_id', $e->getMessage());
-                }
-            }
-        }
-        $mCcmp = $this->loadModel($ccmp_id);
-        $this->render('update_extended', array(
-            'mCcuc' => $model,
-            'model' => $mCcmp,
-            'active_tab' => 'company_manager_create',
-        ));
-    }
-
     public function actionUpdateManagers($ccmp_id) {
 
         //company        
@@ -428,22 +378,26 @@ class CcmpCompanyController extends Controller {
         );
     }
     
-    public function actionAdminCustomers($ccmp_id) {
+     public function actionAdminCustomers($ccmp_id) {
+        
         $model = $this->loadModel($ccmp_id);
-        $model->scenario = $this->scenario;
+        $model->scenario = $this->scenario; 
         $mCcuc = new CcucUserCompany('search');
         $mCcuc->setAttribute('ccuc_ccmp_id', $ccmp_id);
+      
+        
         $this->render(
-                'update_extended', array(
+                '/ccmpCompany/update_extended', array(
             'model' => $model,
-            'mCcuc' => $mCcuc,
-            'active_tab' => 'company_manager_list',
+            'modelCcuc' => $mCcuc,
+            'active_tab' => 'company_customer_list',
                 )
         );
     }
     
+   
     
-
+   
     public function actionUpdateCustomers($ccmp_id, $ccuc_id) {
         $m = new CcucUserCompany();
         $mCcuc = $m->findByPk($ccuc_id);
