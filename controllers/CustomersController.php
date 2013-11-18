@@ -17,7 +17,7 @@ class CustomersController extends Controller {
         return array(
             array(
                 'allow',
-                'actions' => array('adminCustomers', 'createAjax' , 'adminAjax'),
+                'actions' => array('adminCustomers', 'createAjax' , 'adminAjax', 'delete'),
                 'roles' => array('Company.fullcontrol'),
             ),
             array(
@@ -59,6 +59,18 @@ class CustomersController extends Controller {
         }
         return true;
     }
+    
+  public function actionDelete($id){
+      
+      $profile =  Profile::model()->findByPk($id);
+      $profile->delete();
+      
+      $user =  User::model()->findByPk($id);
+      $user->delete();
+      
+      $ccuc = CcucUserCompany::model()->deleteAll('ccuc_user_id =:id', array(':id' => $id));     
+      
+  }   
 
   public function actionCreateAjax($ccmp_id) {
       
