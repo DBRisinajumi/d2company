@@ -101,7 +101,7 @@ class CcmpCompany extends BaseCcmpCompany
     }
     
     
-    public static function createCustomerUser($usermodel ,$ccmp_id){
+    public static function createCustomerUser($usermodel , $profilemodel, $ccmp_id){
         
          // user creation
         
@@ -112,9 +112,8 @@ class CcmpCompany extends BaseCcmpCompany
           $usermodel->password = UserModule::encrypting($pass);
           if ($usermodel->save()) {
                         
-                        $profile = new Profile;
-                        $profile->user_id = $usermodel->id;
-                        $profile->save();
+                        $profilemodel->user_id = $usermodel->id;
+                        $profilemodel->save();
 
                         // role assignment Customer
                         //assign role

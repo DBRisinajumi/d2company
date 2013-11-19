@@ -74,8 +74,6 @@ class CustomersController extends Controller {
 
   public function actionCreateAjax($ccmp_id) {
       
-        $model4update = new User;
-        $model4update->scenario = $this->scenario;
 
         if (isset($_POST['User'])) {
 
@@ -88,16 +86,28 @@ class CustomersController extends Controller {
                  $user->email =  $_POST['User']['email'];
                  $user->superuser = 0;
                  $user->status = 1;
-                 $pass = CcmpCompany::createCustomerUser($user ,$ccmp_id);
                  
-                       
+                 $profile = new Profile;
+                 $profile->attributes = $_POST['Profile'];
+                 
+                 if (!$user->validate()  || !$profile->validate() ){
+                     
+                      $this->renderPartial("/Customers/_form_horizontal_ajax", array('ccmp_id' => $ccmp_id, 'model4updateuser' => $user ,'model4updateprofile' => $profile)); 
+                      exit();
+                 }
+                     
+                 
+                 
+                 $pass = CcmpCompany::createCustomerUser($user , $profile, $ccmp_id);
+                 
+                                      
                  $yiiuser = Yii::app()->getComponent('user');
                  $yiiuser->setFlash('success',"Customer user created with password ".$pass);
                  
                     
             } catch (Exception $e) {
                 
-                $this->renderPartial("/Customers/_form_horizontal_ajax", array('ccmp_id' => $ccmp_id, 'model4update' => $user)); 
+                $this->renderPartial("/Customers/_form_horizontal_ajax", array('ccmp_id' => $ccmp_id, 'model4updateuser' => $user,'model4updateprofile' => $profile)); 
                 exit();
                 
             }     
@@ -107,9 +117,10 @@ class CustomersController extends Controller {
           
          } 
         
-         $model4new = new User;
+         $model4newuser = new User;
+         $model4newprofile = new Profile;
          
-         $this->renderPartial("/Customers/_form_horizontal_ajax", array('ccmp_id' => $ccmp_id, 'model4update' => $model4new)); 
+         $this->renderPartial("/Customers/_form_horizontal_ajax", array('ccmp_id' => $ccmp_id, 'model4updateuser' => $model4newuser,'model4updateprofile' => $model4newprofile)); 
         //$this->render('view', array('model' => $model, 'model4grid' => $model4grid, 'model4update' => $model4update));
     } 
 
