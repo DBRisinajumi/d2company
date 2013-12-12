@@ -44,21 +44,16 @@
        
        echo Chtml::hiddenField('ccmp_id',$ccmp_id);
 
-        echo $form->errorSummary($model4update); ?>
-       <table class="horizontal-form" >
-              
-           <tr>
-                     
-                      
-                    <td >
+        echo $form->errorSummary($model4updateuser); ?>
+      
           <div class="control-group">
                         <div class='control-label'>
-                            <?php echo $form->labelEx($model4update,'username') ?>
+                            <?php echo $form->labelEx($model4updateuser,'username') ?>
                         </div>
                         <div class='controls'>
                             <?php
-                            echo $form->textField($model4update,'username',array('size'=>200,'maxlength'=>350));
-                           
+                            echo $form->textField($model4updateuser,'username',array('size'=>200,'maxlength'=>350));
+                            echo $form->error($model4updateuser,'username') ; 
                             ?>
                             <span class="help-block">
                                 
@@ -66,16 +61,15 @@
                                                             </span>
                         </div>
                     </div>
-                    </td>
-                    <td>
+                    
                         <div class="control-group">
                         <div class='control-label'>
-                            <?php echo $form->labelEx($model4update,'email') ?>
+                            <?php echo $form->labelEx($model4updateuser,'email') ?>
                         </div>
                         <div class='controls'>
                             <?php
-                            echo $form->textField($model4update,'email',array('size'=>200,'maxlength'=>50));
-                           
+                            echo $form->textField($model4updateuser,'email',array('size'=>200,'maxlength'=>50));
+                             echo $form->error($model4updateuser,'email'); 
                             ?>
                             <span class="help-block">
                                 
@@ -83,22 +77,53 @@
                                                             </span>
                         </div>
                     </div>
-                        
-                    </td>
-                    <td>
-         
-                    </td>
-           </tr>
-           <tr>
-               <td>
-                   <? echo $form->error($model4update,'name') ; ?>
-               </td>
-               <td>
-                   <? echo $form->error($model4update,'email'); ?>
-               </td>
-              
-           </tr>
-       </table>
+      <div class="control-group">
+                        <div class='control-label'>
+                            <?php echo CHtml::label(Yii::t('d2companyModule.crud', 'Send password'),FALSE); ?>
+                        </div>
+                        <div class='controls'>
+                            <?php
+                             echo CHtml::textField('email_pass', '' ,array('size'=>100,'maxlength'=>100));
+                           
+                            ?>
+                          
+                        </div>
+                    </div>
+                     
+                           <div class="control-group">
+                        <div class='control-label'>
+                            <?php echo $form->labelEx($model4updateprofile,'first_name') ?>
+                        </div>
+                        <div class='controls'>
+                            <?php
+                            echo $form->textField($model4updateprofile,'first_name',array('size'=>200,'maxlength'=>50));
+                             echo $form->error($model4updateprofile,'first_name'); 
+                            ?>
+                            <span class="help-block">
+                                
+                              
+                                                            </span>
+                        </div>
+                    </div>
+    
+        <div class="control-group">
+                        <div class='control-label'>
+                            <?php echo $form->labelEx($model4updateprofile,'last_name') ?>
+                        </div>
+                        <div class='controls'>
+                            <?php
+                            echo $form->textField($model4updateprofile,'last_name',array('size'=>200,'maxlength'=>50));
+                             echo $form->error($model4updateprofile,'last_name'); 
+                            ?>
+                            <span class="help-block">
+                                
+                              
+                                                            </span>
+                        </div>
+                    </div>
+             
+                  
+               
                    
                     <div class="form-actions">  
                     

@@ -74,10 +74,10 @@ $this->widget('TbGridView',
             'class' => 'TbButtonColumn',
             'buttons' => array(
                 'view' => array('visible' => 'FALSE'),
-                'delete' => array('visible' => 'FALSE'),
+                'delete' => array('visible' => 'TRUE'),
             ),
              'updateButtonUrl' => 'Yii::app()->controller->createUrl("updateccbr")',
-            'deleteButtonUrl' => 'Yii::app()->controller->createUrl("ccbrBranch/delete")',
+            'deleteButtonUrl' => 'Yii::app()->controller->createUrl("Customers/delete",array("id" => $data->ccucUsers->id))',
       
             ),
     )

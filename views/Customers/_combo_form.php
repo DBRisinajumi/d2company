@@ -28,16 +28,13 @@ $this->widget(
 ?>
 </div>
 
-<? $model4update = new User;
-
+<? $model4newuser = new User;
+   $model4newprofile = new Profile;
 
 //form
 ?> <div id="branch-form-add" style="display:none;">    <?
 
- $this->renderPartial('/Customers/_form_horizontal_ajax', array(
-               'model4update' => $model4update,
-               'ccmp_id' => $ccmp_id     
-        ));
+  $this->renderPartial("/Customers/_form_horizontal_ajax", array('ccmp_id' => $ccmp_id, 'model4updateuser' => $model4newuser,'model4updateprofile' => $model4newprofile)); 
  
  ?> </div>    <?
  
