@@ -17,6 +17,9 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Add' => 'Pievienot',
+  'Export' => 'Eksportēt',
+  'List' => 'Saraksts',
   'Cancel' => 'Atcelt',
   'Create' => 'Pievienot',
   'Data' => 'Dati',

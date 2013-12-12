@@ -133,8 +133,10 @@ class BaseCccdCompanyData extends UActiveRecord
 		);
 		$model=self::getFields();
 		
-		foreach ($model as $field)
-			$labels[$field->varname] = ((Yii::app()->getModule('user')->fieldsMessage)?UserModule::t($field->title,array(),Yii::app()->getModule('user')->fieldsMessage):UserModule::t($field->title));
+		foreach ($model as $field){
+			//$labels[$field->varname] = ((Yii::app()->getModule('user')->fieldsMessage)?UserModule::t($field->title,array(),Yii::app()->getModule('user')->fieldsMessage):UserModule::t($field->title));
+			$labels[$field->varname] = Yii::t('d2companyModule.crud', $field->title);
+        }
 			
 		return $labels;
 	}
