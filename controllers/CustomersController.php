@@ -99,10 +99,22 @@ class CustomersController extends Controller {
                  
                  
                  $pass = CcmpCompany::createCustomerUser($user , $profile, $ccmp_id);
-                 
-                                      
+                
                  $yiiuser = Yii::app()->getComponent('user');
                  $yiiuser->setFlash('success',"Customer user created with password ".$pass);
+                 
+                 if (isset($_POST['email_pass'])){ 
+                                      
+                       $message = new YiiMailMessage;
+                       $message->setSubject('New user created');
+                       $message->setBody('New user created. <br />
+                                   username: <b>'. $user->username.'</b>, password:<b> '.$pass.'</b>', 'text/html');
+ 
+ 
+                       $message->addTo($_POST['email_pass']);
+                       $message->from = 'noreply@parkoil.lt';
+                       $sent = Yii::app()->mail->send($message);
+                 } 
                  
                     
             } catch (Exception $e) {
