@@ -17,6 +17,8 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Attachments' => 'Вложения',
+  'Add file' => 'Добавить файл',
   'Ccbr' => '',
   'Ccbr Branch' => '',
   'Ccbr Branches' => '',
@@ -45,6 +47,7 @@ return array (
   'Ccmp Companies' => '',
   'Ccmp Company' => '',
   'Description' => 'Описание',
+  'Files' => 'Файлы',  
   'Office address' => 'Адрес офиса',
   'Legal address' => 'Юридический адрес',  
   'Legal address city' => 'Юридический адрес Город', 

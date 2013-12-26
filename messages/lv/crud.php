@@ -18,6 +18,8 @@
  */
 return array (
   'Author' => 'Autors',
+  'Attachments' => 'Faili',
+  'Add file' => 'Pievienot failu',
   'BINARY' => 'Binārs',
   'BLOB' => '',
   'BOOL' => '',
@@ -63,6 +65,7 @@ return array (
   'Description' => 'Apraksts',
   'FLOAT' => '',
   'File name' => 'Faila nosaukums',
+  'Files' => 'Faili',  
   'For all' => 'Visiem',
   'Fuel Station' => 'DUS',
   'INTEGER' => '',

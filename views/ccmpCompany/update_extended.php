@@ -81,6 +81,13 @@ $this->widget(
                     || ($active_tab == 'company_car_update')
               ,
         ),
+
+        array(
+            'label' => Yii::t('d2companyModule.crud', 'Files'),
+            'url' => Yii::app()->controller->createUrl(
+                        'updateFiles', array('ccmp_id' => $model->ccmp_id)),
+                        'active' => ($active_tab == 'company_files'),
+        ),
     )
 ));
 
@@ -130,6 +137,13 @@ switch ($active_tab) {
         $this->renderPartial('fueling.views.bcarId._combo_form', array(
             'ccmp_id' => $model->ccmp_id, 'model4grid' => $model4grid,
             
+        ));
+        break;
+
+    case 'company_files':
+         
+        $this->renderPartial('_files', array(
+            'model' => $model, 
         ));
         break;
     

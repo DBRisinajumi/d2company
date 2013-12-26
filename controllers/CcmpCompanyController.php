@@ -20,7 +20,9 @@ class CcmpCompanyController extends Controller {
                 'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin'
                     , 'view', 'updateccbr', 'manageccbr', 'updateGroup', 'updatemanager', 'export',
                     'createccbr', 'updateExtended', 'updateCustom', 'AdminManagers',
-                    'UpdateManagers', 'CreateManager', 'adminCars','adminCustomers'),
+                    'UpdateManagers', 'CreateManager', 'adminCars','adminCustomers','updateFiles',
+                    'upload','deleteFile','downloadFile'
+                    ),
                 'roles' => array('Company.fullcontrol'),
             ),
             array(
@@ -32,7 +34,7 @@ class CcmpCompanyController extends Controller {
             ),
             array(
                 'allow',
-                'actions' => array('admin', 'view', 'export',
+                'actions' => array('admin', 'view', 'export','downloadFile'
                 ),
                 'roles' => array('Company.readonly'),
             ),
@@ -365,6 +367,57 @@ class CcmpCompanyController extends Controller {
                 )
         );
     }
+    
+    public function actionUpdateFiles($ccmp_id) {
+
+        //company        
+        $model = $this->loadModel($ccmp_id);
+        $model->scenario = $this->scenario;
+       
+        $this->render(
+            'update_extended', array(
+            'model' => $model,
+            'active_tab' => 'company_files',
+                )
+        );
+    }
+    
+    public function actionUpload($model_id ) {
+
+        Yii::import( "vendor.dbrisinajumi.d1files.compnents.*");
+        $oUploadHandler = new UploadHandlerD1files(
+                        array(
+                            'model_name' => 'CcmpCompany',
+                            'model_id' => $model_id,
+                        )
+        );
+
+    }
+
+    public function actionDeleteFile($id) {
+        Yii::import( "vendor.dbrisinajumi.d1files.compnents.*");        
+        UploadHandlerD1files::deleteFile($id);
+    }
+
+    public function actionDownloadFile($id) {
+        
+        $m = D1files::model();
+        $model = $m->findByPk($id);
+        if ($model === null) {
+            throw new CHttpException(404, 'The requested record in d1files does not exist.');
+        }
+        
+        Yii::import( "vendor.dbrisinajumi.d1files.compnents.*");
+        $oUploadHandler = new UploadHandlerD1files(
+                        array(
+                            'model_name' => 'CcmpCompany',
+                            'model_id' => $id,
+                            'download_via_php' => TRUE,
+                            'file_name' => $model->file_name,
+                        )
+        );  
+    }    
+    
 
       public function actionAdminCars($ccmp_id) {
         $model = $this->loadModel($ccmp_id);

@@ -77,10 +77,13 @@ $this->widget('bootstrap.widgets.TbTabs', array(
             'content' => $this->clips['company_branches'],
             'active' => ($active_tab == 'company_branches'),
         ),
-          array('label' => Yii::t('d2companyModule.crud', 'Company managers'),
+        array('label' => Yii::t('d2companyModule.crud', 'Company managers'),
             'content' => $this->clips['company_manager'],
             'active' => ($active_tab == 'company_manager'),
         ),
+        array('label' => Yii::t('d2companyModule.crud', 'Files'),
+            'content' => $this->clips['company_files'],
+            'active' => ($active_tab == 'company_files'),
+        ),
     )
 ));
-?>
