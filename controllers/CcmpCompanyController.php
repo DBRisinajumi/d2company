@@ -432,25 +432,77 @@ class CcmpCompanyController extends Controller {
     }
     
      public function actionAdminCustomers($ccmp_id) {
-        
+        yii::import('vendor.dbrisinajumi.person.PersonModule');
+
+
+        if (isset($_POST['Person'])) {
+            $model_person = new Person;
+            $model_person->scenario = $this->scenario;
+
+            $this->performAjaxValidation($model_person, 'person-form');
+
+            $model_person->attributes = $_POST['Person'];
+
+            try {
+                $model_person->save();
+                $mCcuc = new CcucUserCompany;
+                $mCcuc->ccuc_ccmp_id = $ccmp_id;
+                $mCcuc->ccuc_person_id = $model_person->primaryKey;
+                $mCcuc->save();
+            } catch (Exception $e) {
+                $model_person->addError('id', $e->getMessage());
+            }
+        }
+
+        if (isset($_POST['CcucUserCompany'])) {
+            $model_uc = new CcucUserCompany;
+            $model_uc->scenario = $this->scenario;
+
+            $this->performAjaxValidation($model_uc, 'person-form');
+
+            $model_uc->attributes = $_POST['CcucUserCompany'];
+            $model_uc->ccuc_ccmp_id = $ccmp_id;
+            try {
+                $model_uc->save();
+            } catch (Exception $e) {
+                $model_person->addError('id', $e->getMessage());
+            }
+        }
+
+        $model_person = new Person;
+        $model_ccuc = new CcucUserCompany;
         $model = $this->loadModel($ccmp_id);
-        $model->scenario = $this->scenario; 
-        $mCcuc = new CcucUserCompany('search');
-        $mCcuc->setAttribute('ccuc_ccmp_id', $ccmp_id);
-      
+        $model->scenario = $this->scenario;
+        $model_cucc_new = new CcucUserCompany();
         
-        $this->render(
-                '/ccmpCompany/update_extended', array(
-            'model' => $model,
-            'modelCcuc' => $mCcuc,
-            'active_tab' => 'company_customer_list',
-                )
-        );
+        // perosn list
+        $mCcuc = new CcucUserCompany('search');
+        $mCcuc->unsetAttributes();
+        $mCcuc->setAttribute('ccuc_ccmp_id', $ccmp_id);
+
+        if (isset($_GET['isAjaxRequest'])) {
+            $this->renderPartial(
+                    '/ccmpCompany/update_extended', array(
+                'model' => $model,
+                'modelCcuc' => $mCcuc,
+                'model_cucc_new' => $model_cucc_new,
+                'model_person' => $model_person,
+                'active_tab' => 'company_customer_list',
+                    )
+            );
+        } else {
+            $this->render(
+                    '/ccmpCompany/update_extended', array(
+                'model' => $model,
+                'modelCcuc' => $mCcuc,
+                'model_cucc_new' => $model_cucc_new,
+                'model_person' => $model_person,
+                'active_tab' => 'company_customer_list',
+                    )
+            );
+        }
     }
-    
-   
-    
-   
+
     public function actionUpdateCustomers($ccmp_id, $ccuc_id) {
         $m = new CcucUserCompany();
         $mCcuc = $m->findByPk($ccuc_id);

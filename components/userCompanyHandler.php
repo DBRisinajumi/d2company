@@ -8,7 +8,7 @@
 /**
  * Handles user company detection and application setting by URL parm specified in
  * @author  Uldis Nelsons
-  * @package d2company.components
+ * @package d2company.components
  */
 class userCompanyHandler extends CApplicationComponent
 {
@@ -85,8 +85,7 @@ class userCompanyHandler extends CApplicationComponent
         if($this->_activeCompany){
             return $this->_activeCompany;
         }
-        //var_dump(Yii::app()->user);exit;
-        //$cmmp_id = Yii::app()->user->profile->ccmp_id;
+
         $cmmp_id = Yii::app()->getModule('user')->user()->profile->ccmp_id;
         if(!$cmmp_id){
             return FALSE;
@@ -107,11 +106,12 @@ class userCompanyHandler extends CApplicationComponent
       */
      public function getOfficeClientCompanies(){
          if($this->_aUserCompanies === FALSE){
-
-            $criteria=new CDbCriteria;
-            $criteria->condition='ccuc_user_id=:user_id';
-            $criteria->params=array(':user_id' => Yii::app()->getModule('user')->user()->id);
-            $this->_aUserCompanies  = CcucUserCompany::model()->findAll($criteria); // $params is not needed
+            
+            $criteria = new CDbCriteria;
+            $criteria->join .= 'INNER JOIN person p ON p.id = ccuc_person_id';
+            $criteria->condition='p.user_id = ' . Yii::app()->getModule('user')->user()->id;
+            $this->_aUserCompanies  = CcucUserCompany::model()->findAll($criteria); // $params is not needed            
+            
          }
          return $this->_aUserCompanies;
      }
@@ -152,5 +152,3 @@ class userCompanyHandler extends CApplicationComponent
      }
 
 }
-
-?>

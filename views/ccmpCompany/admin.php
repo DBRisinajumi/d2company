@@ -88,12 +88,12 @@ $this->widget('TbGridView',
           //  )
         ),
             
-      array(
-            'name' => 'managers',
-            'header' =>  Yii::t('d2companyModule.crud', 'Managers'),
-            
-
-        ),
+//      array(
+//            'name' => 'managers',
+//            'header' =>  Yii::t('d2companyModule.crud', 'Managers'),
+//            
+//
+//        ),
         array(
                     'name'=>'ccmp_ccnt_id',
                     'header' =>  Yii::t('d2companyModule.crud', 'Country'),

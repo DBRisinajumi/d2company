@@ -2,191 +2,125 @@
 
     
     <?php
-        Yii::app()->bootstrap->registerAssetCss('../select2/select2.css');
-        Yii::app()->bootstrap->registerAssetJs('../select2/select2.js');
-        Yii::app()->clientScript->registerScript('crud/variant/update','$(".crud-form select").select2();');
-
+    
+       
         $form=$this->beginWidget('TbActiveForm', array(
-            'id'=>'ccbr-branch-form',
-            'enableAjaxValidation'=>true,
-            'enableClientValidation'=>true,
+            'id' => 'person-form',
+            'enableAjaxValidation' => false,
+            'enableClientValidation' => true,
+            'htmlOptions' => array(
+                'enctype' => ''
+            )
         ));
 
+        
+        
         echo $form->errorSummary($model);
     ?>
     
     <div class="row">
-        <div class="span7"> <!-- main inputs -->
-            <h2>
-                <?php echo Yii::t('d2companyModule.crud_static','Data')?>                <small>
-                    <?php echo $model->itemLabel ?>
-                </small>
-
-            </h2>
-
-
-            <div class="form-horizontal">
-
-                
+            <div class="span7">
+                <div class="form-horizontal">
+                    <h3><?php echo Yii::t('d2companyModule.crud_static','Add existing person')?></h3>                    
                     <div class="control-group">
                         <div class='control-label'>
                             <?php  ?>
                         </div>
                         <div class='controls'>
-                            <?php
+                            <span class="tooltip-wrapper" data-toggle='tooltip' data-placement="right"
+                                 title='<?php echo (($t = Yii::t('PersonModule.model', 'tooltip.id')) != 'tooltip.id')?$t:'' ?>'>
+                                <?php
                             ;
-                            echo $form->error($model,'ccbr_id')
-                            ?>
-                            <span class="help-block">
-                                
-                                <?php
-                                echo ($t = Yii::t('crud', 'CcbrBranch.ccbr_id') != 'CcbrBranch.ccbr_id')?$t:''
-                                ?>
-                                                            </span>
+                            echo $form->error($model,'id')
+                            ?>                            </span>
                         </div>
                     </div>
-
-                
+                    <?php  ?>
+                                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
-                            <?php echo $form->labelEx($model,'ccbr_ccmp_id') ?>
+                            <?php echo $form->labelEx($model, 'first_name') ?>
                         </div>
                         <div class='controls'>
-                            <?php
-                            $this->widget(
-                        '\GtcRelation',
-                        array(
-                            'model' => $model,
-                            'relation' => 'ccbrCcmp',
-                            'fields' => 'itemLabel',
-                            'allowEmpty' => true,
-                            'style' => 'dropdownlist',
-                            'htmlOptions' => array(
-                                'checkAll' => 'all'),
-                            )
-                        );
-                            echo $form->error($model,'ccbr_ccmp_id')
-                            ?>
-                            <span class="help-block">
-                                
+                            <span class="tooltip-wrapper" data-toggle='tooltip' data-placement="right"
+                                 title='<?php echo (($t = Yii::t('PersonModule.model', 'tooltip.first_name')) != 'tooltip.first_name')?$t:'' ?>'>
                                 <?php
-                                echo ($t = Yii::t('crud', 'CcbrBranch.ccbr_ccmp_id') != 'CcbrBranch.ccbr_ccmp_id')?$t:''
-                                ?>
-                                                            </span>
+                            echo $form->textField($model, 'first_name', array('size' => 60, 'maxlength' => 255));
+                            echo $form->error($model,'first_name')
+                            ?>                            </span>
                         </div>
                     </div>
-
-                
+                    <?php  ?>
+                                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
-                            <?php echo $form->labelEx($model,'ccbr_name') ?>
+                            <?php echo $form->labelEx($model, 'last_name') ?>
                         </div>
                         <div class='controls'>
-                            <?php
-                            echo $form->textField($model,'ccbr_name',array('size'=>60,'maxlength'=>350));
-                            echo $form->error($model,'ccbr_name')
-                            ?>
-                            <span class="help-block">
-                                
+                            <span class="tooltip-wrapper" data-toggle='tooltip' data-placement="right"
+                                 title='<?php echo (($t = Yii::t('PersonModule.model', 'tooltip.last_name')) != 'tooltip.last_name')?$t:'' ?>'>
                                 <?php
-                                echo ($t = Yii::t('crud', 'CcbrBranch.ccbr_name') != 'CcbrBranch.ccbr_name')?$t:''
-                                ?>
-                                                            </span>
+                            echo $form->textField($model, 'last_name', array('size' => 60, 'maxlength' => 255));
+                            echo $form->error($model,'last_name')
+                            ?>                            </span>
                         </div>
                     </div>
-
-                
+                    <?php  ?>
+                                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
-                            <?php echo $form->labelEx($model,'ccrb_code') ?>
+                            <?php echo $form->labelEx($model, 'email') ?>
                         </div>
                         <div class='controls'>
-                            <?php
-                            echo $form->textField($model,'ccrb_code',array('size'=>50,'maxlength'=>50));
-                            echo $form->error($model,'ccrb_code')
-                            ?>
-                            <span class="help-block">
-                                
+                            <span class="tooltip-wrapper" data-toggle='tooltip' data-placement="right"
+                                 title='<?php echo (($t = Yii::t('PersonModule.model', 'tooltip.email')) != 'tooltip.email')?$t:'' ?>'>
                                 <?php
-                                echo ($t = Yii::t('crud', 'CcbrBranch.ccrb_code') != 'CcbrBranch.ccrb_code')?$t:''
-                                ?>
-                                                            </span>
+                            echo $form->textField($model, 'email', array('size' => 60, 'maxlength' => 255));
+                            echo $form->error($model,'email')
+                            ?>                            </span>
                         </div>
                     </div>
-
-                
+                    <?php  ?>
+                                    <?php  ?>
                     <div class="control-group">
                         <div class='control-label'>
-                            <?php echo $form->labelEx($model,'ccbr_notes') ?>
+                            <?php echo $form->labelEx($model, 'phone') ?>
                         </div>
                         <div class='controls'>
-                            <?php
-                            echo $form->textArea($model,'ccbr_notes',array('rows'=>6, 'cols'=>50));
-                            echo $form->error($model,'ccbr_notes')
-                            ?>
-                            <span class="help-block">
-                                
+                            <span class="tooltip-wrapper" data-toggle='tooltip' data-placement="right"
+                                 title='<?php echo (($t = Yii::t('PersonModule.model', 'tooltip.phone')) != 'tooltip.phone')?$t:'' ?>'>
                                 <?php
-                                echo ($t = Yii::t('crud', 'CcbrBranch.ccbr_notes') != 'CcbrBranch.ccbr_notes')?$t:''
-                                ?>
-                                                            </span>
+                            echo $form->textField($model, 'phone', array('size' => 50, 'maxlength' => 50));
+                            echo $form->error($model,'phone')
+                            ?>                            </span>
                         </div>
                     </div>
-
-                
-                    <div class="control-group">
-                        <div class='control-label'>
-                            <?php echo $form->labelEx($model,'ccbr_hide') ?>
-                        </div>
-                        <div class='controls'>
-                            <?php
-                            echo $form->textField($model,'ccbr_hide');
-                            echo $form->error($model,'ccbr_hide')
-                            ?>
-                            <span class="help-block">
-                                
-                                <?php
-                                echo ($t = Yii::t('crud', 'CcbrBranch.ccbr_hide') != 'CcbrBranch.ccbr_hide')?$t:''
-                                ?>
-                                                            </span>
-                        </div>
                     </div>
-
-                            </div>
-        </div>
-        <!-- main inputs -->
-
-        <div class="span5"> <!-- sub inputs -->
-            <h2>
-                <?php echo Yii::t('d2companyModule.crud_static','Relations')?>
-            </h2>
-            
-                
-
-        </div>
-        <!-- sub inputs -->
-    </div>
-
+            </div>
+        </div> 
     <p class="alert">
-
-        
-        <?php echo Yii::t('d2companyModule.crud_static','Fields with <span class="required">*</span> are required.');?>
-        
+        <?php echo Yii::t('PersonModule.crud','Fields with <span class="required">*</span> are required.');?>
     </p>
 
     <div class="form-actions">
         
         <?php
             echo CHtml::Button(
-            Yii::t('d2companyModule.crud_static','Cancel'), array(
-                'submit' => (isset($_GET['returnUrl']))?$_GET['returnUrl']:array('ccbrBranch/admin'),
-                'class' => 'btn'
-            ));
-            echo ' '.CHtml::submitButton(Yii::t('d2companyModule.crud_static','Save'), array(
-                'class' => 'btn btn-primary'
+                Yii::t('d2companyModule.crud_static', 'Cancel'), 
+                array(
+                    'class' => 'btn cancel'
+                )
+            );
+            
+            echo ' '.CHtml::Button(Yii::t('PersonModule.crud', 'Save'), array(
+                'class' => 'btn btn-primary',
+                'onclick'=>'send_form("person-form");',
             ));
         ?>
     </div>
 
-    <?php $this->endWidget() ?>
-</div> <!-- form -->
+    <?php 
+    $this->endWidget() 
+     ?>
+    
+</div>

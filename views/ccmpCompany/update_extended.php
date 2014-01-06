@@ -115,12 +115,11 @@ switch ($active_tab) {
         ));
         break;
     case 'company_customer_list':
-        
-        
-        
         $this->renderPartial('../Customers/_combo_form', array(
             'ccmp_id' => $model->ccmp_id,
-            'model4grid' => $modelCcuc,
+            'modelCcuc' => $modelCcuc,
+            'model_cucc_new' => $model_cucc_new,
+            'model_person' => $model_person,            
         ));
         break;
  

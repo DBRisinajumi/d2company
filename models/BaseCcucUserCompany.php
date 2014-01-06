@@ -1,105 +1,134 @@
 <?php
 
 /**
- * This is the model class for table "ccuc_user_company".
+ * This is the model base class for the table "ccuc_user_company".
  *
- * The followings are the available columns in table 'ccuc_user_company':
+ * Columns in table "ccuc_user_company" available as properties of the model:
  * @property integer $ccuc_id
  * @property string $ccuc_ccmp_id
- * @property integer $ccuc_user_id
- * @property string $ccuc_type
+ * @property string $ccuc_person_id
+ * @property string $ccuc_status
  *
- * The followings are the available model relations:
+ * Relations of table "ccuc_user_company" available as properties of the model:
  * @property CcmpCompany $ccucCcmp
+ * @property Person $ccucPerson
  */
-class BaseCcucUserCompany extends CActiveRecord
+abstract class BaseCcucUserCompany extends CActiveRecord
 {
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'ccuc_user_company';
-	}
+    /**
+    * ENUM field values
+    */
+    const CCUC_STATUS_USER = 'USER';
+    const CCUC_STATUS_HIDDED = 'HIDDED';
+    const CCUC_STATUS_PERSON = 'PERSON';
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('ccuc_ccmp_id, ccuc_user_id', 'required'),
-			array('ccuc_user_id', 'numerical', 'integerOnly'=>true),
-			array('ccuc_ccmp_id', 'length', 'max'=>10),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('ccuc_id, ccuc_ccmp_id, ccuc_user_id ', 'safe', 'on'=>'search'),
-		);
-	}
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'ccucCcmp' => array(self::BELONGS_TO, 'CcmpCompany', 'ccuc_ccmp_id'),
-		        'ccucUsers' => array(self::BELONGS_TO, 'DbrUser', 'ccuc_user_id')
-                    
-                    );
-	}
+    public function tableName()
+    {
+        return 'ccuc_user_company';
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'ccuc_id' => 'Ccuc',
-			'ccuc_ccmp_id' => 'Ccuc Ccmp',
-			'ccuc_user_id' => 'Ccuc User',
-					);
-	}
+    public function rules()
+    {
+        return array_merge(
+            parent::rules(), array(
+                array('ccuc_ccmp_id, ccuc_person_id', 'required'),
+                array('ccuc_status', 'default', 'setOnEmpty' => true, 'value' => null),
+                array('ccuc_ccmp_id', 'length', 'max' => 10),
+                array('ccuc_person_id', 'length', 'max' => 11),
+                array('ccuc_status', 'length', 'max' => 6),
+                array('ccuc_id, ccuc_ccmp_id, ccuc_person_id, ccuc_status', 'safe', 'on' => 'search'),
+            )
+        );
+    }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
+    public function getItemLabel()
+    {
+        return (string) $this->ccuc_ccmp_id;
+    }
 
-		$criteria=new CDbCriteria;
+    public function behaviors()
+    {
+        return array_merge(
+            parent::behaviors(), array(
+                'savedRelated' => array(
+                    'class' => '\GtcSaveRelationsBehavior'
+                )
+            )
+        );
+    }
 
-		$criteria->compare('ccuc_id',$this->ccuc_id);
-		$criteria->compare('ccuc_ccmp_id',$this->ccuc_ccmp_id);
-		$criteria->compare('ccuc_user_id',$this->ccuc_user_id);
-		
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
+    public function relations()
+    {
+        return array_merge(
+            parent::relations(), array(
+                'ccucCcmp' => array(self::BELONGS_TO, 'CcmpCompany', 'ccuc_ccmp_id'),
+                'ccucPerson' => array(self::BELONGS_TO, 'Person', 'ccuc_person_id'),
+            )
+        );
+    }
 
-	/**
-	 * Returns the static model of the specified AR class.
-	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * @param string $className active record class name.
-	 * @return BaseCcucUserCompany the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+    public function attributeLabels()
+    {
+        return array(
+            'ccuc_id' => Yii::t('D2companyModule.crud', 'Ccuc'),
+            'ccuc_ccmp_id' => Yii::t('D2companyModule.crud', 'Ccuc Ccmp'),
+            'ccuc_person_id' => Yii::t('D2companyModule.crud', 'Ccuc Person'),
+            'ccuc_status' => Yii::t('D2companyModule.crud', 'Ccuc Status'),
+        );
+    }
+
+    public function enumLabels()
+    {
+        return array(
+           'ccuc_status' => array(
+               self::CCUC_STATUS_USER => Yii::t('D2companyModule.crud', 'CCUC_STATUS_USER'),
+               self::CCUC_STATUS_HIDDED => Yii::t('D2companyModule.crud', 'CCUC_STATUS_HIDDED'),
+               self::CCUC_STATUS_PERSON => Yii::t('D2companyModule.crud', 'CCUC_STATUS_PERSON'),
+           ),
+            );
+    }
+
+    public function getEnumFieldLabels($column){
+
+        $aLabels = $this->enumLabels();
+        return $aLabels[$column];
+    }
+
+    public function getEnumLabel($column,$value){
+
+        $aLabels = $this->enumLabels();
+
+        if(!isset($aLabels[$column])){
+            return $value;
+        }
+
+        if(!isset($aLabels[$column][$value])){
+            return $value;
+        }
+
+        return $aLabels[$column][$value];
+    }
+
+
+    public function searchCriteria($criteria = null)
+    {
+        if (is_null($criteria)) {
+            $criteria = new CDbCriteria;
+        }
+
+        $criteria->compare('t.ccuc_id', $this->ccuc_id);
+        $criteria->compare('t.ccuc_ccmp_id', $this->ccuc_ccmp_id);
+        $criteria->compare('t.ccuc_person_id', $this->ccuc_person_id);
+        $criteria->compare('t.ccuc_status', $this->ccuc_status, true);
+
+
+        return $criteria;
+
+    }
+
 }

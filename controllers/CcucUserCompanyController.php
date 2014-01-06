@@ -101,13 +101,32 @@ array(
         $this->render('update', array('model' => $model,));
     }
 
+    /**
+     * for company ccuc on change status to USER create customer office uses
+     * @return type
+     */
     public function actionEditableSaver()
     {
         Yii::import('EditableSaver'); //or you can add import 'ext.editable.*' to config
         $es = new EditableSaver('CcucUserCompany'); // classname of model to be updated
         $es->update();
+        
+        //verify if change statuss 
+        if($es->attribute != 'ccuc_status'){
+            return;
+        }
+        
+        //verify if status changet to USER
+        if($es->value != CcucUserCompany::CCUC_STATUS_USER){
+            return;
+        }
+        
+        //if do not have user, create
+        $m = Person::model();
+        return $m->createUser($es->model->ccucPerson->id);
+        
     }
-
+    
     public function actionDelete($ccuc_id)
     {
         if (Yii::app()->request->isPostRequest) {

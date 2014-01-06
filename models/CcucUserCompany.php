@@ -28,7 +28,8 @@ class CcucUserCompany extends BaseCcucUserCompany
         return array_merge(
             parent::behaviors(),
             array()
-        );    }
+        );
+    }
 
     public function rules()
     {
@@ -40,23 +41,12 @@ class CcucUserCompany extends BaseCcucUserCompany
           ) */
         );
     }
-    
-    public function searchCustomers()
-	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('ccuc_id',$this->ccuc_id);
-		$criteria->compare('ccuc_ccmp_id',$this->ccuc_ccmp_id);
-		$criteria->compare('ccuc_user_id',$this->ccuc_user_id);
-                
-                $criteria->join = 'INNER JOIN authassignment ON ccuc_user_id = userid';
-                $criteria->addCondition("itemname = 'CustomerOffice'");
-		
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
+    public function search()
+    {
+        return new CActiveDataProvider(get_class($this), array(
+            'criteria' => $this->searchCriteria(),
+        ));
+    }
 
 }

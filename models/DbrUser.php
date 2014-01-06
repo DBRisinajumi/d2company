@@ -24,8 +24,14 @@ class DbrUser extends User
 		return parent::model($className);
 	}
     
-     public function getFullName() {return $this->profile->first_name." ".$this->profile->last_name; }
-     public function getFullNameUsername() {return $this->profile->first_name." ".$this->profile->last_name." (".$this->username.")"; }
+     public function getFullName() {
+         return $this->profile->first_name." ".$this->profile->last_name; 
+         
+     }
+     
+     public function getFullNameUsername() {
+         return $this->profile->first_name." ".$this->profile->last_name." (".$this->username.")"; 
+     }
 
      public function getActiveCompany() {
          return $this->profile->ccmp_id; }
@@ -45,7 +51,7 @@ class DbrUser extends User
 
      
      static  function getRoles() {
-         if(self::$_aUserRoles === FALSE){
+         if(self::$_aUserRoles === FALSE && isset(Yii::app()->getModule('user')->user()->id)){
             self::$_aUserRoles = Rights::getAssignedRoles(Yii::app()->getModule('user')->user()->id);
         
          }
