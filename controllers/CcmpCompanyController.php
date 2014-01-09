@@ -41,7 +41,7 @@ class CcmpCompanyController extends Controller {
             
             array(
                 'allow',
-                'actions' => array( 'view', 'export','editableSaver'
+                'actions' => array( 'view', 'view4CustomerOffice','export','editableSaver'
                 ),
                 'roles' => array(DbrUser::RoleCustomerOffice),
             ),
@@ -69,6 +69,13 @@ class CcmpCompanyController extends Controller {
         $ccmp_id = Yii::app()->userCompany->getActiveCompany();
         $model = $this->loadModel($ccmp_id);
         $this->render('view', array('model' => $model,));
+    }
+
+    public function actionView4CustomerOffice() {
+        $ccmp_id = Yii::app()->userCompany->getActiveCompany();
+        $model = $this->loadModel($ccmp_id);
+        $this->layout='//layouts/main';
+        $this->render('view4CustomerOffice', array('model' => $model,));
     }
 
     public function actionCreate() {
