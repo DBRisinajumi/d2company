@@ -17,22 +17,23 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
-  
-  'Cancel' => 'Отменить',
+  'Add' => 'добавлять',
+  'Create' => 'создавать',
+  'Export' => 'экспорт',
+  'Invalid request. Please do not repeat this request again.' => 'Неверный запрос. Пожалуйста, не повторяйте этот запрос снова.',
+  'The requested page does not exist.' => 'Запрошенная страница не существует.',
   'New' => 'Создать',
+  'Cancel' => 'Отменить',
   'Data' => 'Данные',
   'Delete' => 'Удалить',
   'Do you want to delete this item?' => 'Удалить?',
   'Fields with <span class="required">*</span> are required.' => '<span class="required">*</span> Обязательны',
-  'Invalid request. Please do not repeat this request again.' => '',
+  'List' => 'Список',
   'Manage' => 'Управлать',
   'Relations' => 'Отношения',
   'Reset' => 'Сброс',
   'Save' => 'Сохранить',
   'Search' => 'Поиск',
-  'The requested page does not exist.' => '',
   'Update' => 'Обновить',
   'View' => 'Смотреть',
-  'List' => 'Список',
 );
-

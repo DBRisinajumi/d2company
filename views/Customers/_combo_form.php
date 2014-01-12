@@ -8,10 +8,14 @@ if (!isset($_GET['isAjaxRequest'])) {
     Yii::app()->bootstrap->registerAssetCss('../select2/select2.css');
     Yii::app()->bootstrap->registerAssetJs('../select2/select2.js');
     Yii::app()->clientScript->registerScript('crud/variant/update','$(".crud-form select").select2();');
+
+    //ajax link for forms
     $ajax_url = $this->createUrl('',array(
         'ccmp_id'=>$ccmp_id,
         'isAjaxRequest'=>'1',
         ));
+    
+    //for form submit as ajax
     Yii::app()->clientScript->registerScript('send_form', "
     function send_form(form_id)
     {
@@ -56,7 +60,7 @@ if (!isset($_GET['isAjaxRequest'])) {
     $this->widget(
         "bootstrap.widgets.TbButton",
         array(
-            "label"=>Yii::t('d2companyModule.crud_static','Add new person'),
+            "label"=>Yii::t('d2companyModule.crud','Add new person'),
             "icon"=>"icon-plus",
             "htmlOptions"=>array("class"=>"add-button new-person")
              )
@@ -64,7 +68,7 @@ if (!isset($_GET['isAjaxRequest'])) {
     $this->widget(
         "bootstrap.widgets.TbButton",
         array(
-            "label"=>Yii::t('d2companyModule.crud_static','Add existing person'),
+            "label"=>Yii::t('d2companyModule.crud','Add existing person'),
             "icon"=>"icon-plus",
             "htmlOptions"=>array("class"=>"add-button exist-person")
              )

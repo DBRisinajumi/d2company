@@ -1,7 +1,13 @@
-<?php Yii::beginProfile('Person.view.grid'); ?>
+<?php 
 
+Yii::beginProfile('Person.view.grid'); 
 
-<?php
+$this->widget('EFancyboxWidget',array(
+    'selector'=>'a[href*=\'audittrail/show/fancybox\']',
+    'options'=>array(
+    ),
+));    
+
 $this->widget('TbGridView',
     array(
         'id' => 'person-grid',
@@ -59,25 +65,51 @@ $this->widget('TbGridView',
                     //'placement' => 'right',
                 ),
             ),            
-//            array(
-//                'name' => 'user_id',
-//                'value' => 'CHtml::value($data, \'user.username\')',
-//                'filter' => '',//CHtml::listData(User::model()->findAll(array('limit' => 1000)), 'id', 'itemLabel'),
-//            ),
+            array(
+                'name' => 'create_at',
+                'value'  => '$data->ccucPerson->create_at',
+            ),
+            array(
+                'name' => 'lastvisit_at',
+                'value'  => '$data->ccucPerson->lastvisit_at',
+            ),
+        array(
+                'template' => '{reset_password}',
+                'class' => 'TbButtonColumn',
+                'buttons' => array(
+                    'reset_password' => array(
+                        'label' => Yii::t('d2companyModule.crud', 'Reset password'),
+                        'url' => 'Yii::app()->controller->createUrl("resetPersonPassword", array("ccmp_id"=>$data->ccuc_ccmp_id,"person_id"=>$data->ccucPerson->id))',
+                        'visible' => '($data->ccuc_status == CcucUserCompany::CCUC_STATUS_USER)',
+                        'options' =>  array(
+                            'title' => Yii::t('d2companyModule.crud', 'Send new password by email'),
+                         ),
+                        ),
+                ),
 
-//            array(
-//                'class' => 'TbButtonColumn',
-//                'buttons' => array(
-//                    'view' => array('visible' => 'Yii::app()->user->checkAccess("Person.Person.View")'),
-//                    'update' => array('visible' => 'Yii::app()->user->checkAccess("Person.Person.Update")'),
-//                    'delete' => array('visible' => 'Yii::app()->user->checkAccess("Person.Person.Delete")'),
-//                ),
-//                'viewButtonUrl' => 'Yii::app()->controller->createUrl("view", array("id" => $data->id))',
-//                'updateButtonUrl' => 'Yii::app()->controller->createUrl("update", array("id" => $data->id))',
-//                'deleteButtonUrl' => 'Yii::app()->controller->createUrl("delete", array("id" => $data->id))',
-//            ),
+            ),
+        array(
+                'template' => '{info}',
+                'class' => 'TbButtonColumn',
+                'buttons' => array(
+                    'info' => array(
+                        'label' => '<i class="icon-info-sign"></i>',
+                        //'imageUrl' => false,
+                        'url'=>"array(
+                                '/audittrail/show/fancybox',
+                                'model_name' => 'Person',
+                                'model_id' => \$data->ccuc_person_id,
+                            )",
+                        'options' =>  array(
+                            'title' => Yii::t('d2companyModule.crud', 'Show record history'),
+                         ),                        
+                        //'visible' => '(isset($data->bfrf_fiit_id))'
+                    ),                                
+                ),
+
+            ),
         )
     )
 );
-?>
-<?php Yii::endProfile('Person.view.grid'); ?>
+
+Yii::endProfile('Person.view.grid');

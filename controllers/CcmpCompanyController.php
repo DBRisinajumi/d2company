@@ -21,7 +21,7 @@ class CcmpCompanyController extends Controller {
                     , 'view', 'updateccbr', 'manageccbr', 'updateGroup', 'updatemanager', 'export',
                     'createccbr', 'updateExtended', 'updateCustom', 'AdminManagers',
                     'UpdateManagers', 'CreateManager', 'adminCars','adminCustomers','updateFiles',
-                    'upload','deleteFile','downloadFile'
+                    'upload','deleteFile','downloadFile','resetPersonPassword'
                     ),
                 'roles' => array('Company.fullcontrol'),
             ),
@@ -745,6 +745,23 @@ class CcmpCompanyController extends Controller {
         ));
     }
 
+    /**
+     * send to user new password
+     * @return type
+     */
+    public function actionResetPersonPassword($ccmp_id,$person_id)
+    {
+        yii::import('vendor.dbrisinajumi.person.PersonModule');
+        //if do not have user, create
+        $m = Person::model();
+        $m->resetPassword($person_id);
+        
+        $this->actionAdminCustomers($ccmp_id);
+        $this->redirect(array('adminCustomers', 'ccmp_id' => $ccmp_id));
+        
+    }
+    
+    
     private function _createUser($username, $email,$password) {
         $mUser = new User;
         $mUser->attributes = array(

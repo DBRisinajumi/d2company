@@ -19,17 +19,17 @@ return array(
 public function accessRules()
 {
 return array(
-array(
-'allow',
-'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view'),
-'roles' => array('D2company.CcucUserCompany.*'),
-),
-array(
-'deny',
-'users' => array('*'),
-),
-);
-}
+    array(
+                'allow',
+                'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view','resetPassword'),
+                'roles' => array('D2company.CcucUserCompany.*'),
+            ),
+            array(
+                'deny',
+                'users' => array('*'),
+            ),
+        );
+    }
 
     public function beforeAction($action)
     {
@@ -126,7 +126,7 @@ array(
         return $m->createUser($es->model->ccucPerson->id);
         
     }
-    
+
     public function actionDelete($ccuc_id)
     {
         if (Yii::app()->request->isPostRequest) {

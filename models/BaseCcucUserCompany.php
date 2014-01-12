@@ -76,9 +76,9 @@ abstract class BaseCcucUserCompany extends CActiveRecord
     {
         return array(
             'ccuc_id' => Yii::t('D2companyModule.crud', 'Ccuc'),
-            'ccuc_ccmp_id' => Yii::t('D2companyModule.crud', 'Ccuc Ccmp'),
-            'ccuc_person_id' => Yii::t('D2companyModule.crud', 'Ccuc Person'),
-            'ccuc_status' => Yii::t('D2companyModule.crud', 'Ccuc Status'),
+            'ccuc_ccmp_id' => Yii::t('D2companyModule.crud', 'CompanyId'),
+            'ccuc_person_id' => Yii::t('D2companyModule.crud', 'Person'),
+            'ccuc_status' => Yii::t('D2companyModule.crud', 'Status'),
         );
     }
 
@@ -86,9 +86,9 @@ abstract class BaseCcucUserCompany extends CActiveRecord
     {
         return array(
            'ccuc_status' => array(
-               self::CCUC_STATUS_USER => Yii::t('D2companyModule.crud', 'CCUC_STATUS_USER'),
-               self::CCUC_STATUS_HIDDED => Yii::t('D2companyModule.crud', 'CCUC_STATUS_HIDDED'),
-               self::CCUC_STATUS_PERSON => Yii::t('D2companyModule.crud', 'CCUC_STATUS_PERSON'),
+               self::CCUC_STATUS_USER => Yii::t('D2companyModule.crud', 'Have access to information'),
+               self::CCUC_STATUS_HIDDED => Yii::t('D2companyModule.crud', 'Deleted'),
+               self::CCUC_STATUS_PERSON => Yii::t('D2companyModule.crud', 'Actual'),
            ),
             );
     }

@@ -17,13 +17,16 @@
  * NOTE, this file must be saved in UTF-8 encoding.
  */
 return array (
+  'Add' => '',
   'Cancel' => '',
   'Create' => '',
   'Data' => '',
   'Delete' => '',
   'Do you want to delete this item?' => '',
+  'Export' => '',
   'Fields with <span class="required">*</span> are required.' => '',
   'Invalid request. Please do not repeat this request again.' => '',
+  'List' => '',
   'Manage' => '',
   'Relations' => '',
   'Reset' => '',

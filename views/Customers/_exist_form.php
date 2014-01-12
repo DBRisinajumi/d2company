@@ -16,7 +16,7 @@
     <div class="row">
         <div class="span7">
             <div class="form-horizontal">
-                <h3><?php echo Yii::t('d2companyModule.crud_static','Add new person')?></h3>
+                <h3><?php echo Yii::t('d2companyModule.crud','Add new person')?></h3>
                     <div class="control-group">
                         <div class='control-label'>
                             <?php  ?>
@@ -73,10 +73,9 @@
                     'class' => 'btn cancel'
                 )
             );
-            echo ' '.CHtml::Button(Yii::t('PersonModule.crud', 'Save'), array(
+            echo ' '.CHtml::submitButton(Yii::t('PersonModule.crud_static', 'Save'), array(
                 'class' => 'btn btn-primary',
-                'onclick'=>'send_form("ccuc-user-company-form");',
-            ));
+            ));            
         ?>
     </div>
 
