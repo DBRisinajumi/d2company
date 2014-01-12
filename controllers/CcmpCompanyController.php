@@ -756,7 +756,6 @@ class CcmpCompanyController extends Controller {
         $m = Person::model();
         $m->resetPassword($person_id);
         
-        $this->actionAdminCustomers($ccmp_id);
         $this->redirect(array('adminCustomers', 'ccmp_id' => $ccmp_id));
         
     }
