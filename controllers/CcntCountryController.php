@@ -8,6 +8,7 @@ class CcntCountryController extends Controller
     public $defaultAction = "admin";
     public $scenario = "crud";
     public $scope = "crud";
+    public $menu_route = "d2company/ccntCountry";    
 
 public function filters()
 {

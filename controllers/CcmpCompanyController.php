@@ -6,6 +6,7 @@ class CcmpCompanyController extends Controller {
     public $defaultAction = "admin";
     public $scenario = "crud";
     public $scope = "crud";
+    public $menu_route = "d2company/ccmpCompany";
 
     public function filters() {
         return array(
