@@ -23,13 +23,6 @@ class CcitCity extends BaseCcitCity
         return parent::getItemLabel();
     }
 
-    public function behaviors()
-    {
-        return array_merge(
-            parent::behaviors(),
-            array()
-        );    }
-
     public function rules()
     {
         return array_merge(
@@ -40,5 +33,15 @@ class CcitCity extends BaseCcitCity
           ) */
         );
     }
+    
+    public function behaviors() {
+        return array_merge(
+                parent::behaviors(), array(
+             //auditrail       
+            'LoggableBehavior' => array(
+                'class' => 'LoggableBehavior'
+            ),
+        ));
+    }      
 
 }

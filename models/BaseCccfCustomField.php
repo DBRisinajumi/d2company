@@ -237,4 +237,14 @@ class BaseCccfCustomField extends CActiveRecord
 			),
         ));
     }
+    
+    public function behaviors() {
+        return array_merge(
+                parent::behaviors(), array(
+             //auditrail       
+            'LoggableBehavior' => array(
+                'class' => 'LoggableBehavior'
+            ),
+        ));
+    }      
 }
