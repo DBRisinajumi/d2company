@@ -26,7 +26,7 @@ $this->widget('TbGridView',
                 'name' => 'ccucPerson.first_name',
                 'editable' => array(
                     'url' => $this->createUrl('/person/person/editableSaver'),
-                    //'placement' => 'right',
+                    'placement' => 'right',
                 )
             ),
             array(
@@ -55,7 +55,7 @@ $this->widget('TbGridView',
                 )
             ),
             array(
-                'class' => 'editable.EditableColumn',
+                'class' => 'TbEditableColumn',
                 'name' => 'ccuc_status',
                 'value' => '$data->getEnumLabel(\'ccuc_status\',$data->ccuc_status)',
                 'editable' => array(
