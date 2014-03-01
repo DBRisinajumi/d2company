@@ -18,6 +18,7 @@
  */
 return array (
   'Add' => 'Pievienot',
+  'Empty' => 'Tukšs',
   'Export' => 'Eksportēt',
   'List' => 'Saraksts',
   'Cancel' => 'Atcelt',

@@ -1,8 +1,5 @@
 <?php
 
-//$model4grid = new BcarId("search");
-//$model4grid->bcar_ccmp_id = $ccmp_id;
-
 $ajaxUpdateUrl = Yii::app()->controller->createUrl("/d2company/ccbrBranch/adminAjax", array("ccmp_id" => $ccmp_id));
 
 $this->widget('TbGridView',
@@ -19,25 +16,27 @@ $this->widget('TbGridView',
         ),
        'columns' => array(
         array(
-            'class' => 'editable.EditableColumn',
+            'class' => 'TbEditableColumn',
             'name' => 'ccbr_name',
             'editable' => array(
                 'url' => $this->createUrl('/d2company/ccbrBranch/editableSaver'),
+                'emptytext' => Yii::t('d2companyModule.crud_static', 'Empty'),
             )
         ),
         array(
-            'class' => 'editable.EditableColumn',
+            'class' => 'TbEditableColumn',
             'name' => 'ccbr_code',
             'editable' => array(
                 'url' => $this->createUrl('/d2company/ccbrBranch/editableSaver'),
+                'emptytext' => Yii::t('d2companyModule.crud_static', 'Empty'),
             )
         ),
         array(
-            'class' => 'editable.EditableColumn',
+            'class' => 'TbEditableColumn',
             'name' => 'ccbr_hide',
             'editable' => array(
                 'url' => $this->createUrl('/d2company/ccbrBranch/editableSaver'),
-            //'placement' => 'right',
+                'emptytext' => Yii::t('d2companyModule.crud_static', 'Empty'),
             )
         ),
         array(

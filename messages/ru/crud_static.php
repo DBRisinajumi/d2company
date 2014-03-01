@@ -19,6 +19,7 @@
 return array (
   'Add' => 'добавлять',
   'Create' => 'создавать',
+  'Empty' => 'Пустой',
   'Export' => 'экспорт',
   'Invalid request. Please do not repeat this request again.' => 'Неверный запрос. Пожалуйста, не повторяйте этот запрос снова.',
   'The requested page does not exist.' => 'Запрошенная страница не существует.',

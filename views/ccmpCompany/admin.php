@@ -64,22 +64,8 @@ $this->widget('TbGridView',
             'displayFirstAndLast' => true,
         ),
         'columns'=> array(
-//            array(
-//                'class'=>'CLinkColumn',
-//                'header'=>'',
-//                'labelExpression'=> '$data->itemLabel',
-//                'urlExpression'=> 'Yii::app()->controller->createUrl("view", array("ccmp_id" => $data["ccmp_id"]))'
-//            ),
-//                    array(
-//            'class' => 'editable.EditableColumn',
-//            'name' => 'ccmp_id',
-//            'editable' => array(
-//                'url' => $this->createUrl('/d2company/ccmpCompany/editableSaver'),
-//                //'placement' => 'right',
-//            )
-//        ),
         array(
-      //      'class' => 'editable.EditableColumn',
+      //      'class' => 'TbEditableColumn',
             'name' => 'ccmp_name',
             'header' =>  Yii::t('d2companyModule.crud', 'Name'),
     //        'editable' => array(
@@ -109,12 +95,12 @@ $this->widget('TbGridView',
                             'filter'=>CHtml::listData(CcitCity::model()->findAll(array('limit'=>1000)), 'ccit_id', 'itemLabel'),
                             ),    
         array(
-            'class' => 'editable.EditableColumn',
+            'class' => 'TbEditableColumn',
             'name' => 'ccmp_registrtion_no',
             'header' =>  Yii::t('d2companyModule.crud', 'Registration Nr'),
             'editable' => array(
                 'url' => $this->createUrl('/d2company/ccmpCompany/editableSaver'),
-                //'placement' => 'right',
+                'emptytext' => Yii::t('d2companyModule.crud_static', 'Empty'),
             )
         ),
 //        array(
@@ -126,12 +112,12 @@ $this->widget('TbGridView',
 //            )
 //        ),
         array(
-            'class' => 'editable.EditableColumn',
+            'class' => 'TbEditableColumn',
             'name' => 'ccmp_registration_address',
             'header' =>  Yii::t('d2companyModule.crud', 'Registration Address'),
             'editable' => array(
                 'url' => $this->createUrl('/d2company/bfrffuelrefill/editableSaver'),
-                //'placement' => 'right',
+                'emptytext' => Yii::t('d2companyModule.crud_static', 'Empty'),
             )
         ),
         array(

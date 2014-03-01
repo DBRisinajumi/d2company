@@ -17,48 +17,29 @@ $this->widget('TbGridView',
         ),
        'columns' => array(
         array(
-       //     'class' => 'editable.EditableColumn',
-            //'header' => 'username',
-            //'name' => 'ccucUsers.username',
-         //   'value' =>  'CHtml::value($data, \'ccucUsers.username\')',  
-       //     'editable' => array(
-      //          'url' => $this->createUrl('/d2company/ccbrBranch/editableSaver'),
-      //      )
-        ),
-        array(
-          //  'class' => 'editable.EditableColumn',
             'header' => 'email',
              'name' => 'email',
-            //'value' =>  'CHtml::value($data, \'ccucUsers.email\')',  
-          //  'editable' => array(
-         //       'url' => $this->createUrl('/d2company/ccbrBranch/editableSaver'),
-         //   )
         ),
           array(
-         //   'class' => 'editable.EditableColumn',
             'header' => 'Name',
              'name' => 'first_name',
-            //'value' =>  'CHtml::value($data, \'ccucUsers.email\')',  
-          //  'editable' => array(
-          //      'url' => $this->createUrl('/d2company/ccbrBranch/editableSaver'),
-          //  )
         ),  
           array(
-            'class' => 'editable.EditableColumn',
+            'class' => 'TbEditableColumn',
             'header' => 'Surname',
              'name' => 'last_name',
-            //'value' =>  'CHtml::value($data, \'ccucUsers.email\')',  
             'editable' => array(
                 'url' => $this->createUrl('/d2company/ccbrBranch/editableSaver'),
+                'emptytext' => Yii::t('d2companyModule.crud_static', 'Empty'),
             )
         ),    
          array(
-            'class' => 'editable.EditableColumn',
+            'class' => 'TbEditableColumn',
             'header' => 'Phone',
              'name' => 'phone',
-            //'value' =>  'CHtml::value($data, \'ccucUsers.email\')',  
             'editable' => array(
                 'url' => $this->createUrl('/d2company/ccbrBranch/editableSaver'),
+                'emptytext' => Yii::t('d2companyModule.crud_static', 'Empty'),
             )
         ),
            
@@ -75,5 +56,3 @@ $this->widget('TbGridView',
     )
   )
 );
-?>
-

@@ -113,7 +113,7 @@
                          <?php  
                          if($this->action->id == 'updateAjax'){
                          echo CHtml::Button(
-                                 Yii::t('FuelingModule.crud_static', 'Cancel'), array(
+                                 Yii::t('D2companyModule.crud_static', 'Cancel'), array(
                              'submit' => array('bcbdCompanyBranchDay/view', ),
                              'class' => 'btn'
                          )) . ' ';

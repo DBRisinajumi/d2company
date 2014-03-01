@@ -17,23 +17,23 @@ $this->widget('TbGridView', array(
     ),
     'columns' => array(
         array(
-            'class' => 'editable.EditableColumn',
+            'class' => 'TbEditableColumn',
             'name' => 'ccuc_first_name',
             'editable' => array(
                 'url' => $this->createUrl('/d2company/ccucUserCompany/editableSaver'),
-            //'placement' => 'right',
+                'emptytext' => Yii::t('d2companyModule.crud_static', 'Empty'),
             )
         ),
         array(
-            'class' => 'editable.EditableColumn',
+            'class' => 'TbEditableColumn',
             'name' => 'cucc_last_name',
             'editable' => array(
                 'url' => $this->createUrl('/d2company/ccucUserCompany/editableSaver'),
-            //'placement' => 'right',
+                'emptytext' => Yii::t('d2companyModule.crud_static', 'Empty'),
             )
         ),
         array(
-//                            'class' => 'editable.EditableColumn',
+//                            'class' => 'TbEditableColumn',
             'name' => 'ccuc_status',
 //                            'editable' => array(
 //                                'url' => $this->createUrl('/d2company/ccucUserCompany/editableSaver'),
