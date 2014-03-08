@@ -116,6 +116,32 @@ class userCompanyHandler extends CApplicationComponent
          return $this->_aUserCompanies;
      }
 
+     
+     /**
+      * create array  of user companies id (ccmp_id)
+      * @return array
+      */
+     public function getClientCompanyList(){
+         $a = array();
+         foreach($this->getOfficeClientCompanies() as $row){
+             $a[] = $row->ccuc_ccmp_id;
+         }
+         return $a;
+     }
+
+     /**
+      * validate if ccmp is user sys company
+      * @return boolean
+      */
+     public function isClientSysCompany($ccmp_id){
+         foreach($this->getOfficeClientCompanies() as $row){
+             if($row->ccuc_ccmp_id == $ccmp_id){
+                 return TRUE;
+             }
+         }
+         return FALSE;
+     }
+     
      private function _isValidClientCompany($ccmp_id){
          foreach($this->getOfficeClientCompanies() as $company){
              if($company->ccuc_ccmp_id == $ccmp_id ){

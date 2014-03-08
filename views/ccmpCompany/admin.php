@@ -95,13 +95,13 @@ $this->widget('TbGridView',
                             'filter'=>CHtml::listData(CcitCity::model()->findAll(array('limit'=>1000)), 'ccit_id', 'itemLabel'),
                             ),    
         array(
-            'class' => 'TbEditableColumn',
+            //'class' => 'TbEditableColumn',
             'name' => 'ccmp_registrtion_no',
             'header' =>  Yii::t('d2companyModule.crud', 'Registration Nr'),
-            'editable' => array(
-                'url' => $this->createUrl('/d2company/ccmpCompany/editableSaver'),
-                'emptytext' => Yii::t('d2companyModule.crud_static', 'Empty'),
-            )
+            //'editable' => array(
+            //    'url' => $this->createUrl('/d2company/ccmpCompany/editableSaver'),
+            //    'emptytext' => Yii::t('d2companyModule.crud_static', 'Empty'),
+            //)
         ),
 //        array(
 //            'class' => 'editable.EditableColumn',
@@ -112,13 +112,13 @@ $this->widget('TbGridView',
 //            )
 //        ),
         array(
-            'class' => 'TbEditableColumn',
+            //'class' => 'TbEditableColumn',
             'name' => 'ccmp_registration_address',
             'header' =>  Yii::t('d2companyModule.crud', 'Registration Address'),
-            'editable' => array(
-                'url' => $this->createUrl('/d2company/bfrffuelrefill/editableSaver'),
-                'emptytext' => Yii::t('d2companyModule.crud_static', 'Empty'),
-            )
+            //'editable' => array(
+            //    'url' => $this->createUrl('/d2company/bfrffuelrefill/editableSaver'),
+            //    'emptytext' => Yii::t('d2companyModule.crud_static', 'Empty'),
+            //)
         ),
         array(
             //'class' => 'editable.EditableColumn',

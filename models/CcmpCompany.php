@@ -83,21 +83,6 @@ class CcmpCompany extends BaseCcmpCompany
         $criteria->addCondition('ccxg_ccgr_id = :ccgr_id');
         $criteria->params = array(':ccgr_id' => $ccgr_id);
         return $this->findAll($criteria);
-//        
-//
-//
-//        
-//        $sql = "
-//            SELECT 
-//                ccmp_company.*
-//              FROM
-//                ccmp_company 
-//                INNER JOIN ccxg_company_x_group 
-//                  ON ccxg_ccmp_id = ccmp_id 
-//              WHERE ccxg_ccgr_id = ".$group."
-//              ORDER BY ccmp_name 
-//                ";
-//        return Yii::app()->db->createCommand($sql)->queryAll();
     }
     
     

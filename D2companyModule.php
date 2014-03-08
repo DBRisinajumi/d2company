@@ -2,6 +2,21 @@
 
 class D2companyModule extends CWebModule
 {
+    /**
+     * visible tab list. If in config no defined, show all tabs. See init()
+     * @var type 
+     */
+    public $tabs = array(
+                'company_data',
+                'company_custom_data',
+                'company_group',
+                'company_branches',
+                'company_managers',
+                'company_customers',
+                'company_cars',
+                'company_files',
+            );
+    
 	public function init()
 	{
 		// this method is called when the module is being created

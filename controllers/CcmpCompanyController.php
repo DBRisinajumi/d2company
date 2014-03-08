@@ -66,12 +66,18 @@ class CcmpCompanyController extends Controller {
         return true;
     }
 
+    /**
+     * show user company
+     */
     public function actionView() {
         $ccmp_id = Yii::app()->userCompany->getActiveCompany();
         $model = $this->loadModel($ccmp_id);
         $this->render('view', array('model' => $model,));
     }
 
+    /**
+     * customer office 
+     */
     public function actionView4CustomerOffice() {
         $ccmp_id = Yii::app()->userCompany->getActiveCompany();
         $model = $this->loadModel($ccmp_id);
@@ -88,6 +94,11 @@ class CcmpCompanyController extends Controller {
         if (isset($_POST['CcmpCompany'])) {
             $model->attributes = $_POST['CcmpCompany'];
 
+            //set system company id
+            if (DbrUser::isSysCompanyUser()){
+                $model->ccmp_sys_ccmp_id = Yii::app()->userCompany->getActiveCompany();
+            }              
+
             try {
 
                 if ($model->save()) {
@@ -98,7 +109,10 @@ class CcmpCompanyController extends Controller {
                     $custom->save();
 
                      
-                    // user creation
+                    /** 
+                     * user creation
+                     * @todo - remove this option
+                     */
                     if (!empty($_POST['username'])) {   
                         
                         try {
@@ -141,31 +155,32 @@ class CcmpCompanyController extends Controller {
     
     public function actionCreateccbr($ccmp_id) {
         
-         $model = new CcbrBranch;
+         $model = $this->loadModel($ccmp_id);
+        
+         $model_ccbr = new CcbrBranch;
 
-         $this->performAjaxValidation($model, 'ccbr-branch-form');
+         $this->performAjaxValidation($model_ccbr, 'ccbr-branch-form');
         
         if (isset($_POST['CcbrBranch'])) {
 
-            $model = new CcbrBranch;
-            $model->attributes = $_POST['CcbrBranch'];
-            $model->ccbr_ccmp_id = $ccmp_id;
+            $model_ccbr = new CcbrBranch;
+            $model_ccbr->attributes = $_POST['CcbrBranch'];
+            $model_ccbr->ccbr_ccmp_id = $ccmp_id;
             //var_dump($model->attributes);exit;
             try {
-                if ($model->save()) {
+                if ($model_ccbr->save()) {
                     if (isset($_GET['returnUrl'])) {
                         $this->redirect($_GET['returnUrl']);
                     } else {
-                          $this->redirect(array('manageccbr', 'ccmp_id' => $ccmp_id, 'ccbr_id' => $model->ccbr_id));     
+                          $this->redirect(array('manageccbr', 'ccmp_id' => $ccmp_id, 'ccbr_id' => $model_ccbr->ccbr_id));     
                     }
                 }
             } catch (Exception $e) {
-                $model->addError('ccbr_id', $e->getMessage());
+                $model_ccbr->addError('ccbr_id', $e->getMessage());
             }
         } else {
 
         //company
-        $model = $this->loadModel($ccmp_id);
         $model->scenario = $this->scenario;
 
         //branch
@@ -187,13 +202,10 @@ class CcmpCompanyController extends Controller {
         $model->scenario = $this->scenario;
 
         //branch
-        //$criteria = new CDbCriteria;
-        //$criteria->addCondition('ccbr_ccmp_id = :ccmp_id');
-        //$criteria->params = array(':ccmp_id' => $model->ccmp_id);
         $mCcbr = new CcbrBranch('search');
-        //$mCcbr->findAll($criteria);
+
         $mCcbr->setAttribute('ccbr_ccmp_id', $ccmp_id);
-        //$mCcbr->dbCriteria->order='ccbr_name ASC';
+
         $this->render(
                 'update_extended', array(
             'model' => $model,
@@ -428,7 +440,9 @@ class CcmpCompanyController extends Controller {
     
 
       public function actionAdminCars($ccmp_id) {
+          
         $model = $this->loadModel($ccmp_id);
+        
         $model->scenario = $this->scenario;
       
         $this->render(
@@ -440,6 +454,9 @@ class CcmpCompanyController extends Controller {
     }
     
      public function actionAdminCustomers($ccmp_id) {
+         
+        $model = $this->loadModel($ccmp_id);
+        
         yii::import('vendor.dbrisinajumi.person.PersonModule');
 
 
@@ -479,7 +496,7 @@ class CcmpCompanyController extends Controller {
 
         $model_person = new Person;
         $model_ccuc = new CcucUserCompany;
-        $model = $this->loadModel($ccmp_id);
+       
         $model->scenario = $this->scenario;
         $model_cucc_new = new CcucUserCompany();
         
@@ -512,6 +529,9 @@ class CcmpCompanyController extends Controller {
     }
 
     public function actionUpdateCustomers($ccmp_id, $ccuc_id) {
+        
+        $model = $this->loadModel($ccmp_id);
+        
         $m = new CcucUserCompany();
         $mCcuc = $m->findByPk($ccuc_id);
 
@@ -537,7 +557,7 @@ class CcmpCompanyController extends Controller {
             }
         }
 
-        $model = $this->loadModel($ccmp_id);
+
         $model->scenario = $this->scenario;
 
         $this->render('update_extended', array(
@@ -549,7 +569,7 @@ class CcmpCompanyController extends Controller {
 
     public function actionUpdateCustom($ccmp_id) {
 
-        //company
+
         //update record
         $model = $this->loadModel($ccmp_id);
         $model->scenario = $this->scenario;
@@ -558,16 +578,8 @@ class CcmpCompanyController extends Controller {
         if (isset($_POST['BaseCccdCompanyData'])) {
 
             $custom->attributes = $_POST['BaseCccdCompanyData'];
-        //    if ($custom->validate()) {
                 $custom->save();
-//                $this->redirect(array(
-//                    'actionUpdateCustom',
-//                    'ccmp_id' => $ccmp_id,
-//                    'active_tab' => 'company_custom',
-//                ));
-        //    }
         }
-        
  
         $this->render(
                 'update_extended', array(
@@ -578,6 +590,9 @@ class CcmpCompanyController extends Controller {
     }
 
     public function actionUpdate($ccmp_id) {
+        
+        $model = $this->loadModel($ccmp_id);
+        
         //company group forma submitita
         if (isset($_POST['save_company_group'])) {
             $this->actionUpdategroup($ccmp_id);
@@ -589,18 +604,9 @@ class CcmpCompanyController extends Controller {
             $this->actionUpdatemanager($ccmp_id);
             return;
         }
-
-        //company group forma submitita
-//        if (isset($_POST['save_custom'])) {
-//            $this->actionUpdateCustom($ccmp_id);
-//            return;
-//        }
-
-        $model = $this->loadModel($ccmp_id);
+        
         $model->scenario = $this->scenario;
         $custom = $model->cccdCustomData;
-
-        
 
         $this->performAjaxValidation($model, 'ccmp-company-form');
 
@@ -643,9 +649,9 @@ class CcmpCompanyController extends Controller {
     public function actionUpdateExtended($ccmp_id) {
 
         $model = $this->loadModel($ccmp_id);
+       
         $model->scenario = $this->scenario;
-    //    $custom = $model->cccdCustomData;
-
+    
         $this->performAjaxValidation($model, 'ccmp-company-form');
 
         if (isset($_POST['CcmpCompany'])) {
@@ -678,6 +684,16 @@ class CcmpCompanyController extends Controller {
     }
 
     public function actionEditableSaver() {
+        
+        //sys company validation
+        $ccmp_id = yii::app()->request->getParam('pk');
+        $model = $this->loadModel($ccmp_id);
+        if (DbrUser::isSysCompanyUser()){
+            if($model->ccmp_sys_ccmp_id ==  Yii::app()->userCompany->getActiveCompany()){
+                throw new CHttpException(404, "Data not available.");
+            }
+        }   
+        
         Yii::import('EditableSaver'); //or you can add import 'ext.editable.*' to config
         $es = new EditableSaver('CcmpCompany'); // classname of model to be updated
         $es->update();
@@ -685,8 +701,10 @@ class CcmpCompanyController extends Controller {
 
     public function actionDelete($ccmp_id) {
         if (Yii::app()->request->isPostRequest) {
+            $model = $this->loadModel($ccmp_id);
+            
             try {
-                $this->loadModel($ccmp_id)->delete();
+                $model->delete();
             } catch (Exception $e) {
                 throw new CHttpException(500, $e->getMessage());
             }
@@ -709,17 +727,15 @@ class CcmpCompanyController extends Controller {
         if (isset($scopes[$this->scope])) {
             $model->{$this->scope}();
         }
-        
-        // clear filters
-      //  if (intval(Yii::app()->request->getParam('clearFilters'))==1) {
-      //      EButtonColumnWithClearFilters::clearFilters($this,$model);//where $this is the controller
-      //  }
 
         if (isset($_GET['CcmpCompany'])) {
             $model->attributes = $_GET['CcmpCompany'];
         }
-
-        $this->render('admin', array('model' => $model,));
+        if (isset($_GET['RememberCcmpCompany'])) {
+            $this->renderPartial('admin', array('model' => $model,));
+        }else{
+            $this->render('admin', array('model' => $model,));
+        }
     }
 
     public function actionExport() {
@@ -752,6 +768,9 @@ class CcmpCompanyController extends Controller {
      */
     public function actionResetPersonPassword($ccmp_id,$person_id)
     {
+        //only for validation acces
+        $model = $this->loadModel($ccmp_id);
+        
         yii::import('vendor.dbrisinajumi.person.PersonModule');
         //if do not have user, create
         $m = Person::model();
@@ -781,8 +800,6 @@ class CcmpCompanyController extends Controller {
         }
         return $mUser->id;
     }
-    
-    
 
     public function loadModel($id) {
         $m = CcmpCompany::model();
@@ -795,6 +812,14 @@ class CcmpCompanyController extends Controller {
         if ($model === null) {
             throw new CHttpException(404, Yii::t('d2companyModule.crud_static', 'The requested page does not exist.'));
         }
+        
+		if (DbrUser::isSysCompanyUser()){
+            if( !Yii::app()->userCompany->isClientSysCompany($model->ccmp_sys_ccmp_id)){
+                exit;
+                throw new CHttpException(404, Yii::t('d2companyModule.crud_static', 'Requested closed data.'));
+            }    
+        }                
+        
         return $model;
     }
 
@@ -805,20 +830,20 @@ class CcmpCompanyController extends Controller {
         }
     }
 
-    static function isMainTabActive() {
-        return !self::isCompanyGroupTabActive() && !self::isBrancTabActive();
-    }
+//    static function isMainTabActive() {
+//        return !self::isCompanyGroupTabActive() && !self::isBrancTabActive();
+//    }
 
-    static function isCompanyGroupTabActive() {
-        return isset($_POST['save_company_group']);
-    }
+//    static function isCompanyGroupTabActive() {
+//        return isset($_POST['save_company_group']);
+//    }
 
-    static function isBrancTabActive() {
-        return self::isActionBrancEdit();
-    }
+//    static function isBrancTabActive() {
+//        return self::isActionBrancEdit();
+//    }
 
-    static function isActionBrancEdit() {
-        return isset($_GET['ccbr_id']);
-    }
+//    static function isActionBrancEdit() {
+//        return isset($_GET['ccbr_id']);
+//    }
 
 }

@@ -22,6 +22,8 @@ $this->setPageTitle(
 </table> 
 
 <?php
+$visible_tabs = Yii::app()->getModule('d2company')->tabs;
+
 /**
  * @see http://www.cniska.net/yii-bootstrap/#tbMenu
  */
@@ -33,60 +35,61 @@ $this->widget(
             'label' => Yii::t('d2companyModule.crud', 'Main comapny data'),
             'url' => Yii::app()->controller->createUrl(
                     'updateExtended', array('ccmp_id' => $model->ccmp_id)),
-            'active' => ($active_tab == 'company_data')
+            'active' => ($active_tab == 'company_data'),
+            'visible' => in_array('company_data',$visible_tabs),
         ),
         array(
             'label' => Yii::t('d2companyModule.crud', 'Custom data'),
             'url' => Yii::app()->controller->createUrl(
                     'updateCustom', array('ccmp_id' => $model->ccmp_id)),
-            'active' => ($active_tab == 'company_custom')
+            'active' => ($active_tab == 'company_custom'),
+            'visible' => in_array('company_custom_data',$visible_tabs),            
         ),
         array('label' => Yii::t('d2companyModule.crud', 'Company groups'),
             'url' => Yii::app()->controller->createUrl(
                     'updateGroup', array('ccmp_id' => $model->ccmp_id)),
             'active' => ($active_tab == 'company_group'),
+            'visible' => in_array('company_group',$visible_tabs),            
         ),
         array('label' => Yii::t('d2companyModule.crud', 'Company branches'),
             'url' => Yii::app()->controller->createUrl(
                     'manageccbr', array('ccmp_id' => $model->ccmp_id)),
             'active' => ($active_tab == 'company_branches')
-            || ($active_tab == 'createccbr')
-            || ($active_tab == 'updateccbr')
-        ,
+                        || ($active_tab == 'createccbr')
+                        || ($active_tab == 'updateccbr'),
+            'visible' => in_array('company_branches',$visible_tabs),            
         ),
           array('label' => Yii::t('d2companyModule.crud', 'Company managers'),
             'url' => Yii::app()->controller->createUrl(
                     'updateManagers', array('ccmp_id' => $model->ccmp_id)),
-            'active' => 
-                    ($active_tab == 'company_managers')
-                   
-              ,
+            'active' => ($active_tab == 'company_managers'),
+            'visible' => in_array('company_managers',$visible_tabs),
         ),
          array('label' => Yii::t('d2companyModule.crud', 'Company customers'),
             'url' => Yii::app()->controller->createUrl(
                     'adminCustomers', array('ccmp_id' => $model->ccmp_id)),
-            'active' => 
-                    ($active_tab == 'company_customer_create')
-                    || ($active_tab == 'company_customer_list')
-                    || ($active_tab == 'company_customer_update')
-              ,
+                    'active' => ($active_tab == 'company_customer_create')
+                                || ($active_tab == 'company_customer_list')
+                                || ($active_tab == 'company_customer_update'),
+                    'visible' => in_array('company_customers',$visible_tabs),             
         ),
         
          array('label' => Yii::t('d2companyModule.crud', 'Cars'),
             'url' => Yii::app()->controller->createUrl(
                     'adminCars', array('ccmp_id' => $model->ccmp_id)),
-            'active' => 
-                    ($active_tab == 'company_car_admin')
-                    || ($active_tab == 'company_car_list')
-                    || ($active_tab == 'company_car_update')
-              ,
+                    'active' => 
+                        ($active_tab == 'company_car_admin')
+                        || ($active_tab == 'company_car_list')
+                        || ($active_tab == 'company_car_update'),
+                    'visible' => in_array('company_cars',$visible_tabs),             
         ),
 
         array(
             'label' => Yii::t('d2companyModule.crud', 'Files'),
             'url' => Yii::app()->controller->createUrl(
                         'updateFiles', array('ccmp_id' => $model->ccmp_id)),
-                        'active' => ($active_tab == 'company_files'),
+            'active' => ($active_tab == 'company_files'),
+            'visible' => in_array('company_files',$visible_tabs),
         ),
     )
 ));
