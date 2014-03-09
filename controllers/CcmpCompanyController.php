@@ -666,7 +666,6 @@ class CcmpCompanyController extends Controller {
                         $this->redirect(array(
                             'updateExtended',
                             'ccmp_id' => $model->ccmp_id,
-                            'active_tab' => 'company_data',
                         ));
                     }
                 }
