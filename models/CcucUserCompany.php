@@ -50,5 +50,18 @@ class CcucUserCompany extends BaseCcucUserCompany
             'criteria' => $this->searchCriteria(),
         ));
     }
-
+    
+    /**
+     * get user companies by user and status
+     * @param type $user_id
+     * @param type $status
+     * @return type
+     */
+    public function getUserCompnies($user_id,$status) {
+        $criteria = new CDbCriteria;
+        $criteria->join .= "INNER JOIN profiles p  ON p.person_id = ccuc_person_id AND ccuc_status='" . $status . "'";
+        $criteria->condition = 'p.user_id = ' . $user_id;
+        return CcucUserCompany::model()->findAll($criteria);
+    }
+    
 }

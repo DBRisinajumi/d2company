@@ -10,12 +10,12 @@
  * @author  Uldis Nelsons
  * @package d2company.components
  */
-class userCompanyHandler extends CApplicationComponent
+class companyHandler extends CApplicationComponent
 {
     /**
      * $_GET param used for language detection
      */
-    const DATA_KEY = 'company';
+    public $data_key = FALSE;
     /**
      * user companies
      * @var array
@@ -30,6 +30,11 @@ class userCompanyHandler extends CApplicationComponent
     public $_activeCompanyName = FALSE;
 
     private $_aUserCompanies = FALSE;
+    
+    public $ccuc_status = FALSE;
+    public $profiles_ccmp_field = FALSE;
+
+
     /**
      * Handles company detection and application setting by URL parm specified in DATA_KEY
      */
@@ -40,14 +45,14 @@ class userCompanyHandler extends CApplicationComponent
 
 		// 1. get language preference
 		$preferred = null;
-		if (isset($_GET[self::DATA_KEY])) {
+		if (isset($_GET[$this->data_key])) {
 
 			// use company from URL
-			$preferred = $_GET[self::DATA_KEY];
+			$preferred = $_GET[$this->data_key];
 
             //validate new comapny
-            if(!$this->_isValidClientCompany($preferred)){
-                throw new CHttpException(404, "Company '{$_GET[self::DATA_KEY]}' is not available.");
+            if(!$this->isValidUserCompany($preferred)){
+                throw new CHttpException(404, "Company '{$_GET[$this->data_key ]}' is not available.");
             }
 
             //set new company as active
@@ -61,14 +66,14 @@ class userCompanyHandler extends CApplicationComponent
 
 			// use active company from profile.ccmp_id
 			$preferred = $this->getActiveCompany();
-            if($this->_isValidClientCompany($preferred)){
+            if($this->isValidUserCompany($preferred)){
                 $this->_setActiveCompany($preferred);
                 return TRUE;
             }
     	}
 
         //get first user company
-        $a = $this->getOfficeClientCompanies();
+        $a = $this->getClientCompanies();
         if(empty($a)){
             throw new CHttpException(404, "For user companies are not available.");
         }
@@ -86,7 +91,8 @@ class userCompanyHandler extends CApplicationComponent
             return $this->_activeCompany;
         }
 
-        $cmmp_id = Yii::app()->getModule('user')->user()->profile->ccmp_id;
+        $cmmp_id = Yii::app()->getModule('user')->user()->profile->{$this->profiles_ccmp_field};
+
         if(!$cmmp_id){
             return FALSE;
         }
@@ -104,14 +110,9 @@ class userCompanyHandler extends CApplicationComponent
       * get all client companies
       * @return array
       */
-     public function getOfficeClientCompanies(){
+     public function getClientCompanies(){
          if($this->_aUserCompanies === FALSE){
-            
-            $criteria = new CDbCriteria;
-            $criteria->join .= 'INNER JOIN person p ON p.id = ccuc_person_id';
-            $criteria->condition='p.user_id = ' . Yii::app()->getModule('user')->user()->id;
-            $this->_aUserCompanies  = CcucUserCompany::model()->findAll($criteria); // $params is not needed            
-            
+            $this->_aUserCompanies = CcucUserCompany::model()->getUserCompnies(Yii::app()->getModule('user')->user()->id,$this->ccuc_status);
          }
          return $this->_aUserCompanies;
      }
@@ -121,29 +122,17 @@ class userCompanyHandler extends CApplicationComponent
       * create array  of user companies id (ccmp_id)
       * @return array
       */
-     public function getClientCompanyList(){
+     public function getCompanyList(){
          $a = array();
-         foreach($this->getOfficeClientCompanies() as $row){
+         foreach($this->getClientCompanies() as $row){
              $a[] = $row->ccuc_ccmp_id;
          }
          return $a;
      }
 
-     /**
-      * validate if ccmp is user sys company
-      * @return boolean
-      */
-     public function isClientSysCompany($ccmp_id){
-         foreach($this->getOfficeClientCompanies() as $row){
-             if($row->ccuc_ccmp_id == $ccmp_id){
-                 return TRUE;
-             }
-         }
-         return FALSE;
-     }
      
-     private function _isValidClientCompany($ccmp_id){
-         foreach($this->getOfficeClientCompanies() as $company){
+     public function isValidUserCompany($ccmp_id){
+         foreach($this->getClientCompanies() as $company){
              if($company->ccuc_ccmp_id == $ccmp_id ){
                  return TRUE;
              }
@@ -158,7 +147,7 @@ class userCompanyHandler extends CApplicationComponent
             //update 
             $sSql = "
                 UPDATE profiles 
-                SET ccmp_id = ".$ccmp_id." 
+                SET ".$this->profiles_ccmp_field." = ".$ccmp_id." 
                 WHERE 
                     user_id = ".Yii::app()->getModule('user')->user()->id
                 ;
@@ -168,7 +157,7 @@ class userCompanyHandler extends CApplicationComponent
          $this->_activeCompany = $ccmp_id;
          
          //set comapny name
-         foreach($this->getOfficeClientCompanies() as $company){
+         foreach($this->getClientCompanies() as $company){
              if($ccmp_id == $company->ccuc_ccmp_id){
                  $this->_activeCompanyName = $company->ccucCcmp->ccmp_name;
                  return TRUE;

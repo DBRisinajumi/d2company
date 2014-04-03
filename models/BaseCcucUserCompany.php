@@ -21,6 +21,7 @@ abstract class BaseCcucUserCompany extends CActiveRecord
     const CCUC_STATUS_USER = 'USER';
     const CCUC_STATUS_HIDDED = 'HIDDED';
     const CCUC_STATUS_PERSON = 'PERSON';
+    const CCUC_STATUS_SYS = 'SYS';
 
     public static function model($className = __CLASS__)
     {
@@ -67,7 +68,7 @@ abstract class BaseCcucUserCompany extends CActiveRecord
         return array_merge(
             parent::relations(), array(
                 'ccucCcmp' => array(self::BELONGS_TO, 'CcmpCompany', 'ccuc_ccmp_id'),
-                'ccucPerson' => array(self::BELONGS_TO, 'Person', 'ccuc_person_id'),
+                'ccucPerson' => array(self::BELONGS_TO, 'PprsPerson', 'ccuc_person_id'),
             )
         );
     }
@@ -86,9 +87,10 @@ abstract class BaseCcucUserCompany extends CActiveRecord
     {
         return array(
            'ccuc_status' => array(
-               self::CCUC_STATUS_USER => Yii::t('D2companyModule.crud', 'Have access to information'),
-               self::CCUC_STATUS_HIDDED => Yii::t('D2companyModule.crud', 'Deleted'),
-               self::CCUC_STATUS_PERSON => Yii::t('D2companyModule.crud', 'Actual'),
+               self::CCUC_STATUS_USER => Yii::t('D2companyModule.crud', 'User'),
+               self::CCUC_STATUS_HIDDED => Yii::t('D2companyModule.crud', 'Disabled user'),
+               self::CCUC_STATUS_PERSON => Yii::t('D2companyModule.crud', 'No user'),
+               self::CCUC_STATUS_SYS => Yii::t('D2companyModule.crud', 'System company'),
            ),
             );
     }

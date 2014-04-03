@@ -813,7 +813,7 @@ class CcmpCompanyController extends Controller {
         }
         
 		if (DbrUser::isSysCompanyUser()){
-            if( !Yii::app()->userCompany->isClientSysCompany($model->ccmp_sys_ccmp_id)){
+            if( !Yii::app()->userCompany->isUserSysCompany($model->ccmp_sys_ccmp_id)){
                 exit;
                 throw new CHttpException(404, Yii::t('d2companyModule.crud_static', 'Requested closed data.'));
             }    
