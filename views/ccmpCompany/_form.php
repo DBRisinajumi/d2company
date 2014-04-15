@@ -97,7 +97,7 @@
                 
                 <? 
                 // only for new customers
-                if(!isset($model->ccmp_id)){ ?>
+                if(FALSE && !isset($model->ccmp_id)){ ?>
                 
                  <div class="control-group">
                         <div class='control-label'>

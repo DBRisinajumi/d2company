@@ -139,8 +139,8 @@ abstract class BaseCcmpCompany extends CActiveRecord
         $criteria->compare('t.ccmp_office_email', $this->ccmp_office_email, true);
         $criteria->compare('t.ccmp_office_phone', $this->ccmp_office_phone, true);
 
-        if (DbrUser::isSysCompanyUser()){
-            $criteria->compare('t.ccmp_sys_ccmp_id', Yii::app()->userCompany->getCompanyList());
+        if(Yii::app()->sysCompany->getActiveCompany()){
+            $criteria->compare('t.ccmp_sys_ccmp_id', Yii::app()->sysCompany->getActiveCompany());
         }     
         
         return new CActiveDataProvider(get_class($this), array(
@@ -150,5 +150,7 @@ abstract class BaseCcmpCompany extends CActiveRecord
 
         ));
     }
+    
+
 
 }

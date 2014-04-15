@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class File
+ * company handler
  * @author    Uldis Nelsons
  */
 
@@ -33,8 +33,8 @@ class companyHandler extends CApplicationComponent
     
     public $ccuc_status = FALSE;
     public $profiles_ccmp_field = FALSE;
-
-
+    private $_company_attributes = FALSE;
+    
     /**
      * Handles company detection and application setting by URL parm specified in DATA_KEY
      */
@@ -86,6 +86,12 @@ class companyHandler extends CApplicationComponent
 
 	}
 
+
+    /**
+     * load from user profile ccmp_id value
+     * profile field name is in $this->profiles_ccmp_field
+     * @return boolean
+     */
     public function getActiveCompany(){
         if($this->_activeCompany){
             return $this->_activeCompany;
@@ -101,9 +107,7 @@ class companyHandler extends CApplicationComponent
     }
 
     public function getActiveCompanyName(){
-    
             return $this->_activeCompanyName;
-    
     }
 
      /**
@@ -141,6 +145,12 @@ class companyHandler extends CApplicationComponent
          return FALSE;
      }
 
+     /**
+      * colect active company data and set actice company in user prifle table
+      * @param type $ccmp_id
+      * @return boolean
+      * @throws CHttpException
+      */
      private function _setActiveCompany($ccmp_id){
 
          if(Yii::app()->getModule('user')->user()->profile->ccmp_id != $ccmp_id){
@@ -159,11 +169,20 @@ class companyHandler extends CApplicationComponent
          //set comapny name
          foreach($this->getClientCompanies() as $company){
              if($ccmp_id == $company->ccuc_ccmp_id){
-                 $this->_activeCompanyName = $company->ccucCcmp->ccmp_name;
+                 $this->_company_attributes =  array_merge( $company->ccucCcmp->attributes,$company->ccucCcmp->cccdCustomData->attributes);
+                 $this->_activeCompanyName = $this->_company_attributes['ccmp_name'];
                  return TRUE;
              }
          }
          throw new CHttpException(404, "For ccmp_id=".$ccmp_id. "neatrada nosaukumu");
      }
 
+     /**
+      * return active company table ccmp_company and cccd_custom_data record field values
+      * @param type $atribute
+      * @return type
+      */
+     public function getAttribute($atribute){
+         return $this->_company_attributes[$atribute];
+     }
 }

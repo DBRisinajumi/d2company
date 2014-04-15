@@ -95,8 +95,8 @@ class CcmpCompanyController extends Controller {
             $model->attributes = $_POST['CcmpCompany'];
 
             //set system company id
-            if (DbrUser::isSysCompanyUser()){
-                $model->ccmp_sys_ccmp_id = Yii::app()->userCompany->getActiveCompany();
+            if (Yii::app()->sysCompany->getActiveCompany()){
+                $model->ccmp_sys_ccmp_id = Yii::app()->sysCompany->getActiveCompany();
             }              
 
             try {
@@ -108,30 +108,36 @@ class CcmpCompanyController extends Controller {
                     $custom->cccd_ccmp_id = $model->ccmp_id;
                     $custom->save();
 
+                    if (Yii::app()->sysCompany->getActiveCompany()){
+                        $postCcxg = new CcxgCompanyXGroup;
+                        $postCcxg->ccxg_ccmp_id = $model->ccmp_id;
+                        $postCcxg->ccxg_ccgr_id = 3; //customer
+                        $postCcxg->save();                        
+                    }
                      
                     /** 
                      * user creation
                      * @todo - remove this option
                      */
-                    if (!empty($_POST['username'])) {   
-                        
-                        try {
-                             
-                              $user = new User;
-                              $user->username = $_POST['username'];
-                              $user->email = $model->ccmp_office_email;
-                              $user->superuser = 0;
-                              $user->status = 1;
-                              CcmpCompany::createCustomerUser($user ,$model->ccmp_id);
-                             
-                        } catch (Exception $e) {
-                            
-                              $user = Yii::app()->getComponent('user');
-                              $user->setFlash('warning', $e->message); 
-                            
-                        }
-                    
-                }
+//                    if (!empty($_POST['username'])) {   
+//                        
+//                        try {
+//                             
+//                              $user = new User;
+//                              $user->username = $_POST['username'];
+//                              $user->email = $model->ccmp_office_email;
+//                              $user->superuser = 0;
+//                              $user->status = 1;
+//                              CcmpCompany::createCustomerUser($user ,$model->ccmp_id);
+//                             
+//                        } catch (Exception $e) {
+//                            
+//                              $user = Yii::app()->getComponent('user');
+//                              $user->setFlash('warning', $e->message); 
+//                            
+//                        }
+//                    
+//                }
                  if (isset($_GET['returnUrl'])) {
                     $this->redirect($_GET['returnUrl']);
                 } else {
@@ -687,8 +693,8 @@ class CcmpCompanyController extends Controller {
         //sys company validation
         $ccmp_id = yii::app()->request->getParam('pk');
         $model = $this->loadModel($ccmp_id);
-        if (DbrUser::isSysCompanyUser()){
-            if($model->ccmp_sys_ccmp_id ==  Yii::app()->userCompany->getActiveCompany()){
+        if (Yii::app()->sysCompany->getActiveCompany()){
+            if($model->ccmp_sys_ccmp_id ==  Yii::app()->sysCompany->getActiveCompany()){
                 throw new CHttpException(404, "Data not available.");
             }
         }   
@@ -812,9 +818,8 @@ class CcmpCompanyController extends Controller {
             throw new CHttpException(404, Yii::t('d2companyModule.crud_static', 'The requested page does not exist.'));
         }
         
-		if (DbrUser::isSysCompanyUser()){
-            if( !Yii::app()->userCompany->isUserSysCompany($model->ccmp_sys_ccmp_id)){
-                exit;
+		if (Yii::app()->sysCompany->getActiveCompany()){
+            if( !Yii::app()->sysCompany->isValidUserCompany($model->ccmp_sys_ccmp_id)){
                 throw new CHttpException(404, Yii::t('d2companyModule.crud_static', 'Requested closed data.'));
             }    
         }                
