@@ -55,8 +55,8 @@ class BaseCccfCustomField extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('varname, title, field_type', 'required'),
-			array('varname', 'match', 'pattern' => '/^[A-Za-z_0-9]+$/u','message' => Yii::t('d2companyModule.crud',"Variable name may consist of A-z, 0-9, underscores, begin with a letter.")),
-			array('varname', 'unique', 'message' => Yii::t('d2companyModule.crud' ,"This field already exists.")),
+			array('varname', 'match', 'pattern' => '/^[A-Za-z_0-9]+$/u','message' => Yii::t('D2companyModule.crud',"Variable name may consist of A-z, 0-9, underscores, begin with a letter.")),
+			array('varname', 'unique', 'message' => Yii::t('D2companyModule.crud' ,"This field already exists.")),
 			array('varname, field_type', 'length', 'max'=>50),
 			array('field_size_min, required, position, visible', 'numerical', 'integerOnly'=>true),
 			array('field_size', 'match', 'pattern' => '/^\s*[-+]?[0-9]*\,*\.?[0-9]+([eE][-+]?[0-9]+)?\s*$/'),
@@ -176,22 +176,22 @@ class BaseCccfCustomField extends CActiveRecord
 	public static function itemAlias($type,$code=NULL) {
 		$_items = array(
 			'field_type' => array(
-				'INTEGER' => Yii::t('d2companyModule.crud', 'INTEGER'),
-				'VARCHAR' => Yii::t('d2companyModule.crud', 'VARCHAR'),
-				'TEXT'=> Yii::t('d2companyModule.crud', 'TEXT'),
-				'DATE'=> Yii::t('d2companyModule.crud', 'DATE'),
-				'FLOAT'=> Yii::t('d2companyModule.crud', 'FLOAT'),
-				'DECIMAL'=> Yii::t('d2companyModule.crud', 'DECIMAL'),
-				'BOOL'=> Yii::t('d2companyModule.crud', 'BOOL'),
-				'BLOB'=> Yii::t('d2companyModule.crud', 'BLOB'),
-				'BINARY'=> Yii::t('d2companyModule.crud', 'BINARY'),
+				'INTEGER' => Yii::t('D2companyModule.crud', 'INTEGER'),
+				'VARCHAR' => Yii::t('D2companyModule.crud', 'VARCHAR'),
+				'TEXT'=> Yii::t('D2companyModule.crud', 'TEXT'),
+				'DATE'=> Yii::t('D2companyModule.crud', 'DATE'),
+				'FLOAT'=> Yii::t('D2companyModule.crud', 'FLOAT'),
+				'DECIMAL'=> Yii::t('D2companyModule.crud', 'DECIMAL'),
+				'BOOL'=> Yii::t('D2companyModule.crud', 'BOOL'),
+				'BLOB'=> Yii::t('D2companyModule.crud', 'BLOB'),
+				'BINARY'=> Yii::t('D2companyModule.crud', 'BINARY'),
 			),
 			'required' => array(
-				self::REQUIRED_NO => Yii::t('d2companyModule.crud', 'No'),
-				self::REQUIRED_YES_NOT_SHOW_REG => Yii::t('d2companyModule.crud', 'Yes'),
+				self::REQUIRED_NO => Yii::t('D2companyModule.crud', 'No'),
+				self::REQUIRED_YES_NOT_SHOW_REG => Yii::t('D2companyModule.crud', 'Yes'),
 			),
 			'visible' => array(
-				self::VISIBLE_ALL => Yii::t('d2companyModule.crud', 'For all'),
+				self::VISIBLE_ALL => Yii::t('D2companyModule.crud', 'For all'),
 				
 			),
 		);

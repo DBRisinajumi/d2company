@@ -144,7 +144,7 @@ return array(
                 }
             }
         } else {
-            throw new CHttpException(400, Yii::t('d2companyModule.crud_static', 'Invalid request. Please do not repeat this request again.'));
+            throw new CHttpException(400, Yii::t('D2companyModule.crud_static', 'Invalid request. Please do not repeat this request again.'));
         }
     }
 
@@ -174,7 +174,7 @@ return array(
         }
         $model = $m->findByPk($id);
         if ($model === null) {
-            throw new CHttpException(404, Yii::t('d2companyModule.crud_static', 'The requested page does not exist.'));
+            throw new CHttpException(404, Yii::t('D2companyModule.crud_static', 'The requested page does not exist.'));
         }
         return $model;
     }

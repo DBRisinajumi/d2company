@@ -69,12 +69,12 @@ abstract class BaseCcntCountry extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'ccnt_id' => Yii::t('d2companyModule.crud', 'Ccnt'),
-            'ccnt_name' => Yii::t('d2companyModule.crud', 'Ccnt Name'),
-            'ccnt_code' => Yii::t('d2companyModule.crud', 'Ccnt Code'),
-            'ccnt_icao_a2' => Yii::t('d2companyModule.crud', 'Ccnt Icao A2'),
-            'ccnt_icao_a3' => Yii::t('d2companyModule.crud', 'Ccnt Icao A3'),
-            'ccnt_icao_n3' => Yii::t('d2companyModule.crud', 'Ccnt Icao N3'),
+            'ccnt_id' => Yii::t('D2companyModule.crud', 'Ccnt'),
+            'ccnt_name' => Yii::t('D2companyModule.crud', 'Ccnt Name'),
+            'ccnt_code' => Yii::t('D2companyModule.crud', 'Ccnt Code'),
+            'ccnt_icao_a2' => Yii::t('D2companyModule.crud', 'Ccnt Icao A2'),
+            'ccnt_icao_a3' => Yii::t('D2companyModule.crud', 'Ccnt Icao A3'),
+            'ccnt_icao_n3' => Yii::t('D2companyModule.crud', 'Ccnt Icao N3'),
         );
     }
 

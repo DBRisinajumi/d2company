@@ -20,7 +20,7 @@ $this->widget('TbGridView',
             'name' => 'ccbr_name',
             'editable' => array(
                 'url' => $this->createUrl('/d2company/ccbrBranch/editableSaver'),
-                'emptytext' => Yii::t('d2companyModule.crud_static', 'Empty'),
+                'emptytext' => Yii::t('D2companyModule.crud_static', 'Empty'),
             )
         ),
         array(
@@ -28,7 +28,7 @@ $this->widget('TbGridView',
             'name' => 'ccbr_code',
             'editable' => array(
                 'url' => $this->createUrl('/d2company/ccbrBranch/editableSaver'),
-                'emptytext' => Yii::t('d2companyModule.crud_static', 'Empty'),
+                'emptytext' => Yii::t('D2companyModule.crud_static', 'Empty'),
             )
         ),
         array(
@@ -36,7 +36,7 @@ $this->widget('TbGridView',
             'name' => 'ccbr_hide',
             'editable' => array(
                 'url' => $this->createUrl('/d2company/ccbrBranch/editableSaver'),
-                'emptytext' => Yii::t('d2companyModule.crud_static', 'Empty'),
+                'emptytext' => Yii::t('D2companyModule.crud_static', 'Empty'),
             )
         ),
         array(

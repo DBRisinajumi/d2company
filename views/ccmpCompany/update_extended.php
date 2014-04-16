@@ -1,8 +1,8 @@
 <?php
 $this->setPageTitle(
-        Yii::t('d2companyModule.crud', 'Ccmp Company')
+        Yii::t('D2companyModule.crud', 'Ccmp Company')
         . ' - '
-        . Yii::t('d2companyModule.crud_static', 'Update')
+        . Yii::t('D2companyModule.crud_static', 'Update')
         . ': '
         . $model->getItemLabel()
 );
@@ -32,26 +32,26 @@ $this->widget(
     'type' => 'tabs',
     'items' => array(
         array(
-            'label' => Yii::t('d2companyModule.crud', 'Main comapny data'),
+            'label' => Yii::t('D2companyModule.crud', 'Main comapny data'),
             'url' => Yii::app()->controller->createUrl(
                     'updateExtended', array('ccmp_id' => $model->ccmp_id)),
             'active' => ($active_tab == 'company_data'),
             'visible' => in_array('company_data',$visible_tabs),
         ),
         array(
-            'label' => Yii::t('d2companyModule.crud', 'Custom data'),
+            'label' => Yii::t('D2companyModule.crud', 'Custom data'),
             'url' => Yii::app()->controller->createUrl(
                     'updateCustom', array('ccmp_id' => $model->ccmp_id)),
             'active' => ($active_tab == 'company_custom'),
             'visible' => in_array('company_custom_data',$visible_tabs),            
         ),
-        array('label' => Yii::t('d2companyModule.crud', 'Company groups'),
+        array('label' => Yii::t('D2companyModule.crud', 'Company groups'),
             'url' => Yii::app()->controller->createUrl(
                     'updateGroup', array('ccmp_id' => $model->ccmp_id)),
             'active' => ($active_tab == 'company_group'),
             'visible' => in_array('company_group',$visible_tabs),            
         ),
-        array('label' => Yii::t('d2companyModule.crud', 'Company branches'),
+        array('label' => Yii::t('D2companyModule.crud', 'Company branches'),
             'url' => Yii::app()->controller->createUrl(
                     'manageccbr', array('ccmp_id' => $model->ccmp_id)),
             'active' => ($active_tab == 'company_branches')
@@ -59,13 +59,13 @@ $this->widget(
                         || ($active_tab == 'updateccbr'),
             'visible' => in_array('company_branches',$visible_tabs),            
         ),
-          array('label' => Yii::t('d2companyModule.crud', 'Company managers'),
+          array('label' => Yii::t('D2companyModule.crud', 'Company managers'),
             'url' => Yii::app()->controller->createUrl(
                     'updateManagers', array('ccmp_id' => $model->ccmp_id)),
             'active' => ($active_tab == 'company_managers'),
             'visible' => in_array('company_managers',$visible_tabs),
         ),
-         array('label' => Yii::t('d2companyModule.crud', 'Company customers'),
+         array('label' => Yii::t('D2companyModule.crud', 'Company customers'),
             'url' => Yii::app()->controller->createUrl(
                     'adminCustomers', array('ccmp_id' => $model->ccmp_id)),
                     'active' => ($active_tab == 'company_customer_create')
@@ -74,7 +74,7 @@ $this->widget(
                     'visible' => in_array('company_customers',$visible_tabs),             
         ),
         
-         array('label' => Yii::t('d2companyModule.crud', 'Cars'),
+         array('label' => Yii::t('D2companyModule.crud', 'Cars'),
             'url' => Yii::app()->controller->createUrl(
                     'adminCars', array('ccmp_id' => $model->ccmp_id)),
                     'active' => 
@@ -85,7 +85,7 @@ $this->widget(
         ),
 
         array(
-            'label' => Yii::t('d2companyModule.crud', 'Files'),
+            'label' => Yii::t('D2companyModule.crud', 'Files'),
             'url' => Yii::app()->controller->createUrl(
                         'updateFiles', array('ccmp_id' => $model->ccmp_id)),
             'active' => ($active_tab == 'company_files'),

@@ -1,15 +1,15 @@
 <?php
-$this->breadcrumbs[Yii::t('d2companyModule.crud','Ccgr Groups')] = array('admin');
+$this->breadcrumbs[Yii::t('D2companyModule.crud','Ccgr Groups')] = array('admin');
 $this->breadcrumbs[$model->{$model->tableSchema->primaryKey}] = array('view','id'=>$model->{$model->tableSchema->primaryKey});
-$this->breadcrumbs[] = Yii::t('d2companyModule.crud_static', 'Update');
+$this->breadcrumbs[] = Yii::t('D2companyModule.crud_static', 'Update');
 ?>
 
 <?php $this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
     <h1>
         
-        <?php echo Yii::t('d2companyModule.crud','Ccgr Group'); ?>
+        <?php echo Yii::t('D2companyModule.crud','Ccgr Group'); ?>
         <small>
-            <?php echo Yii::t('d2companyModule.crud_static','Update')?> #<?php echo $model->ccgr_id ?>
+            <?php echo Yii::t('D2companyModule.crud_static','Update')?> #<?php echo $model->ccgr_id ?>
         </small>
         
     </h1>

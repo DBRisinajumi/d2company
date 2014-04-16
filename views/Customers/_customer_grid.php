@@ -30,7 +30,7 @@ $this->widget('TbGridView',
              'name' => 'last_name',
             'editable' => array(
                 'url' => $this->createUrl('/d2company/ccbrBranch/editableSaver'),
-                'emptytext' => Yii::t('d2companyModule.crud_static', 'Empty'),
+                'emptytext' => Yii::t('D2companyModule.crud_static', 'Empty'),
             )
         ),    
          array(
@@ -39,7 +39,7 @@ $this->widget('TbGridView',
              'name' => 'phone',
             'editable' => array(
                 'url' => $this->createUrl('/d2company/ccbrBranch/editableSaver'),
-                'emptytext' => Yii::t('d2companyModule.crud_static', 'Empty'),
+                'emptytext' => Yii::t('D2companyModule.crud_static', 'Empty'),
             )
         ),
            

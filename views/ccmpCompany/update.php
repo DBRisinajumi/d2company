@@ -1,8 +1,8 @@
 <?php
 $this->setPageTitle(
-        Yii::t('d2companyModule.crud', 'Ccmp Company')
+        Yii::t('D2companyModule.crud', 'Ccmp Company')
         . ' - '
-        . Yii::t('d2companyModule.crud_static', 'Update')
+        . Yii::t('D2companyModule.crud_static', 'Update')
         . ': '
         . $model->getItemLabel()
 );
@@ -61,27 +61,27 @@ $this->widget('bootstrap.widgets.TbTabs', array(
     'type' => 'tabs',
     'placement' => 'left', // 'above', 'right', 'below' or 'left'
     'tabs' => array(
-        array('label' => Yii::t('d2companyModule.crud', 'Main comapny data'),
+        array('label' => Yii::t('D2companyModule.crud', 'Main comapny data'),
             'content' => $this->clips['main'],
             'active' => ($active_tab == 'main'),
         ),
-        array('label' => Yii::t('d2companyModule.crud', 'Custom data'),
+        array('label' => Yii::t('D2companyModule.crud', 'Custom data'),
             'content' => $this->clips['company_custom'],
             'active' => ($active_tab == 'company_custom'),
         ),
-        array('label' => Yii::t('d2companyModule.crud', 'Company groups'),
+        array('label' => Yii::t('D2companyModule.crud', 'Company groups'),
             'content' => $this->clips['company_group'],
             'active' => ($active_tab == 'company_group'),
         ),
-        array('label' => Yii::t('d2companyModule.crud', 'Company branches'),
+        array('label' => Yii::t('D2companyModule.crud', 'Company branches'),
             'content' => $this->clips['company_branches'],
             'active' => ($active_tab == 'company_branches'),
         ),
-        array('label' => Yii::t('d2companyModule.crud', 'Company managers'),
+        array('label' => Yii::t('D2companyModule.crud', 'Company managers'),
             'content' => $this->clips['company_manager'],
             'active' => ($active_tab == 'company_manager'),
         ),
-        array('label' => Yii::t('d2companyModule.crud', 'Files'),
+        array('label' => Yii::t('D2companyModule.crud', 'Files'),
             'content' => $this->clips['company_files'],
             'active' => ($active_tab == 'company_files'),
         ),

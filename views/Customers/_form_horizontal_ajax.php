@@ -79,7 +79,7 @@
                     </div>
       <div class="control-group">
                         <div class='control-label'>
-                            <?php echo CHtml::label(Yii::t('d2companyModule.crud', 'Send password'),FALSE); ?>
+                            <?php echo CHtml::label(Yii::t('D2companyModule.crud', 'Send password'),FALSE); ?>
                         </div>
                         <div class='controls'>
                             <?php

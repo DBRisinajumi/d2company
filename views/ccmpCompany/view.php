@@ -1,14 +1,14 @@
 <?php
 $this->setPageTitle(
-        Yii::t('d2companyModule.crud', 'Ccmp Company')
+        Yii::t('D2companyModule.crud', 'Ccmp Company')
         . ' - '
-        . Yii::t('d2companyModule.crud_static', 'View')
+        . Yii::t('D2companyModule.crud_static', 'View')
         . ': '
         . $model->getItemLabel()
 );
 ?>    
 <h2>
-    <?php echo Yii::t('d2companyModule.crud', 'Company data') ?>
+    <?php echo Yii::t('D2companyModule.crud', 'Company data') ?>
 </h2>
 
 <div class="row">

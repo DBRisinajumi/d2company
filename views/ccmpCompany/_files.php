@@ -5,7 +5,7 @@
             'data' => $model,
             'attributes' => array(
                 array(
-                    'label' => Yii::t('d2companyModule.crud', 'Attachments'),
+                    'label' => Yii::t('D2companyModule.crud', 'Attachments'),
                     'type'   => 'raw',
                     'template'   =>  $this->widget(
                                         'vendor.dbrisinajumi.d1files.widgets.d1Upload',
@@ -17,7 +17,7 @@
                                         true
                                         ),
                     'value'  => $this->widget("bootstrap.widgets.TbButton", array(
-                        "label"=>Yii::t("d2companyModule.crud","Add file"),
+                        "label"=>Yii::t("D2companyModule.crud","Add file"),
                         "icon"=>"icon-plusthick",
                         'htmlOptions' => array(
                             'data-toggle' => 'modal',

@@ -1,6 +1,6 @@
 
 <?php
-$this->breadcrumbs[] = Yii::t('d2companyModule.crud','Ccgr Groups');
+$this->breadcrumbs[] = Yii::t('D2companyModule.crud','Ccgr Groups');
 Yii::app()->clientScript->registerScript('search', "
     $('.search-button').click(function(){
         $('.search-form').toggle();
@@ -19,8 +19,8 @@ Yii::app()->clientScript->registerScript('search', "
 <?php $this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
 <h1>
     
-    <?php echo Yii::t('d2companyModule.crud', 'Ccgr Groups'); ?>
-    <small><?php echo Yii::t('d2companyModule.crud_static', 'Manage'); ?></small>
+    <?php echo Yii::t('D2companyModule.crud', 'Ccgr Groups'); ?>
+    <small><?php echo Yii::t('D2companyModule.crud_static', 'Manage'); ?></small>
     
 </h1>
 

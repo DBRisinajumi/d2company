@@ -722,7 +722,7 @@ class CcmpCompanyController extends Controller {
                 }
             }
         } else {
-            throw new CHttpException(400, Yii::t('d2companyModule.crud_static', 'Invalid request. Please do not repeat this request again.'));
+            throw new CHttpException(400, Yii::t('D2companyModule.crud_static', 'Invalid request. Please do not repeat this request again.'));
         }
     }
 
@@ -815,12 +815,12 @@ class CcmpCompanyController extends Controller {
         }
         $model = $m->findByPk($id);
         if ($model === null) {
-            throw new CHttpException(404, Yii::t('d2companyModule.crud_static', 'The requested page does not exist.'));
+            throw new CHttpException(404, Yii::t('D2companyModule.crud_static', 'The requested page does not exist.'));
         }
         
 		if (Yii::app()->sysCompany->getActiveCompany()){
             if( !Yii::app()->sysCompany->isValidUserCompany($model->ccmp_sys_ccmp_id)){
-                throw new CHttpException(404, Yii::t('d2companyModule.crud_static', 'Requested closed data.'));
+                throw new CHttpException(404, Yii::t('D2companyModule.crud_static', 'Requested closed data.'));
             }    
         }                
         

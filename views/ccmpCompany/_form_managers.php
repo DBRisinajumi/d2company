@@ -18,7 +18,7 @@
     <div class="row">
         <div class="span7"> <!-- main inputs -->
             <h2>
-                <?php echo Yii::t('d2companyModule.crud_static', 'Data') ?>                <small>
+                <?php echo Yii::t('D2companyModule.crud_static', 'Data') ?>                <small>
                     <?php echo $model->itemLabel ?>
                 </small>
 
@@ -38,7 +38,7 @@
                         echo $form->error($model, 'ccuc_id')
                         ?>
                         <span class="help-block">
-                            <?php echo (($t = Yii::t('d2companyModule.crud', 'CcucUserCompany.ccuc_id')) != 'CcucUserCompany.ccuc_id') ? $t : '' ?>
+                            <?php echo (($t = Yii::t('D2companyModule.crud', 'CcucUserCompany.ccuc_id')) != 'CcucUserCompany.ccuc_id') ? $t : '' ?>
                         </span>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                         echo $form->error($model, 'ccuc_first_name')
                         ?>
                         <span class="help-block">
-                            <?php echo (($t = Yii::t('d2companyModule.crud', 'CcucUserCompany.ccuc_first_name')) != 'CcucUserCompany.ccuc_first_name') ? $t : '' ?>
+                            <?php echo (($t = Yii::t('D2companyModule.crud', 'CcucUserCompany.ccuc_first_name')) != 'CcucUserCompany.ccuc_first_name') ? $t : '' ?>
                         </span>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                         echo $form->error($model, 'cucc_last_name')
                         ?>
                         <span class="help-block">
-                            <?php echo (($t = Yii::t('d2companyModule.crud', 'CcucUserCompany.cucc_last_name')) != 'CcucUserCompany.cucc_last_name') ? $t : '' ?>
+                            <?php echo (($t = Yii::t('D2companyModule.crud', 'CcucUserCompany.cucc_last_name')) != 'CcucUserCompany.cucc_last_name') ? $t : '' ?>
                         </span>
                     </div>
                 </div>
@@ -124,7 +124,7 @@
                         echo $form->error($model, 'ccuc_status')
                         ?>
                         <span class="help-block">
-                            <?php echo (($t = Yii::t('d2companyModule.crud', 'CcucUserCompany.ccuc_status')) != 'CcucUserCompany.ccuc_status') ? $t : '' ?>
+                            <?php echo (($t = Yii::t('D2companyModule.crud', 'CcucUserCompany.ccuc_status')) != 'CcucUserCompany.ccuc_status') ? $t : '' ?>
                         </span>
                     </div>
                 </div>
@@ -134,18 +134,18 @@
     </div>
 
     <p class="alert">
-        <?php echo Yii::t('d2companyModule.crud_static', 'Fields with <span class="required">*</span> are required.'); ?>
+        <?php echo Yii::t('D2companyModule.crud_static', 'Fields with <span class="required">*</span> are required.'); ?>
     </p>
 
     <div class="form-actions">
 
         <?php
         echo CHtml::Button(
-                Yii::t('d2companyModule.crud_static', 'Cancel'), array(
+                Yii::t('D2companyModule.crud_static', 'Cancel'), array(
             'submit' => (isset($_GET['returnUrl'])) ? $_GET['returnUrl'] : array('ccucUserCompany/admin'),
             'class' => 'btn'
         ));
-        echo ' ' . CHtml::submitButton(Yii::t('d2companyModule.crud_static', 'Save'), array(
+        echo ' ' . CHtml::submitButton(Yii::t('D2companyModule.crud_static', 'Save'), array(
             'class' => 'btn btn-primary'
         ));
         ?>

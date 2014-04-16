@@ -13,7 +13,7 @@ Yii::app()->clientScript->registerScript('add', "
 <? $this->widget(
                    "bootstrap.widgets.TbButton",
                    array(
-                       "label"=>Yii::t('d2companyModule.crud_static','Add'),
+                       "label"=>Yii::t('D2companyModule.crud_static','Add'),
                 "icon"=>"icon-plus",
                 "htmlOptions"=>array("class"=>"add-button")
                )

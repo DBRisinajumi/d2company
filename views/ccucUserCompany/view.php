@@ -1,20 +1,20 @@
 <?php
     $this->setPageTitle(
-        Yii::t('d2companyModule.crud', 'Ccuc User Company')
+        Yii::t('D2companyModule.crud', 'Ccuc User Company')
         . ' - '
-        . Yii::t('d2companyModule.crud_static', 'View')
+        . Yii::t('D2companyModule.crud_static', 'View')
         . ': '   
         . $model->getItemLabel()            
 );    
-$this->breadcrumbs[Yii::t('d2companyModule.crud','Ccuc User Companies')] = array('admin');
+$this->breadcrumbs[Yii::t('D2companyModule.crud','Ccuc User Companies')] = array('admin');
 $this->breadcrumbs[$model->{$model->tableSchema->primaryKey}] = array('view','id' => $model->{$model->tableSchema->primaryKey});
-$this->breadcrumbs[] = Yii::t('d2companyModule.crud_static', 'View');
+$this->breadcrumbs[] = Yii::t('D2companyModule.crud_static', 'View');
 ?>
 
 <?php $this->widget("TbBreadcrumbs", array("links"=>$this->breadcrumbs)) ?>
 <h1>
-    <?php echo Yii::t('d2companyModule.crud','Ccuc User Company')?>
-    <small><?php echo Yii::t('d2companyModule.crud_static','View')?> #<?php echo $model->ccuc_id ?></small>
+    <?php echo Yii::t('D2companyModule.crud','Ccuc User Company')?>
+    <small><?php echo Yii::t('D2companyModule.crud_static','View')?> #<?php echo $model->ccuc_id ?></small>
     </h1>
 
 
@@ -25,7 +25,7 @@ $this->breadcrumbs[] = Yii::t('d2companyModule.crud_static', 'View');
 <div class="row">
     <div class="span7">
         <h2>
-            <?php echo Yii::t('d2companyModule.crud_static','Data')?>            <small>
+            <?php echo Yii::t('D2companyModule.crud_static','Data')?>            <small>
                 <?php echo $model->itemLabel?>            </small>
         </h2>
 

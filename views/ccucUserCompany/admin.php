@@ -1,11 +1,11 @@
 <?php
 $this->setPageTitle(
-    Yii::t('d2companyModule.crud', 'Ccuc User Companies')
+    Yii::t('D2companyModule.crud', 'Ccuc User Companies')
     . ' - '
-    . Yii::t('d2companyModule.crud_static', 'Manage')
+    . Yii::t('D2companyModule.crud_static', 'Manage')
 );
 
-$this->breadcrumbs[] = Yii::t('d2companyModule.crud', 'Ccuc User Companies');
+$this->breadcrumbs[] = Yii::t('D2companyModule.crud', 'Ccuc User Companies');
 Yii::app()->clientScript->registerScript('search', "
     $('.search-button').click(function(){
         $('.search-form').toggle();
@@ -24,8 +24,8 @@ Yii::app()->clientScript->registerScript('search', "
 <?php $this->widget("TbBreadcrumbs", array("links" => $this->breadcrumbs)) ?>
     <h1>
 
-        <?php echo Yii::t('d2companyModule.crud', 'Ccuc User Companies'); ?>
-        <small><?php echo Yii::t('d2companyModule.crud_static', 'Manage'); ?></small>
+        <?php echo Yii::t('D2companyModule.crud', 'Ccuc User Companies'); ?>
+        <small><?php echo Yii::t('D2companyModule.crud_static', 'Manage'); ?></small>
 
     </h1>
 

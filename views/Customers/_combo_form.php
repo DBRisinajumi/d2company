@@ -60,7 +60,7 @@ if (!isset($_GET['isAjaxRequest'])) {
     $this->widget(
         "bootstrap.widgets.TbButton",
         array(
-            "label"=>Yii::t('d2companyModule.crud','Add new person'),
+            "label"=>Yii::t('D2companyModule.crud','Add new person'),
             "icon"=>"icon-plus",
             "htmlOptions"=>array("class"=>"add-button new-person")
              )
@@ -68,7 +68,7 @@ if (!isset($_GET['isAjaxRequest'])) {
     $this->widget(
         "bootstrap.widgets.TbButton",
         array(
-            "label"=>Yii::t('d2companyModule.crud','Add existing person'),
+            "label"=>Yii::t('D2companyModule.crud','Add existing person'),
             "icon"=>"icon-plus",
             "htmlOptions"=>array("class"=>"add-button exist-person")
              )

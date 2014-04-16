@@ -1,9 +1,9 @@
 <?php
-$this->setPageTitle(Yii::t('d2companyModule.crud', 'My company'));    
+$this->setPageTitle(Yii::t('D2companyModule.crud', 'My company'));    
 ?>
 <div class="page-header position-relative">
 <h1>
-    <?php echo Yii::t('d2companyModule.crud','My company')?>
+    <?php echo Yii::t('D2companyModule.crud','My company')?>
 </h1>
 </div>
 

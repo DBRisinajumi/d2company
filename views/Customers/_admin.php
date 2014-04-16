@@ -78,11 +78,11 @@ $this->widget('TbGridView',
                 'class' => 'TbButtonColumn',
                 'buttons' => array(
                     'reset_password' => array(
-                        'label' => Yii::t('d2companyModule.crud', 'Reset password'),
+                        'label' => Yii::t('D2companyModule.crud', 'Reset password'),
                         'url' => 'Yii::app()->controller->createUrl("resetPersonPassword", array("ccmp_id"=>$data->ccuc_ccmp_id,"person_id"=>$data->ccucPerson->id))',
                         'visible' => '($data->ccuc_status == CcucUserCompany::CCUC_STATUS_USER)',
                         'options' =>  array(
-                            'title' => Yii::t('d2companyModule.crud', 'Send new password by email'),
+                            'title' => Yii::t('D2companyModule.crud', 'Send new password by email'),
                          ),
                         ),
                 ),
@@ -101,7 +101,7 @@ $this->widget('TbGridView',
                                 'model_id' => \$data->ccuc_person_id,
                             )",
                         'options' =>  array(
-                            'title' => Yii::t('d2companyModule.crud', 'Show record history'),
+                            'title' => Yii::t('D2companyModule.crud', 'Show record history'),
                          ),                        
                         //'visible' => '(isset($data->bfrf_fiit_id))'
                     ),                                

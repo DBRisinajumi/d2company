@@ -62,9 +62,9 @@ abstract class BaseCcitCity extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'ccit_id' => Yii::t('d2companyModule.crud', 'Ccit'),
-            'ccit_name' => Yii::t('d2companyModule.crud', 'Ccit Name'),
-            'ccit_ccnt_id' => Yii::t('d2companyModule.crud', 'Ccit Ccnt'),
+            'ccit_id' => Yii::t('D2companyModule.crud', 'Ccit'),
+            'ccit_name' => Yii::t('D2companyModule.crud', 'Ccit Name'),
+            'ccit_ccnt_id' => Yii::t('D2companyModule.crud', 'Ccit Ccnt'),
         );
     }
 

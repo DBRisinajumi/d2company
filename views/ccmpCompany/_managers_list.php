@@ -1,7 +1,7 @@
 <?php
 
 $this->widget("bootstrap.widgets.TbButton", array(
-    "label" => Yii::t("d2companyModule.crud_static", "Create"),
+    "label" => Yii::t("D2companyModule.crud_static", "Create"),
     "icon" => "icon-plus",
     "url" => array("createManager", 'ccmp_id' => $ccmp_id),
 ));
@@ -21,7 +21,7 @@ $this->widget('TbGridView', array(
             'name' => 'ccuc_first_name',
             'editable' => array(
                 'url' => $this->createUrl('/d2company/ccucUserCompany/editableSaver'),
-                'emptytext' => Yii::t('d2companyModule.crud_static', 'Empty'),
+                'emptytext' => Yii::t('D2companyModule.crud_static', 'Empty'),
             )
         ),
         array(
@@ -29,7 +29,7 @@ $this->widget('TbGridView', array(
             'name' => 'cucc_last_name',
             'editable' => array(
                 'url' => $this->createUrl('/d2company/ccucUserCompany/editableSaver'),
-                'emptytext' => Yii::t('d2companyModule.crud_static', 'Empty'),
+                'emptytext' => Yii::t('D2companyModule.crud_static', 'Empty'),
             )
         ),
         array(

@@ -64,9 +64,9 @@ abstract class BaseCcxgCompanyXGroup extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'ccxg_id' => Yii::t('d2companyModule.crud', 'Ccxg'),
-            'ccxg_ccmp_id' => Yii::t('d2companyModule.crud', 'Ccxg Ccmp'),
-            'ccxg_ccgr_id' => Yii::t('d2companyModule.crud', 'Ccxg Ccgr'),
+            'ccxg_id' => Yii::t('D2companyModule.crud', 'Ccxg'),
+            'ccxg_ccmp_id' => Yii::t('D2companyModule.crud', 'Ccxg Ccmp'),
+            'ccxg_ccgr_id' => Yii::t('D2companyModule.crud', 'Ccxg Ccgr'),
         );
     }
 

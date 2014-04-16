@@ -16,7 +16,7 @@
 )); ?>
 
     <p class="note">
-        <?php echo Yii::t('d2companyModule.crud_static','Fields with <span class="required">*</span> are required.');?>        
+        <?php echo Yii::t('D2companyModule.crud_static','Fields with <span class="required">*</span> are required.');?>        
     </p>
 
 	<?php echo $form->errorSummary($model); ?>

@@ -65,10 +65,10 @@ abstract class BaseCcgrGroup extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'ccgr_id' => Yii::t('d2companyModule.crud', 'Ccgr'),
-            'ccgr_name' => Yii::t('d2companyModule.crud', 'Ccgr Name'),
-            'ccgr_notes' => Yii::t('d2companyModule.crud', 'Ccgr Notes'),
-            'ccgr_hide' => Yii::t('d2companyModule.crud', 'Ccgr Hide'),
+            'ccgr_id' => Yii::t('D2companyModule.crud', 'Ccgr'),
+            'ccgr_name' => Yii::t('D2companyModule.crud', 'Ccgr Name'),
+            'ccgr_notes' => Yii::t('D2companyModule.crud', 'Ccgr Notes'),
+            'ccgr_hide' => Yii::t('D2companyModule.crud', 'Ccgr Hide'),
         );
     }
 

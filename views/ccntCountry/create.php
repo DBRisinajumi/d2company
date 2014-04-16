@@ -1,15 +1,15 @@
 <?php 
 $this->setPageTitle(
-        Yii::t('d2companyModule.crud', 'Ccnt Country')
+        Yii::t('D2companyModule.crud', 'Ccnt Country')
         . ' - '
-        . Yii::t('d2companyModule.crud_static', 'Create')
+        . Yii::t('D2companyModule.crud_static', 'Create')
 );
 
 ?>
 
 <h1>
-    <?php echo Yii::t('d2companyModule.crud','Ccnt Country')?>
-    <small><?php echo Yii::t('d2companyModule.crud_static','Create')?></small>
+    <?php echo Yii::t('D2companyModule.crud','Ccnt Country')?>
+    <small><?php echo Yii::t('D2companyModule.crud_static','Create')?></small>
 </h1>
 
 <?php 

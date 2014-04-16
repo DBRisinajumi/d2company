@@ -1,6 +1,6 @@
 <?php
 $this->widget("bootstrap.widgets.TbButton", array(
-    "label" => Yii::t("d2companyModule.crud_static", "Create"),
+    "label" => Yii::t("D2companyModule.crud_static", "Create"),
     "icon" => "icon-plus",
     "url" => array("createccbr",'ccmp_id'=>$ccmp_id),
 ));
@@ -20,7 +20,7 @@ $this->widget('TbGridView', array(
             'name' => 'ccbr_name',
             'editable' => array(
                 'url' => $this->createUrl('/d2company/ccbrBranch/editableSaver'),
-                'emptytext' => Yii::t('d2companyModule.crud_static', 'Empty'),
+                'emptytext' => Yii::t('D2companyModule.crud_static', 'Empty'),
             )
         ),
         array(
@@ -28,7 +28,7 @@ $this->widget('TbGridView', array(
             'name' => 'ccrb_code',
             'editable' => array(
                 'url' => $this->createUrl('/d2company/ccbrBranch/editableSaver'),
-                'emptytext' => Yii::t('d2companyModule.crud_static', 'Empty'),
+                'emptytext' => Yii::t('D2companyModule.crud_static', 'Empty'),
             )
         ),
         array(
@@ -36,7 +36,7 @@ $this->widget('TbGridView', array(
             'name' => 'ccbr_hide',
             'editable' => array(
                 'url' => $this->createUrl('/d2company/ccbrBranch/editableSaver'),
-                'emptytext' => Yii::t('d2companyModule.crud_static', 'Empty'),
+                'emptytext' => Yii::t('D2companyModule.crud_static', 'Empty'),
             //'placement' => 'right',
             )
         ),

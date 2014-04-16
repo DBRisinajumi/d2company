@@ -101,7 +101,7 @@
                 
                  <div class="control-group">
                         <div class='control-label'>
-                            <?php echo CHtml::label(Yii::t('d2companyModule.crud', 'Username'),FALSE); ?>
+                            <?php echo CHtml::label(Yii::t('D2companyModule.crud', 'Username'),FALSE); ?>
                         </div>
                         <div class='controls'>
                             <?php
@@ -304,7 +304,7 @@
     <p class="alert">
 
         
-        <?php echo Yii::t('d2companyModule.crud_static','Fields with <span class="required">*</span> are required.');?>
+        <?php echo Yii::t('D2companyModule.crud_static','Fields with <span class="required">*</span> are required.');?>
         
     </p>
 
@@ -312,11 +312,11 @@
         
         <?php
             echo CHtml::Button(
-            Yii::t('d2companyModule.crud_static','Cancel'), array(
+            Yii::t('D2companyModule.crud_static','Cancel'), array(
                 'submit' => (isset($_GET['returnUrl']))?$_GET['returnUrl']:array('ccmpCompany/admin'),
                 'class' => 'btn'
             ));
-            echo ' '.CHtml::submitButton(Yii::t('d2companyModule.crud_static','Save'), array(
+            echo ' '.CHtml::submitButton(Yii::t('D2companyModule.crud_static','Save'), array(
                 'class' => 'btn btn-primary'
             ));
         ?>
