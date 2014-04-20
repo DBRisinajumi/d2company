@@ -94,11 +94,6 @@ class CcmpCompanyController extends Controller {
         if (isset($_POST['CcmpCompany'])) {
             $model->attributes = $_POST['CcmpCompany'];
 
-            //set system company id
-            if (Yii::app()->sysCompany->getActiveCompany()){
-                $model->ccmp_sys_ccmp_id = Yii::app()->sysCompany->getActiveCompany();
-            }              
-
             try {
 
                 if ($model->save()) {

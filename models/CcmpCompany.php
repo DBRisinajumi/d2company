@@ -44,6 +44,13 @@ class CcmpCompany extends BaseCcmpCompany
         );
     }
     
+    public function userSysCompanyComanies()
+    {
+        $this->getDbCriteria()->mergeWith(array(
+                'condition'=>'t.ccmp_sys_ccmp_id = ' . Yii::app()->sysCompany->getActiveCompany(),
+        ));
+        return $this;
+    }        
     
     public function getCssClass() {
         
@@ -118,4 +125,15 @@ class CcmpCompany extends BaseCcmpCompany
                 
        return $pass; 
     }
+    
+    public function save($runValidation = true, $attributes = NULL) 
+    {
+        //set system company id
+        if ($this->isNewRecord && Yii::app()->sysCompany->getActiveCompany()){
+            $this->ccmp_sys_ccmp_id = Yii::app()->sysCompany->getActiveCompany();
+        }              
+
+        return parent::save($runValidation,$attributes);
+
+    }    
 }
