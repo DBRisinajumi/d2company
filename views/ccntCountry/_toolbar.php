@@ -75,34 +75,7 @@
                     break;
             }
         ?>    </div>
-
-
-    <?php if($this->action->id == 'admin'): ?>    <div class="btn-group">
-        
-        <?php
-            $this->widget(
-                   "bootstrap.widgets.TbButton",
-                   array(
-                       "label"=>Yii::t('D2companyModule.crud_static','Search'),
-                "icon"=>"icon-search",
-                "htmlOptions"=>array("class"=>"search-button")
-               )
-           );
-        ?>
-            </div>
-    <?php endif; ?>
-    <?php if($this->action->id == 'admin' || $this->action->id == 'view'): ?>            <div class="btn-group">
-            <?php $this->widget('bootstrap.widgets.TbButtonGroup', array(
-                   'buttons'=>array(
-                           array('label'=>Yii::t('D2companyModule.crud_static','Relations'), 'icon'=>'icon-random', 'items'=>array(array('icon'=>'arrow-right','label'=>'CcmpCompanies', 'url' =>array('/d2company/ccmpCompany/admin')),
-            )
-          ),
-        ),
-    ));
-?>        </div>
-
-    
-    <?php endif; ?></div>
+</div>
 
 <?php if($this->action->id == 'admin'): ?><div class="search-form" style="display:none">
     <?php $this->renderPartial('_search',array('model'=>$model,)); ?>

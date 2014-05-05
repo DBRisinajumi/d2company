@@ -32,7 +32,7 @@ $this->widget('TbGridView',
     array(
         'id'=>'ccnt-country-grid',
         'dataProvider'=>$model->search(),
-//        'filter'=>$model,
+        'filter'=>$model,
         'template'=>'{pager}{summary}{items}{pager}',
         'pager' => array(
             'class' => 'TbPager',
@@ -58,7 +58,7 @@ $this->widget('TbGridView',
             'name' => 'ccnt_name',
             'editable' => array(
                 'url' => $this->createUrl('/d2company/ccntCountry/editableSaver'),
-                //'placement' => 'right',
+                'placement' => 'right',
             )
         ),
         array(
