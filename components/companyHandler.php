@@ -96,6 +96,10 @@ class companyHandler extends CApplicationComponent
         if($this->_activeCompany){
             return $this->_activeCompany;
         }
+        
+        if(Yii::app()->user->isGuest){
+            return false;
+        }
 
         $cmmp_id = Yii::app()->getModule('user')->user()->profile->{$this->profiles_ccmp_field};
 
