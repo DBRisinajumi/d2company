@@ -722,6 +722,7 @@ class CcmpCompanyController extends Controller {
     }
 
     public function actionAdmin() {
+        Yii::import("vendor.pentium10.yii-clear-filters-gridview.components.*");
         $model = new RememberCcmpCompany('search');
         $scopes = $model->scopes();
         if (isset($scopes[$this->scope])) {

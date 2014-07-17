@@ -12,6 +12,8 @@
     ],
     "require": {
         "php": ">=5.3.2",
-        "dbrisinajumi/audittrail": "dev-master"
+        "dbrisinajumi/audittrail": "dev-master",
+        "pentium10/yii-remember-filters-gridview": "dev-master",
+        "pentium10/yii-clear-filters-gridview": "dev-master"
     }
 }
