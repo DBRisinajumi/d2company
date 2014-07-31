@@ -44,7 +44,7 @@ class CcmpCompany extends BaseCcmpCompany
         );
     }
     
-    public function userSysCompanyComanies()
+    public function userSysCompanyCompanies()
     {
         $this->getDbCriteria()->mergeWith(array(
                 'condition'=>'t.ccmp_sys_ccmp_id = ' . Yii::app()->sysCompany->getActiveCompany(),
