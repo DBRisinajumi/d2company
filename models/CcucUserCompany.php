@@ -32,7 +32,17 @@ class CcucUserCompany extends BaseCcucUserCompany
             ),
         ));
     }  
-
+    
+    public function relations()
+    {
+        return array_merge(
+            parent::relations(), array(
+                'ccucCcmp' => array(self::BELONGS_TO, 'CcmpCompanyAll', 'ccuc_ccmp_id'),
+                'ccucPerson' => array(self::BELONGS_TO, 'PprsPerson', 'ccuc_person_id'),
+            )
+        );
+    }
+    
     public function rules()
     {
         return array_merge(

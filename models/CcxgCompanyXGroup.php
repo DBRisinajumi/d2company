@@ -32,6 +32,16 @@ class CcxgCompanyXGroup extends BaseCcxgCompanyXGroup
             )
         ));
     }
+    
+    public function relations()
+    {
+        return array_merge(
+            parent::relations(), array(
+                'ccxgCcgr' => array(self::BELONGS_TO, 'CcgrGroup', 'ccxg_ccgr_id'),
+                'ccxgCcmp' => array(self::BELONGS_TO, 'CcmpCompanyAll', 'ccxg_ccmp_id'),
+            )
+        );
+    }
 
     public function rules()
     {
