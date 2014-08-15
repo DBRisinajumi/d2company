@@ -21,7 +21,7 @@ public function accessRules()
 return array(
     array(
                 'allow',
-                'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view','resetPassword'),
+                'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view','resetPassword','ajaxCreate'),
                 'roles' => array('D2company.CcucUserCompany.*'),
             ),
             array(
@@ -127,6 +127,21 @@ return array(
         
     }
 
+    public function actionAjaxCreate($field, $value) 
+    {
+        $model = new CcucUserCompany;
+        $model->$field = $value;
+        try {
+            if ($model->save()) {
+                return TRUE;
+            }else{
+                return var_export($model->getErrors());
+            }            
+        } catch (Exception $e) {
+            throw new CHttpException(500, $e->getMessage());
+        }
+    }     
+    
     public function actionDelete($ccuc_id)
     {
         if (Yii::app()->request->isPostRequest) {

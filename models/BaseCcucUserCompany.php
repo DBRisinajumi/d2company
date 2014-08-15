@@ -37,10 +37,10 @@ abstract class BaseCcucUserCompany extends CActiveRecord
     {
         return array_merge(
             parent::rules(), array(
-                array('ccuc_ccmp_id, ccuc_person_id', 'required'),
-                array('ccuc_status', 'default', 'setOnEmpty' => true, 'value' => null),
+                array('ccuc_person_id', 'required'),
+                array('ccuc_ccmp_id, ccuc_status', 'default', 'setOnEmpty' => true, 'value' => null),
+                array('ccuc_person_id', 'numerical', 'integerOnly' => true),
                 array('ccuc_ccmp_id', 'length', 'max' => 10),
-                array('ccuc_person_id', 'length', 'max' => 11),
                 array('ccuc_status', 'length', 'max' => 6),
                 array('ccuc_id, ccuc_ccmp_id, ccuc_person_id, ccuc_status', 'safe', 'on' => 'search'),
             )
@@ -126,7 +126,7 @@ abstract class BaseCcucUserCompany extends CActiveRecord
         $criteria->compare('t.ccuc_id', $this->ccuc_id);
         $criteria->compare('t.ccuc_ccmp_id', $this->ccuc_ccmp_id);
         $criteria->compare('t.ccuc_person_id', $this->ccuc_person_id);
-        $criteria->compare('t.ccuc_status', $this->ccuc_status, true);
+        $criteria->compare('t.ccuc_status', $this->ccuc_status);
 
 
         return $criteria;

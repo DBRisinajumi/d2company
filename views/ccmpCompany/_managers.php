@@ -10,7 +10,7 @@
      //       $mCcuc = new CcgrGroup();
             foreach($model->ccucUserCompany as $modelCcuc){
              //   $mCcgr = $modelCcxg;
-                $aChecked[] = $modelCcuc->ccuc_user_id;
+                $aChecked[] = $modelCcuc->ccuc_person_id;
             }
             
             if (count($aChecked) == 1){
@@ -20,10 +20,10 @@
             //var_dump($aChecked);exit;
             
             echo CHtml::checkBoxList(
-                    'ccuc_user_id', 
+                    'ccuc_person_id', 
                     $aChecked, 
                     CHtml::listData(
-                        DbrUser::model()->findAll(), 'id', 'fullnameusernameroles')
+                        PprsPerson::model()->findAll(), 'id', 'fullnameusernameroles')
                     );
              
              
