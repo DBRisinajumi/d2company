@@ -60,6 +60,14 @@ class CcucUserCompany extends BaseCcucUserCompany
             'criteria' => $this->searchCriteria(),
         ));
     }
+
+    public function searchPersons()
+    {
+        $this->ccuc_status = self::CCUC_STATUS_PERSON;
+        return new CActiveDataProvider(get_class($this), array(
+            'criteria' => $this->searchCriteria(),
+        ));
+    }
     
     /**
      * get user companies by user and status
