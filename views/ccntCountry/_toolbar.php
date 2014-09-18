@@ -8,7 +8,7 @@
                                "label"=>Yii::t("D2companyModule.crud_static","Manage"),
                         "icon"=>"icon-list-alt",
                         "url"=>array("admin"),
-                        "visible"=>Yii::app()->user->checkAccess("D2company.CcntCountry.View")
+                        "visible"=>Yii::app()->user->checkAccess("Company.fullcontrol") || Yii::app()->user->checkAccess("DataCardEditor")
                     ));
                     break;
                 case "admin":
@@ -16,7 +16,7 @@
                         "label"=>Yii::t("D2companyModule.crud_static","Create"),
                         "icon"=>"icon-plus",
                         "url"=>array("create"),
-                        "visible"=>Yii::app()->user->checkAccess("D2company.CcntCountry.Create")
+                        "visible"=>Yii::app()->user->checkAccess("Company.fullcontrol") || Yii::app()->user->checkAccess("DataCardEditor")
                     ));
                     break;
                 case "view":
@@ -24,19 +24,19 @@
                         "label"=>Yii::t("D2companyModule.crud_static","Manage"),
                         "icon"=>"icon-list-alt",
                         "url"=>array("admin"),
-                        "visible"=>Yii::app()->user->checkAccess("D2company.CcntCountry.View")
+                        "visible"=>Yii::app()->user->checkAccess("Company.fullcontrol") || Yii::app()->user->checkAccess("DataCardEditor")
                     ));
                     $this->widget("bootstrap.widgets.TbButton", array(
                         "label"=>Yii::t("D2companyModule.crud_static","Update"),
                         "icon"=>"icon-edit",
                         "url"=>array("update","ccnt_id"=>$model->{$model->tableSchema->primaryKey}),
-                        "visible"=>Yii::app()->user->checkAccess("D2company.CcntCountry.Update")
+                        "visible"=>Yii::app()->user->checkAccess("Company.fullcontrol") || Yii::app()->user->checkAccess("DataCardEditor")
                     ));
                     $this->widget("bootstrap.widgets.TbButton", array(
                         "label"=>Yii::t("D2companyModule.crud_static","Create"),
                         "icon"=>"icon-plus",
                         "url"=>array("create"),
-                        "visible"=>Yii::app()->user->checkAccess("D2company.CcntCountry.Create")
+                        "visible"=>Yii::app()->user->checkAccess("Company.fullcontrol") || Yii::app()->user->checkAccess("DataCardEditor")
                     ));
                     $this->widget("bootstrap.widgets.TbButton", array(
                         "label"=>Yii::t("D2companyModule.crud_static","Delete"),
@@ -46,7 +46,7 @@
                             "submit"=>array("delete","ccnt_id"=>$model->{$model->tableSchema->primaryKey}, "returnUrl"=>(Yii::app()->request->getParam("returnUrl"))?Yii::app()->request->getParam("returnUrl"):$this->createUrl("admin")),
                             "confirm"=>Yii::t('D2companyModule.crud_static','Do you want to delete this item?')
                         ),
-                        "visible"=>Yii::app()->user->checkAccess("D2company.CcntCountry.Delete")
+                        "visible"=>Yii::app()->user->checkAccess("Company.fullcontrol") || Yii::app()->user->checkAccess("DataCardEditor")
                     ));
                     break;
                 case "update":
@@ -54,7 +54,7 @@
                         "label"=>Yii::t("D2companyModule.crud_static","Manage"),
                         "icon"=>"icon-list-alt",
                         "url"=>array("admin"),
-                        "visible"=>Yii::app()->user->checkAccess("D2company.CcntCountry.View")
+                        "visible"=>Yii::app()->user->checkAccess("Company.fullcontrol") || Yii::app()->user->checkAccess("DataCardEditor")
                     ));
 //                    $this->widget("bootstrap.widgets.TbButton", array(
 //                        "label"=>Yii::t("D2companyModule.crud_static","View"),
@@ -70,7 +70,7 @@
                             "submit"=>array("delete","ccnt_id"=>$model->{$model->tableSchema->primaryKey}, "returnUrl"=>(Yii::app()->request->getParam("returnUrl"))?Yii::app()->request->getParam("returnUrl"):$this->createUrl("admin")),
                             "confirm"=>Yii::t('D2companyModule.crud_static','Do you want to delete this item?')
                         ),
-                        "visible"=>Yii::app()->user->checkAccess("D2company.CcntCountry.Delete")
+                        "visible"=>Yii::app()->user->checkAccess("Company.fullcontrol") || Yii::app()->user->checkAccess("DataCardEditor")
                     ));
                     break;
             }
