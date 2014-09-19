@@ -37,15 +37,6 @@ class m140917_191401_init_2 extends CDbMigration
 
            CREATE TABLE `cccd_custom_data` (
              `cccd_ccmp_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-             `number_cars` smallint(4) DEFAULT NULL,
-             `number_liters` smallint(6) DEFAULT NULL,
-             `type` tinyint(4) NOT NULL,
-             `works_with` varchar(45) DEFAULT NULL,
-             `number_cards` int(11) DEFAULT '0',
-             `agreement_number` varchar(100) NOT NULL DEFAULT '',
-             `agreement_date` date NOT NULL DEFAULT '0000-00-00',
-             `payment_terms` int(11) NOT NULL DEFAULT '0',
-             `base_fcrn_id` int(11) DEFAULT NULL,
              PRIMARY KEY (`cccd_ccmp_id`),
              CONSTRAINT `fk_custom_data` FOREIGN KEY (`cccd_ccmp_id`) REFERENCES `ccmp_company` (`ccmp_id`) ON DELETE CASCADE
            ) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8;

@@ -213,6 +213,42 @@
                                                             </span>
                         </div>
                     </div>
+                
+                    <div class="control-group">
+                        <div class='control-label'>
+                            <?php echo $form->labelEx($model,'ccmp_registration_date') ?>
+                        </div>
+                        <div class='controls'>
+                            <?php
+                                                      /**
+                     * @tutorial http://www.yiiframework.com/doc/api/1.1/CJuiWidget
+                     * @tutorial http://jqueryui.com/datepicker/
+                     */
+
+                            $this->widget('zii.widgets.jui.CJuiDatePicker',
+                                            array(
+                                                    'model' => $model,
+                                                    'attribute' => 'ccmp_registration_date',
+                                                    'language' =>  strstr(Yii::app()->language.'_','_',true),
+                                                    'htmlOptions' => array('size' => 10),
+                                                    'options' => array(
+                                                        'showButtonPanel' => true,
+                                                        'changeYear' => true,
+                                                        'changeYear' => true,
+                                                        'dateFormat' => 'yy-mm-dd',
+                                                        ),
+                                                    )
+                                                );
+                            echo $form->error($model,'ccmp_registration_date')
+                            ?>
+                            <span class="help-block">
+                                
+                                <?php
+                                echo ($t = Yii::t('crud', 'CcmpCompany.ccmp_vat_registrtion_no') != 'CcmpCompany.ccmp_vat_registrtion_no')?$t:''
+                                ?>
+                                                            </span>
+                        </div>
+                    </div>
 
                 
                     <div class="control-group">

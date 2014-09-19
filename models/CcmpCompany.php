@@ -4,6 +4,7 @@
 Yii::setPathOfAlias('CcmpCompany', dirname(__FILE__));
 Yii::import('CcmpCompany.*');
 
+
 class CcmpCompany extends BaseCcmpCompany
 {
 
@@ -42,6 +43,15 @@ class CcmpCompany extends BaseCcmpCompany
           array('column3', 'rule2'),
           ) */
         );
+    }
+    public function relations()
+    {
+        return array_merge(
+            parent::relations(), array(
+                'cccdCustomData' => array(self::HAS_ONE, 'BaseCccdCompanyData', 'cccd_ccmp_id'),
+                'bcbdCompanyBranchDays' => array(self::HAS_MANY, 'BcbdCompanyBranchDay', 'bcbd_client_ccmp_id'), 
+                'bcars' => array(self::HAS_MANY, 'BcarId', 'bcar_ccmp_id'),
+            ));
     }
     
     public function defaultScope()
@@ -100,39 +110,37 @@ class CcmpCompany extends BaseCcmpCompany
     }
     
     
-    public static function createCustomerUser($usermodel , $profilemodel, $ccmp_id){
-        
-         // user creation
-        
-          if (!$usermodel->validate())
-                        throw new Exception('Username or email is not unique, try again or add manually');
-          
-          $pass = DbrLib::rand_string(8);
-          $usermodel->password = UserModule::encrypting($pass);
-          if ($usermodel->save()) {
-                        
-                        $profilemodel->user_id = $usermodel->id;
-                        $profilemodel->save();
+    public static function createCustomerUser($usermodel, $profilemodel, $ccmp_id) {
 
-                        // role assignment Customer
-                        //assign role
-                        $authorizer = Yii::app()->getModule("rights")->getAuthorizer();
-                        $authorizer->authManager->assign('CustomerOffice', $usermodel->id);
+        // user creation
+
+        if (!$usermodel->validate())
+            throw new Exception('Username or email is not unique, try again or add manually');
+
+        $pass = DbrLib::rand_string(8);
+        $usermodel->password = UserModule::encrypting($pass);
+        if ($usermodel->save()) {
+
+            $profilemodel->user_id = $usermodel->id;
+            $profilemodel->save();
+
+            // role assignment Customer
+            //assign role
+            $authorizer = Yii::app()->getModule("rights")->getAuthorizer();
+            $authorizer->authManager->assign('CustomerOffice', $usermodel->id);
 
 
-                        //company user
-                        $companyuser = new CcucUserCompany;
-                        $companyuser->ccuc_ccmp_id = $ccmp_id;
-                        $companyuser->ccuc_user_id = $usermodel->id;
-                        if ($companyuser->validate())
-                            $companyuser->save();
-                  
-              
-                    }
-                
-       return $pass; 
+            //company user
+            $companyuser = new CcucUserCompany;
+            $companyuser->ccuc_ccmp_id = $ccmp_id;
+            $companyuser->ccuc_user_id = $usermodel->id;
+            if ($companyuser->validate())
+                $companyuser->save();
+        }
+
+        return $pass;
     }
-    
+
     public function save($runValidation = true, $attributes = NULL) 
     {
         //set system company id
@@ -143,4 +151,23 @@ class CcmpCompany extends BaseCcmpCompany
         return parent::save($runValidation,$attributes);
 
     }    
+    
+    public function search($criteria = null)
+    {
+        if (is_null($criteria)) {
+            $criteria = new CDbCriteria;
+        }
+        
+        if(Yii::app()->sysCompany->getActiveCompany()){
+            $criteria->compare('t.ccmp_sys_ccmp_id', Yii::app()->sysCompany->getActiveCompany());
+        }             
+       
+        return new CActiveDataProvider(get_class($this), array(
+            'criteria' => $criteria, 
+             'sort'=>array('defaultOrder'=>'ccmp_name'),
+             'pagination'=>array('pageSize'=>50),
+
+        ));        
+    } 
+    
 }
