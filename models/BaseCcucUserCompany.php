@@ -6,12 +6,14 @@
  * Columns in table "ccuc_user_company" available as properties of the model:
  * @property integer $ccuc_id
  * @property string $ccuc_ccmp_id
- * @property string $ccuc_person_id
+ * @property integer $ccuc_person_id
  * @property string $ccuc_status
+ * @property integer $ccuc_cucp_id
  *
  * Relations of table "ccuc_user_company" available as properties of the model:
+ * @property CucpUserCompanyPosition $ccucCucp
  * @property CcmpCompany $ccucCcmp
- * @property Person $ccucPerson
+ * @property PprsPerson $ccucPerson
  */
 abstract class BaseCcucUserCompany extends CActiveRecord
 {
@@ -38,11 +40,11 @@ abstract class BaseCcucUserCompany extends CActiveRecord
         return array_merge(
             parent::rules(), array(
                 array('ccuc_person_id', 'required'),
-                array('ccuc_ccmp_id, ccuc_status', 'default', 'setOnEmpty' => true, 'value' => null),
-                array('ccuc_person_id', 'numerical', 'integerOnly' => true),
+                array('ccuc_ccmp_id, ccuc_status, ccuc_cucp_id', 'default', 'setOnEmpty' => true, 'value' => null),
+                array('ccuc_person_id, ccuc_cucp_id', 'numerical', 'integerOnly' => true),
                 array('ccuc_ccmp_id', 'length', 'max' => 10),
                 array('ccuc_status', 'length', 'max' => 6),
-                array('ccuc_id, ccuc_ccmp_id, ccuc_person_id, ccuc_status', 'safe', 'on' => 'search'),
+                array('ccuc_id, ccuc_ccmp_id, ccuc_person_id, ccuc_status, ccuc_cucp_id', 'safe', 'on' => 'search'),
             )
         );
     }
@@ -67,6 +69,7 @@ abstract class BaseCcucUserCompany extends CActiveRecord
     {
         return array_merge(
             parent::relations(), array(
+                'ccucCucp' => array(self::BELONGS_TO, 'CucpUserCompanyPosition', 'ccuc_cucp_id'),
                 'ccucCcmp' => array(self::BELONGS_TO, 'CcmpCompany', 'ccuc_ccmp_id'),
                 'ccucPerson' => array(self::BELONGS_TO, 'PprsPerson', 'ccuc_person_id'),
             )
@@ -80,6 +83,7 @@ abstract class BaseCcucUserCompany extends CActiveRecord
             'ccuc_ccmp_id' => Yii::t('D2companyModule.crud', 'CompanyId'),
             'ccuc_person_id' => Yii::t('D2companyModule.crud', 'Person'),
             'ccuc_status' => Yii::t('D2companyModule.crud', 'Status'),
+            'ccuc_cucp_id' => Yii::t('D2companyModule.model', 'Ccuc Cucp'),
         );
     }
 
@@ -127,6 +131,7 @@ abstract class BaseCcucUserCompany extends CActiveRecord
         $criteria->compare('t.ccuc_ccmp_id', $this->ccuc_ccmp_id);
         $criteria->compare('t.ccuc_person_id', $this->ccuc_person_id);
         $criteria->compare('t.ccuc_status', $this->ccuc_status);
+        $criteria->compare('t.ccuc_cucp_id', $this->ccuc_cucp_id);
 
 
         return $criteria;

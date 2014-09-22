@@ -128,7 +128,7 @@ class m140917_191401_init_2 extends CDbMigration
 
            CREATE TABLE `ccuc_user_company` (
              `ccuc_id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-             `ccuc_ccmp_id` int(10) unsigned NOT NULL,
+             `ccuc_ccmp_id` int(10) unsigned DEFAULT NULL,
              `ccuc_person_id` smallint(11) unsigned NOT NULL,
              `ccuc_status` enum('USER','HIDDED','PERSON','SYS') CHARACTER SET ascii NOT NULL DEFAULT 'PERSON',
              PRIMARY KEY (`ccuc_id`),
