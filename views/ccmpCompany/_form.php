@@ -131,6 +131,7 @@
                             'fields' => 'itemLabel',
                             'allowEmpty' => true,
                             'style' => 'dropdownlist',
+                            'criteria' => new CDBCriteria(array('order' => 'ccnt_name')),
                             'htmlOptions' => array(
                                 'checkAll' => 'all','style' => 'width: 200px;'),
                             )

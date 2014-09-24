@@ -77,8 +77,8 @@ abstract class BaseCcntCountry extends CActiveRecord
             'ccnt_icao_n3' => Yii::t('D2companyModule.crud', 'Ccnt Icao N3'),
         );
     }
-
-    public function search($criteria = null)
+    
+    public function searchCriteria($criteria = null)
     {
         if (is_null($criteria)) {
             $criteria = new CDbCriteria;
@@ -91,9 +91,8 @@ abstract class BaseCcntCountry extends CActiveRecord
         $criteria->compare('t.ccnt_icao_a3', $this->ccnt_icao_a3, true);
         $criteria->compare('t.ccnt_icao_n3', $this->ccnt_icao_n3, true);
 
-        return new CActiveDataProvider(get_class($this), array(
-            'criteria' => $criteria,
-        ));
-    }
+        return $criteria;
+
+    }    
 
 }

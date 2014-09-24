@@ -163,11 +163,13 @@ class CcmpCompany extends BaseCcmpCompany
         }             
        
         return new CActiveDataProvider(get_class($this), array(
-            'criteria' => $criteria, 
+            'criteria' => $this->searchCriteria($criteria),
              'sort'=>array('defaultOrder'=>'ccmp_name'),
              'pagination'=>array('pageSize'=>50),
 
         ));        
     } 
+  
+   
     
 }
