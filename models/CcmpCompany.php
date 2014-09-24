@@ -152,15 +152,75 @@ class CcmpCompany extends BaseCcmpCompany
 
     }    
     
+   protected function beforeFind()
+   {
+        //get defined user positions in companies
+        $sql = " 
+            SELECT DISTINCT 
+              cucp_id 
+            FROM
+              authitem ai 
+              INNER JOIN cucp_user_company_position 
+                ON ai.name = cucp_role 
+              INNER JOIN authassignment aa 
+                ON ai.name = aa.itemname 
+            WHERE aa.userid = ".Yii::app()->user->id."                 
+                ";
+        $user_def_company_positions = Yii::app()->db->createCommand($sql)->queryAll();
+        
+        $criteria = false;
+        if($user_def_company_positions){
+           
+            $udcp = array();
+            foreach($user_def_company_positions as $v){
+                $udcp[] = $v['cucp_id'];
+            }
+            //get companies, where is user positions
+            $sql = " 
+                SELECT DISTINCT 
+                    ccuc_ccmp_id 
+                FROM
+                ccuc_user_company 
+                WHERE ccuc_cucp_id in (".implode(',',$udcp).") 
+                    AND ccuc_person_id = ".Yii::app()->getModule('user')->user()->profile->person_id."                 
+                    AND ccuc_status = '".CcucUserCompany::CCUC_STATUS_PERSON."'
+                    ";
+            $user_companies = Yii::app()->db->createCommand($sql)->queryAll();            
+
+            //add to criteria user companies
+            if(!$criteria){
+                $criteria = new CDbCriteria;
+            }            
+            $uc = array();
+            $uc[] = 0; //for avoiding error if empty user company list
+            foreach($user_companies as $v){
+                $uc[] = $v['ccuc_ccmp_id'];
+            }            
+
+            $criteria->compare('ccmp_id', $uc);
+        }
+       
+        //filter by syscomapny
+        
+        if( Yii::app()->hasComponent('sysCompany') && Yii::app()->sysCompany->getActiveCompany()){
+            if(!$criteria){
+                $criteria = new CDbCriteria;
+            }
+            $criteria->compare('ccmp_sys_ccmp_id', Yii::app()->sysCompany->getActiveCompany());
+        }
+        
+        if($criteria){
+            $this->dbCriteria->mergeWith($criteria);
+        }
+        
+        parent::beforeFind();
+    }    
+    
     public function search($criteria = null)
     {
         if (is_null($criteria)) {
             $criteria = new CDbCriteria;
         }
-        
-        if(Yii::app()->sysCompany->getActiveCompany()){
-            $criteria->compare('t.ccmp_sys_ccmp_id', Yii::app()->sysCompany->getActiveCompany());
-        }             
        
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $this->searchCriteria($criteria),

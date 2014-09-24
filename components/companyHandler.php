@@ -77,8 +77,7 @@ class companyHandler extends CApplicationComponent
         if(empty($a)){
             throw new CHttpException(404, "For user companies are not available.");
         }
-        $mCcuc = $a[0];
-        $preferred = $mCcuc->ccuc_ccmp_id;
+        $preferred = $mCcuc[0]['ccmp_id'];
 
         //set new company as active
         $this->_setActiveCompany($preferred);
@@ -120,7 +119,19 @@ class companyHandler extends CApplicationComponent
       */
      public function getClientCompanies(){
          if($this->_aUserCompanies === FALSE){
-            $this->_aUserCompanies = CcucUserCompany::model()->getUserCompnies(Yii::app()->getModule('user')->user()->id,$this->ccuc_status);
+            //$this->_aUserCompanies = CcucUserCompany::model()->getUserCompnies(Yii::app()->getModule('user')->user()->id,$this->ccuc_status);
+                 $sql = "
+                        SELECT 
+                          ccmp_id,
+                          ccmp_name 
+                        FROM
+                          ccuc_user_company 
+                          INNER JOIN ccmp_company 
+                            ON ccmp_id = ccuc_ccmp_id 
+                        WHERE ccuc_person_id = ".Yii::app()->getModule('user')->user()->profile->person_id."
+                          AND ccuc_status = '".$this->ccuc_status."' 
+                    ";
+            $this->_aUserCompanies = Yii::app()->db->createCommand($sql)->queryAll();            
          }
          return $this->_aUserCompanies;
      }
@@ -133,7 +144,7 @@ class companyHandler extends CApplicationComponent
      public function getCompanyList(){
          $a = array();
          foreach($this->getClientCompanies() as $row){
-             $a[] = $row->ccuc_ccmp_id;
+             $a[] = $row['ccmp_id'];
          }
          return $a;
      }
@@ -141,7 +152,7 @@ class companyHandler extends CApplicationComponent
      
      public function isValidUserCompany($ccmp_id){
          foreach($this->getClientCompanies() as $company){
-             if($company->ccuc_ccmp_id == $ccmp_id ){
+             if($company['ccmp_id'] == $ccmp_id ){
                  return TRUE;
              }
          }
@@ -172,8 +183,18 @@ class companyHandler extends CApplicationComponent
          
          //set comapny name
          foreach($this->getClientCompanies() as $company){
-             if($ccmp_id == $company->ccuc_ccmp_id){
-                 $this->_company_attributes =  array_merge( $company->ccucCcmp->attributes,$company->ccucCcmp->cccdCustomData->attributes);
+             if($ccmp_id == $company['ccmp_id']){
+                 //$this->_company_attributes =  array_merge( $company->ccucCcmp->attributes,$company->ccucCcmp->cccdCustomData->attributes);                 
+                 $sql = "
+                    SELECT 
+                        * 
+                    FROM
+                        ccmp_company inner 
+                        JOIN cccd_custom_data 
+                          ON ccmp_id = cccd_ccmp_id 
+                    WHERE ccmp_id = ".$ccmp_id."
+                    ";
+                 $this->_company_attributes = Yii::app()->db->createCommand($sql)->queryRow();
                  $this->_activeCompanyName = $this->_company_attributes['ccmp_name'];
                  return TRUE;
              }
