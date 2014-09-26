@@ -77,11 +77,9 @@ class companyHandler extends CApplicationComponent
         if(empty($a)){
             throw new CHttpException(404, "For user companies are not available.");
         }
-        $preferred = $mCcuc[0]['ccmp_id'];
 
         //set new company as active
-        $this->_setActiveCompany($preferred);
-        
+        $this->_setActiveCompany($a[0]['ccmp_id']);
 
 	}
 
