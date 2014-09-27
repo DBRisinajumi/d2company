@@ -71,7 +71,7 @@ class m140917_191401_init_2 extends CDbMigration
              `ccgr_notes` text,
              `ccgr_hide` tinyint(3) unsigned NOT NULL DEFAULT '0',
              PRIMARY KEY (`ccgr_id`)
-           ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+           ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
            CREATE TABLE `ccit_city` (
              `ccit_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
