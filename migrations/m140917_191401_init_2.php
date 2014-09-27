@@ -32,14 +32,14 @@ class m140917_191401_init_2 extends CDbMigration
              PRIMARY KEY (`ccbr_id`),
              KEY `ccbr_ccmp_id` (`ccbr_ccmp_id`,`ccbr_hide`),
              CONSTRAINT `ccbr_branch_ibfk_1` FOREIGN KEY (`ccbr_ccmp_id`) REFERENCES `ccmp_company` (`ccmp_id`)
-           ) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+           ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
            CREATE TABLE `cccd_custom_data` (
              `cccd_ccmp_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
              PRIMARY KEY (`cccd_ccmp_id`),
              CONSTRAINT `fk_custom_data` FOREIGN KEY (`cccd_ccmp_id`) REFERENCES `ccmp_company` (`ccmp_id`) ON DELETE CASCADE
-           ) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8;
+           ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
            CREATE TABLE `cccf_custom_fields` (
@@ -62,7 +62,7 @@ class m140917_191401_init_2 extends CDbMigration
              `test5` int(11) NOT NULL DEFAULT '0',
              `test6` int(11) NOT NULL DEFAULT '0',
              PRIMARY KEY (`id`)
-           ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+           ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
            CREATE TABLE `ccgr_group` (
@@ -80,7 +80,7 @@ class m140917_191401_init_2 extends CDbMigration
              PRIMARY KEY (`ccit_id`),
              KEY `ccit_ccnt_id` (`ccit_ccnt_id`),
              CONSTRAINT `ccit_city_ibfk_1` FOREIGN KEY (`ccit_ccnt_id`) REFERENCES `ccnt_country` (`ccnt_id`)
-           ) ENGINE=InnoDB AUTO_INCREMENT=231 DEFAULT CHARSET=utf8;
+           ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
            CREATE TABLE `ccmp_company` (
@@ -112,7 +112,7 @@ class m140917_191401_init_2 extends CDbMigration
              CONSTRAINT `ccmp_company_ibfk_1` FOREIGN KEY (`ccmp_ccnt_id`) REFERENCES `ccnt_country` (`ccnt_id`),
              CONSTRAINT `ccmp_company_ibfk_2` FOREIGN KEY (`ccmp_official_ccit_id`) REFERENCES `ccit_city` (`ccit_id`),
              CONSTRAINT `ccmp_company_ibfk_3` FOREIGN KEY (`ccmp_office_ccit_id`) REFERENCES `ccit_city` (`ccit_id`)
-           ) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8;
+           ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
            CREATE TABLE `ccnt_country` (
@@ -123,7 +123,7 @@ class m140917_191401_init_2 extends CDbMigration
              `ccnt_icao_a3` varchar(3) NOT NULL DEFAULT '',
              `ccnt_icao_n3` varchar(3) NOT NULL DEFAULT '',
              PRIMARY KEY (`ccnt_id`)
-           ) ENGINE=InnoDB AUTO_INCREMENT=242 DEFAULT CHARSET=utf8;
+           ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
            CREATE TABLE `ccuc_user_company` (
@@ -136,7 +136,7 @@ class m140917_191401_init_2 extends CDbMigration
              KEY `ccuc_user_id` (`ccuc_person_id`),
              CONSTRAINT `ccuc_user_company_ibfk_1` FOREIGN KEY (`ccuc_ccmp_id`) REFERENCES `ccmp_company` (`ccmp_id`),
              CONSTRAINT `ccuc_user_company_ibfk_2` FOREIGN KEY (`ccuc_person_id`) REFERENCES `pprs_person` (`pprs_id`)
-           ) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
+           ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
            CREATE TABLE `ccxg_company_x_group` (
@@ -148,7 +148,7 @@ class m140917_191401_init_2 extends CDbMigration
              KEY `ccxg_ccgr_id` (`ccxg_ccgr_id`),
              CONSTRAINT `ccxg_company_x_group_ibfk_1` FOREIGN KEY (`ccxg_ccmp_id`) REFERENCES `ccmp_company` (`ccmp_id`),
              CONSTRAINT `ccxg_company_x_group_ibfk_2` FOREIGN KEY (`ccxg_ccgr_id`) REFERENCES `ccgr_group` (`ccgr_id`)
-           ) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
+           ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
            SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 
