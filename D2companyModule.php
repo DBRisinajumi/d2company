@@ -17,6 +17,10 @@ class D2companyModule extends CWebModule
                 'company_files',
             );
     
+    public $options = array(
+        'audittrail' => false,
+    );
+    
 	public function init()
 	{
 		// this method is called when the module is being created

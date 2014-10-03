@@ -10,6 +10,12 @@
             $mCcgr = new CcgrGroup();
             foreach($model->ccxgCompanyXGroups as $modelCcxg){
                 $mCcgr = $modelCcxg;
+                //izlaizj sys group, ja nav admins
+                if($mCcgr->ccxg_ccgr_id == Yii::app()->params['ccgr_group_sys_company']
+                        && !Yii::app()->user->checkAccess("Administrator")){
+                    continue;
+                }
+                
                 $aChecked[] = $mCcgr->ccxg_ccgr_id;
             }
             
@@ -17,13 +23,16 @@
                 //kaut kads gljuks, nedrikst padot masivu ar vienu elementu
                 $aChecked = $aChecked[0];
             }
-            //var_dump($aChecked);exit;
             
+            $criteria = new CDbCriteria;
+            if(!Yii::app()->user->checkAccess("Administrator")){
+                $criteria->addCondition("ccgr_id !=  " . Yii::app()->params['ccgr_group_sys_company']);
+            }
             echo CHtml::checkBoxList(
                     'ccxg_ccgr_id', 
                     $aChecked, 
                     CHtml::listData(
-                        CcgrGroup::model()->findAll(), 'ccgr_id', 'ccgr_name')
+                        CcgrGroup::model()->findAll($criteria), 'ccgr_id', 'ccgr_name')
                     );
              
              

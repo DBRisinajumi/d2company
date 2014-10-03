@@ -29,7 +29,7 @@ abstract class BaseCcxgCompanyXGroup extends CActiveRecord
     {
         return array_merge(
             parent::rules(), array(
-                array('ccxg_ccmp_id, ccxg_ccgr_id', 'required'),
+                array('ccxg_ccmp_id', 'required'),
                 array('ccxg_ccgr_id', 'numerical', 'integerOnly' => true),
                 array('ccxg_ccmp_id', 'length', 'max' => 10),
                 array('ccxg_id, ccxg_ccmp_id, ccxg_ccgr_id', 'safe', 'on' => 'search'),

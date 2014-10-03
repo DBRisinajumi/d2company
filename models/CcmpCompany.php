@@ -49,8 +49,8 @@ class CcmpCompany extends BaseCcmpCompany
         return array_merge(
             parent::relations(), array(
                 'cccdCustomData' => array(self::HAS_ONE, 'BaseCccdCompanyData', 'cccd_ccmp_id'),
-                'bcbdCompanyBranchDays' => array(self::HAS_MANY, 'BcbdCompanyBranchDay', 'bcbd_client_ccmp_id'), 
-                'bcars' => array(self::HAS_MANY, 'BcarId', 'bcar_ccmp_id'),
+                //'bcbdCompanyBranchDays' => array(self::HAS_MANY, 'BcbdCompanyBranchDay', 'bcbd_client_ccmp_id'), 
+                //'bcars' => array(self::HAS_MANY, 'BcarId', 'bcar_ccmp_id'),
             ));
     }
     

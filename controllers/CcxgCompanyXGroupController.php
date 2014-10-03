@@ -16,20 +16,19 @@ return array(
 );
 }
 
-public function accessRules()
-{
-return array(
-array(
-'allow',
-'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view'),
-'roles' => array('Company.fullcontrol'),
-),
-array(
-'deny',
-'users' => array('*'),
-),
-);
-}
+    public function accessRules() {
+        return array(
+            array(
+                'allow',
+                'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view','AjaxCreate'),
+                'roles' => array('Company.fullcontrol'),
+            ),
+            array(
+                'deny',
+                'users' => array('*'),
+            ),
+        );
+    }
 
     public function beforeAction($action)
     {
@@ -107,6 +106,21 @@ array(
         $es = new EditableSaver('CcxgCompanyXGroup'); // classname of model to be updated
         $es->update();
     }
+    
+    public function actionAjaxCreate($field, $value) 
+    {
+        $model = new CcxgCompanyXGroup;
+        $model->$field = $value;
+        try {
+            if ($model->save()) {
+                return TRUE;
+            }else{
+                return var_export($model->getErrors());
+            }            
+        } catch (Exception $e) {
+            throw new CHttpException(500, $e->getMessage());
+        }
+    } 
 
     public function actionDelete($ccxg_id)
     {

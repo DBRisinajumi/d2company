@@ -141,13 +141,15 @@ $this->widget('TbGridView',
              //   'class'=>'TbButtonColumn',
                 'class'=>'EButtonColumnWithClearFilters',
                 'buttons' => array(
-                    'view' => array('visible' => 'FALSE'),
+                    'view' => array('visible' => 'TRUE'),
                     'update' => array('visible' => 'Yii::app()->user->checkAccess("Company.fullcontrol")'),
                     'delete' => array('visible' => 'FALSE'),
                 ),
-                'viewButtonUrl'   => null,
+                'viewButtonUrl'   => 'Yii::app()->controller->createUrl("view", array("ccmp_id" => $data->ccmp_id))',
                 'updateButtonUrl' => 'Yii::app()->controller->createUrl("updateExtended", array("ccmp_id" => $data->ccmp_id))',
                 'deleteButtonUrl' => null,
+                'viewButtonOptions'=>array('data-toggle'=>'tooltip'),   
+                'updateButtonOptions'=>array('data-toggle'=>'tooltip'),   
             ),
         )
     )

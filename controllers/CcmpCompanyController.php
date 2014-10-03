@@ -39,18 +39,17 @@ class CcmpCompanyController extends Controller {
                 ),
                 'roles' => array('Company.readonly'),
             ),
-            
-            array(
-                'allow',
-                'actions' => array( 'view', 'view4CustomerOffice','export','editableSaver'
-                ),
-                'roles' => array(DbrUser::RoleCustomerOffice),
-            ),
-            array(
-                'allow',
-                'actions' => array('view', 'editableSaver'),
-                'roles' => array(DbrUser::RoleCustomerOffice),
-            ),            
+//            array(
+//                'allow',
+//                'actions' => array( 'view', 'view4CustomerOffice','export','editableSaver'
+//                ),
+//                'roles' => array(DbrUser::RoleCustomerOffice),
+//            ),
+//            array(
+//                'allow',
+//                'actions' => array('view', 'editableSaver'),
+//                'roles' => array(DbrUser::RoleCustomerOffice),
+//            ),            
             array(
                 'deny',
                 'users' => array('*'),
@@ -69,8 +68,8 @@ class CcmpCompanyController extends Controller {
     /**
      * show user company
      */
-    public function actionView() {
-        $ccmp_id = Yii::app()->userCompany->getActiveCompany();
+    public function actionView($ccmp_id) {
+        //$ccmp_id = Yii::app()->userCompany->getActiveCompany();
         $model = $this->loadModel($ccmp_id);
         $this->render('view', array('model' => $model,));
     }
@@ -109,30 +108,7 @@ class CcmpCompanyController extends Controller {
                         $postCcxg->ccxg_ccgr_id = 3; //customer
                         $postCcxg->save();                        
                     }
-                     
-                    /** 
-                     * user creation
-                     * @todo - remove this option
-                     */
-//                    if (!empty($_POST['username'])) {   
-//                        
-//                        try {
-//                             
-//                              $user = new User;
-//                              $user->username = $_POST['username'];
-//                              $user->email = $model->ccmp_office_email;
-//                              $user->superuser = 0;
-//                              $user->status = 1;
-//                              CcmpCompany::createCustomerUser($user ,$model->ccmp_id);
-//                             
-//                        } catch (Exception $e) {
-//                            
-//                              $user = Yii::app()->getComponent('user');
-//                              $user->setFlash('warning', $e->message); 
-//                            
-//                        }
-//                    
-//                }
+
                  if (isset($_GET['returnUrl'])) {
                     $this->redirect($_GET['returnUrl']);
                 } else {
@@ -298,10 +274,15 @@ class CcmpCompanyController extends Controller {
             $criteria = new CDbCriteria;
             $criteria->condition = 'ccxg_ccmp_id=:ccxg_ccmp_id AND ccxg_ccgr_id=:ccxg_ccgr_id';
 
-            foreach ($aDelType as $nType) {
+            foreach ($aDelType as $ccgr_id) {
+                //ja nav admins nedzesh sys comany
+                if($ccgr_id == Yii::app()->params['ccgr_group_sys_company']
+                        && !Yii::app()->user->checkAccess("Administrator")){
+                    continue;
+                }
                 $criteria->params = array(
                     ':ccxg_ccmp_id' => $model->ccmp_id,
-                    ':ccxg_ccgr_id' => $nType);
+                    ':ccxg_ccgr_id' => $ccgr_id);
                 $Ppxt = CcxgCompanyXGroup::model()->find($criteria);
                 $Ppxt->delete();
             }

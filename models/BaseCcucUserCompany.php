@@ -39,7 +39,7 @@ abstract class BaseCcucUserCompany extends CActiveRecord
     {
         return array_merge(
             parent::rules(), array(
-                array('ccuc_person_id', 'required'),
+                //array('ccuc_person_id', 'required'),
                 array('ccuc_ccmp_id, ccuc_status, ccuc_cucp_id', 'default', 'setOnEmpty' => true, 'value' => null),
                 array('ccuc_person_id, ccuc_cucp_id', 'numerical', 'integerOnly' => true),
                 array('ccuc_ccmp_id', 'length', 'max' => 10),

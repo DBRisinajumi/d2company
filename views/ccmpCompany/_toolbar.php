@@ -80,6 +80,28 @@
 //                        "url"=>array("view","ccmp_id"=>$model->{$model->tableSchema->primaryKey}),
 //                        "visible"=>Yii::app()->user->checkAccess("D2company.CcmpCompany.View")
 //                    ));
+                
+                //audittrail        
+                if(Yii::app()->getModule('d2company')->options['audittrail']){        
+                    Yii::import('audittrail.*');
+                    $this->widget('EFancyboxWidget',array(
+                        'selector'=>'a[href*=\'audittrail/show/fancybox\']',
+                        'options'=>array(
+                        ),
+                    ));        
+                    $this->widget("bootstrap.widgets.TbButton", array(
+                        "label"=>Yii::t("AudittrailModule.main","Audit Trail"),
+                        'type'=>'info',
+                        "url"=>array(
+                            '/audittrail/show/fancybox',
+                            'model_name' => get_class($model),
+                            'model_id' => $model->getPrimaryKey(),
+                        ),
+                        "icon"=>"icon-info-sign",
+                    ));                        
+                }        
+                
+                //delete
                 $this->widget("bootstrap.widgets.TbButton", array(
                     "label" => Yii::t("D2companyModule.crud_static", "Delete"),
                     "type" => "danger",
@@ -90,6 +112,8 @@
                     ),
                     "visible" => Yii::app()->user->checkAccess("Company.fullcontrol")
                 ));
+
+
                 break;
         }
         ?>    </div>

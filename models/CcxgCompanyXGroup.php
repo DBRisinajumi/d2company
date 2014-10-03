@@ -54,4 +54,18 @@ class CcxgCompanyXGroup extends BaseCcxgCompanyXGroup
         );
     }
 
+    public function beforeSave()
+    {
+    
+        //can not set syscomany, if no admin
+        if($this->ccxg_ccgr_id == Yii::app()->params['ccgr_group_sys_company']
+                && !Yii::app()->user->checkAccess("Administrator"))
+        {
+            return false;
+        }
+        
+        return parent::beforeSave();
+
+    }    
+    
 }
