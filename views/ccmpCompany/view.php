@@ -3,7 +3,7 @@
 $can_edit = Yii::app()->user->checkAccess("Company.fullcontrol") 
         || Yii::app()->user->checkAccess("Company.edit") ;
 
-$this->setPageTitle(Yii::t('D2companyModule,crud', 'Company Data'));    
+$this->setPageTitle(Yii::t('D2companyModule.crud', 'Company Data'));    
 $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
     "icon"=>"chevron-left",
     "size"=>"large",
@@ -23,12 +23,13 @@ $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
         <div class="btn-group">
             <h1>
                 <i class=""></i>
-                <?php echo Yii::t('D2companyModule,crud','Company Data');?>
+                <?php echo Yii::t('D2companyModule.crud','Company Data');?>
             </h1>
         </div>
         <div class="btn-group">
             <?php
-               if(Yii::app()->getModule('d2company')->options['audittrail']){        
+               if(isset(Yii::app()->getModule('d2company')->options['audittrail']) 
+                        &&Yii::app()->getModule('d2company')->options['audittrail']){        
                     Yii::import('audittrail.*');
                     $this->widget('EFancyboxWidget',array(
                         'selector'=>'a[href*=\'audittrail/show/fancybox\']',
@@ -36,7 +37,7 @@ $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
                         ),
                     ));        
                     $this->widget("bootstrap.widgets.TbButton", array(
-                        "label"=>Yii::t("AudittrailModule.main","Audit Trail"),
+                        "label"=>Yii::t("D2companyModule.crud_static","Audit Trail"),
                         'type'=>'info',
                         "size"=>"large",
                         "url"=>array(

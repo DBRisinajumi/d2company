@@ -1,5 +1,5 @@
 <?php
-//yiic message ../vendor/dbrisinajumi/d2company/translation.php
+//yiic message ../../dbrisinajumi/d2company/translation.php
 return array(
     'sourcePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR ,  //root dir of all source
     'messagePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR .'messages',  //root dir of message translations
@@ -8,5 +8,3 @@ return array(
     //'exclude' => array('.svn',),  //list of paths or files to exclude
     'translator' => 'Yii::t',  //this is the default but lets be complete
 );
-
-?>

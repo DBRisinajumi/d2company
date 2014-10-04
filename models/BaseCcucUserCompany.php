@@ -83,7 +83,7 @@ abstract class BaseCcucUserCompany extends CActiveRecord
             'ccuc_ccmp_id' => Yii::t('D2companyModule.crud', 'CompanyId'),
             'ccuc_person_id' => Yii::t('D2companyModule.crud', 'Person'),
             'ccuc_status' => Yii::t('D2companyModule.crud', 'Status'),
-            'ccuc_cucp_id' => Yii::t('D2companyModule.model', 'Ccuc Cucp'),
+            'ccuc_cucp_id' => Yii::t('D2companyModule.crud', 'Ccuc Cucp'),
         );
     }
 

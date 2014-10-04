@@ -82,7 +82,8 @@
 //                    ));
                 
                 //audittrail        
-                if(Yii::app()->getModule('d2company')->options['audittrail']){        
+                if(isset(Yii::app()->getModule('d2company')->options['audittrail']) 
+                        && Yii::app()->getModule('d2company')->options['audittrail']){        
                     Yii::import('audittrail.*');
                     $this->widget('EFancyboxWidget',array(
                         'selector'=>'a[href*=\'audittrail/show/fancybox\']',
@@ -90,7 +91,7 @@
                         ),
                     ));        
                     $this->widget("bootstrap.widgets.TbButton", array(
-                        "label"=>Yii::t("AudittrailModule.main","Audit Trail"),
+                        "label"=>Yii::t("D2companyModule.crud_static","Audit Trail"),
                         'type'=>'info',
                         "url"=>array(
                             '/audittrail/show/fancybox',

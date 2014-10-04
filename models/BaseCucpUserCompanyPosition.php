@@ -62,8 +62,8 @@ abstract class BaseCucpUserCompanyPosition extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'cucp_id' => Yii::t('D2companyModule.model', 'Cucp'),
-            'cucp_name' => Yii::t('D2companyModule.model', 'Cucp Name'),
+            'cucp_id' => Yii::t('D2companyModule.crud', 'Cucp'),
+            'cucp_name' => Yii::t('D2companyModule.crud', 'Cucp Name'),
         );
     }
 

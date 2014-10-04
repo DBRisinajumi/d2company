@@ -24,7 +24,7 @@ if((!$ajax || $ajax == 'ccbr-branch-grid') && !empty($modelMain->ccbrBranches)){
 ?>
 
 <div class="table-header">
-    <?=Yii::t('D2companyModule,crud', 'Ccbr Branch')?>
+    <?=Yii::t('D2companyModule.crud', 'Ccbr Branch')?>
     <?php    
     if($can_edit){    
         $this->widget(
@@ -164,7 +164,7 @@ if((!$ajax || $ajax == 'ccuc-user-company-grid')){
 ?>
 
 <div class="table-header">
-    <?=Yii::t('D2companyModule,crud', 'Ccuc User Company')?>
+    <?=Yii::t('D2companyModule.crud', 'Ccuc User Company')?>
     <?php    
     // "+" poga noņemta, jo nevar pievienot tukšu ierakstu
     if($can_edit){            
@@ -297,7 +297,7 @@ if(!$ajax || $ajax == 'ccxg-company-xgroup-grid'){
 ?>
 
 <div class="table-header">
-    <?=Yii::t('D2companyModule,crud', 'Ccxg Company Xgroup')?>
+    <?=Yii::t('D2companyModule.crud', 'Ccxg Company Xgroup')?>
     <?php    
     if($can_edit){        
         $this->widget(
