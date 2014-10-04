@@ -22,7 +22,7 @@ return array (
   'Ccit' => '',
   'Ccit Ccnt' => '',
   'Ccit Name' => '',
-  'Ccmp Registration Date' => '',
+  'Ccmp Registration Date' => 'Reģistrācijas Datums',
   'CcmpCompany.ccmp_office_ccit_id' => '',
   'CcmpId' => '',
   'Ccnt Icao A2' => '',
