@@ -37,7 +37,7 @@ $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
                         ),
                     ));        
                     $this->widget("bootstrap.widgets.TbButton", array(
-                        "label"=>Yii::t("D2companyModule.crud_static","Audit Trail"),
+                        "label"=>Yii::t("D2companyModule.crud","Audit Trail"),
                         'type'=>'info',
                         "size"=>"large",
                         "url"=>array(
