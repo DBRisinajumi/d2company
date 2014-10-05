@@ -46,7 +46,7 @@ return array (
   'CcxgCompanyXGroup.ccxg_id' => '',
   'CcxgCompanyXGroups' => '',
   'Companies List' => '',
-  'CompanyId' => '',
+  'CompanyId' => 'Uzņēmums',
   'Cucp' => '',
   'Cucp Name' => '',
   'Disabled user' => '',
