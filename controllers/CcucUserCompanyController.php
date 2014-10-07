@@ -18,13 +18,34 @@ return array(
 
 public function accessRules()
 {
-return array(
-    array(
+    return array(
+            array(
                 'allow',
-                'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view','resetPassword','ajaxCreate'),
+                'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view', 'resetPassword', 'ajaxCreate'),
                 'roles' => array('D2company.CcucUserCompany.*'),
             ),
             array(
+                'allow',
+                'actions' => array('create', 'ajaxCreate'),
+                'roles' => array('D2company.CcucUserCompany.Create'),
+            ),
+            array(
+                'allow',
+                'actions' => array('update', 'editableSaver'),
+                'roles' => array('D2company.CcucUserCompany.Update'),
+            ),
+            array(
+                'allow',
+                'actions' => array('delete'),
+                'roles' => array('D2company.CcucUserCompany.Delete'),
+            ),
+            array(
+                'allow',
+                'actions' => array('admin'),
+                'roles' => array('D2company.CcucUserCompany.View'),
+            ),
+
+        array(
                 'deny',
                 'users' => array('*'),
             ),

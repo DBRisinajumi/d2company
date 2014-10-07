@@ -100,8 +100,11 @@ if (isset(Yii::app()->getModule('d2company')->options['admin_add_columns'])) {
 $grid_columns[] = array(
     'class' => 'EButtonColumnWithClearFilters',
     'buttons' => array(
-        'view' => array('visible' => 'TRUE'),
-        'update' => array('visible' => 'Yii::app()->user->checkAccess("Company.fullcontrol")'),
+        'view' => array('visible' => 'Yii::app()->user->checkAccess("D2company.CcmpCompany.View")
+                                           || Yii::app()->user->checkAccess("D2company.CcmpCompany.Update") 
+                                           || Yii::app()->user->checkAccess("Company.fullcontrol")'),
+        'update' => array('visible' => 'Yii::app()->user->checkAccess("Company.fullcontrol") '
+            . '                            || Yii::app()->user->checkAccess("D2company.CcmpCompany.Update")'),
         'delete' => array('visible' => 'FALSE'),
     ),
     'viewButtonUrl' => 'Yii::app()->controller->createUrl("view", array("ccmp_id" => $data->ccmp_id))',

@@ -21,8 +21,28 @@ return array(
             array(
                 'allow',
                 'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view','AjaxCreate'),
-                'roles' => array('Company.fullcontrol'),
+                'roles' => array('Company.fullcontrol','D2company.CcxgCompanyXGroup.*'),
             ),
+            array(
+                'allow',
+                'actions' => array('create', 'ajaxCreate'),
+                'roles' => array('D2company.CcxgCompanyXGroup.Create'),
+            ),
+            array(
+                'allow',
+                'actions' => array('update', 'editableSaver'),
+                'roles' => array('D2company.CcxgCompanyXGroup.Update'),
+            ),
+            array(
+                'allow',
+                'actions' => array('delete'),
+                'roles' => array('D2company.CcxgCompanyXGroup.Delete'),
+            ),
+            array(
+                'allow',
+                'actions' => array('admin'),
+                'roles' => array('D2company.CcxgCompanyXGroup.View'),
+            ),            
             array(
                 'deny',
                 'users' => array('*'),

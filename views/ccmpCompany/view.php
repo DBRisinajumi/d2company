@@ -1,7 +1,10 @@
 <?php
 
-$can_edit = Yii::app()->user->checkAccess("Company.fullcontrol") 
-        || Yii::app()->user->checkAccess("Company.edit") ;
+$can_edit = FALSE && (
+        Yii::app()->user->checkAccess("Company.fullcontrol") 
+        || Yii::app()->user->checkAccess("Company.edit") 
+        || Yii::app()->user->checkAccess("D2person.PprsPerson.Update")
+        );
 
 $this->setPageTitle(Yii::t('D2companyModule.crud', 'Company Data'));    
 $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
@@ -28,8 +31,10 @@ $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
         </div>
         <div class="btn-group">
             <?php
-               if(isset(Yii::app()->getModule('d2company')->options['audittrail']) 
-                        &&Yii::app()->getModule('d2company')->options['audittrail']){        
+               if(Yii::app()->user->checkAccess("audittrail") 
+                    && isset(Yii::app()->getModule('d2company')->options['audittrail']) 
+                    && Yii::app()->getModule('d2company')->options['audittrail'])
+                {        
                     Yii::import('audittrail.*');
                     $this->widget('EFancyboxWidget',array(
                         'selector'=>'a[href*=\'audittrail/show/fancybox\']',
@@ -57,7 +62,8 @@ $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
                     "submit"=>array("delete","ccmp_id"=>$model->{$model->tableSchema->primaryKey}, "returnUrl"=>(Yii::app()->request->getParam("returnUrl"))?Yii::app()->request->getParam("returnUrl"):$this->createUrl("admin")),
                     "confirm"=>Yii::t("D2companyModule.crud_static","Do you want to delete this item?")
                 ),
-                "visible"=> Yii::app()->request->getParam("ccmp_id") && $can_edit
+                "visible"=> Yii::app()->request->getParam("ccmp_id") 
+                            && Yii::app()->user->checkAccess("D2person.PprsPerson.Delete"), 
             ));
             ?>
         </div>
@@ -95,7 +101,7 @@ $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
                 array(
                     'name' => 'ccmp_ccnt_id',
                     'type' => 'raw',
-                    'value' => $this->widget(
+                    'value' => $can_edit ? $this->widget(
                         'EditableField',
                         array(
                             'model' => $model,
@@ -107,7 +113,7 @@ $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
                             //'placement' => 'right',
                         ),
                         true
-                    )
+                    ):$model->ccmpCcnt->itemLabel,
                 ),
 
                 array(

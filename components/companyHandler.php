@@ -35,6 +35,8 @@ class companyHandler extends CApplicationComponent
     public $profiles_ccmp_field = FALSE;
     private $_company_attributes = FALSE;
     
+    private $_auth_items = array();
+    
     /**
      * Handles company detection and application setting by URL parm specified in DATA_KEY
      */
@@ -207,5 +209,59 @@ class companyHandler extends CApplicationComponent
       */
      public function getAttribute($atribute){
          return $this->_company_attributes[$atribute];
+     }
+
+     /**
+      * chek user access
+      * @param char $name auth item (role or ...)
+      * @return boolean
+      */
+     public function checkUA($name){
+         if(empty($this->_auth_items)){
+             $this->getAuthItemChild();
+         }
+         return isset($this->_auth_items[$name]);
+     }
+     
+     /**
+      * load recursevly for current user all auth asigments in $this->_auth_items
+      */
+     private function getAuthItemChild(){
+         
+        //get user name
+        $user_id = Yii::app()->getModule('user')->user()->id;
+
+        $new = Yii::app()->db->createCommand()
+           ->select('itemname child')
+           ->from('authassignment')
+           ->where('userid = :userid',array(':userid'=>$user_id))
+           ->queryAll();             
+         
+         
+         //init loop
+         //$new[] = array('child' => $user_name);         
+         $result = array();
+         
+         //load all leves uzth items
+         while(!empty($new)){
+             
+            //create child list 
+            $list = array(); 
+            foreach ($new as $row){
+                $list[] = $row['child'];
+                
+                //save result
+                $result[$row['child']] = TRUE;
+            }
+             
+            $new = Yii::app()->db->createCommand()
+               ->select('child')
+               ->from('authitemchild')
+               ->where(array('in', 'parent', $list))
+               ->queryAll();             
+        }
+        
+        $this->_auth_items = $result;
+         
      }
 }

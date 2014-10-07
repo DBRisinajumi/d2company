@@ -9,27 +9,45 @@ class CcbrBranchController extends Controller
     public $scenario = "crud";
     public $scope = "crud";
 
-public function filters()
-{
-return array(
-'accessControl',
-);
-}
+    public function filters() {
+        return array(
+            'accessControl',
+        );
+    }
 
-public function accessRules()
-{
-return array(
-array(
-'allow',
-'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view', 'adminAjax', 'createAjax'),
-'roles' => array('Company.fullcontrol'),
-),
-array(
-'deny',
-'users' => array('*'),
-),
-);
-}
+    public function accessRules() {
+        return array(
+            array(
+                'allow',
+                'actions' => array('create', 'editableSaver', 'update', 'delete', 'admin', 'view', 'adminAjax', 'createAjax'),
+                'roles' => array('Company.fullcontrol','D2company.CcbrBranch.*'),
+            ),
+            array(
+                'allow',
+                'actions' => array('create', 'ajaxCreate'),
+                'roles' => array('D2company.CcbrBranch.Create'),
+            ),
+            array(
+                'allow',
+                'actions' => array('update', 'editableSaver'),
+                'roles' => array('D2company.CcbrBranch.Update'),
+            ),
+            array(
+                'allow',
+                'actions' => array('delete'),
+                'roles' => array('D2company.CcbrBranch.Delete'),
+            ),
+            array(
+                'allow',
+                'actions' => array('admin'),
+                'roles' => array('D2company.CcbrBranch.View'),
+            ),                  
+            array(
+                'deny',
+                'users' => array('*'),
+            ),
+        );
+    }
 
     public function beforeAction($action)
     {

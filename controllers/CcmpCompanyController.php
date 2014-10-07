@@ -22,9 +22,9 @@ class CcmpCompanyController extends Controller {
                     , 'view', 'updateccbr', 'manageccbr', 'updateGroup', 'updatemanager', 'export',
                     'createccbr', 'updateExtended', 'updateCustom', 'AdminManagers',
                     'UpdateManagers', 'CreateManager', 'adminCars','adminCustomers','updateFiles',
-                    'upload','deleteFile','downloadFile','resetPersonPassword'
+                    'upload','deleteFile','downloadFile','resetPersonPassword',
                     ),
-                'roles' => array('Company.fullcontrol'),
+                'roles' => array('Company.fullcontrol','D2company.CcmpCompany.*'),
             ),
             array(
                 'allow',
@@ -37,8 +37,23 @@ class CcmpCompanyController extends Controller {
                 'allow',
                 'actions' => array('admin', 'view', 'export','downloadFile'
                 ),
-                'roles' => array('Company.readonly'),
+                'roles' => array('Company.readonly','D2company.CcmpCompany.View'),
             ),
+            array(
+                'allow',
+                'actions' => array('create','ajaxCreate'),
+                'roles' => array('D2company.CcmpCompany.Create'),
+            ),
+            array(
+                'allow',
+                'actions' => array('update', 'editableSaver'),
+                'roles' => array('D2company.CcmpCompany.Update'),
+            ),
+            array(
+                'allow',
+                'actions' => array('delete'),
+                'roles' => array('D2company.CcmpCompany.Delete'),
+            ),            
 //            array(
 //                'allow',
 //                'actions' => array( 'view', 'view4CustomerOffice','export','editableSaver'
@@ -665,16 +680,6 @@ class CcmpCompanyController extends Controller {
     }
 
     public function actionEditableSaver() {
-        
-        //sys company validation
-        $ccmp_id = yii::app()->request->getParam('pk');
-        $model = $this->loadModel($ccmp_id);
-        if (Yii::app()->sysCompany->getActiveCompany()){
-            if($model->ccmp_sys_ccmp_id ==  Yii::app()->sysCompany->getActiveCompany()){
-                throw new CHttpException(404, "Data not available.");
-            }
-        }   
-        
         Yii::import('EditableSaver'); //or you can add import 'ext.editable.*' to config
         $es = new EditableSaver('CcmpCompany'); // classname of model to be updated
         $es->update();
@@ -795,11 +800,11 @@ class CcmpCompanyController extends Controller {
             throw new CHttpException(404, Yii::t('D2companyModule.crud_static', 'The requested page does not exist.'));
         }
         
-		if (Yii::app()->sysCompany->getActiveCompany()){
-            if( !Yii::app()->sysCompany->isValidUserCompany($model->ccmp_sys_ccmp_id)){
-                throw new CHttpException(404, Yii::t('D2companyModule.crud_static', 'Requested closed data.'));
-            }    
-        }                
+//		if (Yii::app()->sysCompany->getActiveCompany()){
+//            if( !Yii::app()->sysCompany->isValidUserCompany($model->ccmp_sys_ccmp_id)){
+//                throw new CHttpException(404, Yii::t('D2companyModule.crud_static', 'Requested closed data.'));
+//            }    
+//        }                
         
         return $model;
     }

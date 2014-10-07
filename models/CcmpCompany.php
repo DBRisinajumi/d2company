@@ -150,6 +150,19 @@ class CcmpCompany extends BaseCcmpCompany
         return $pass;
     }
 
+    public function beforeSave()
+    {
+        if(!$this->isNewRecord && !CbpcCode::model()->findByPk($this->primaryKey)){
+            return false;
+        }
+        
+        if(!parent::beforeSave()){
+            return false;
+        }
+        
+        return true;
+    }
+    
     public function save($runValidation = true, $attributes = NULL) 
     {
         //set system company id

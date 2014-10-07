@@ -16,7 +16,8 @@
                     "label" => Yii::t("D2companyModule.crud_static", "Create"),
                     "icon" => "icon-plus",
                     "url" => array("create"),
-                    "visible" => Yii::app()->user->checkAccess("Company.*")
+                    "visible" => Yii::app()->user->checkAccess("Company.*") 
+                        || Yii::app()->user->checkAccess("D2company.CcmpCompany.Create"),
                 ));
                   $this->widget("bootstrap.widgets.TbButton", array(
                     "label" => Yii::t("D2companyModule.crud_static", "Export"),

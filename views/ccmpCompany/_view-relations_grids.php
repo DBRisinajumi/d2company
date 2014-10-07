@@ -7,7 +7,9 @@ if(!$ajax){
 }
 ?>
 <?php
-if((!$ajax || $ajax == 'ccbr-branch-grid') && !empty($modelMain->ccbrBranches)){
+if((!$ajax || $ajax == 'ccbr-branch-grid') 
+        && Yii::app()->user->checkAccess("D2company.CcbrBranch.View")
+        && !empty($modelMain->ccbrBranches)){
     Yii::beginProfile('ccbr_ccmp_id.view.grid');
         
     $grid_error = '';
@@ -26,7 +28,7 @@ if((!$ajax || $ajax == 'ccbr-branch-grid') && !empty($modelMain->ccbrBranches)){
 <div class="table-header">
     <?=Yii::t('D2companyModule.crud', 'Ccbr Branch')?>
     <?php    
-    if($can_edit){    
+    if(Yii::app()->user->checkAccess("D2company.CcbrBranch.Create")){    
         $this->widget(
             'bootstrap.widgets.TbButton',
             array(
@@ -71,7 +73,7 @@ if((!$ajax || $ajax == 'ccbr-branch-grid') && !empty($modelMain->ccbrBranches)){
     $model->ccbr_ccmp_id = $modelMain->primaryKey;
 
     // render grid view
-
+    $can_edit = Yii::app()->user->checkAccess("D2company.CcbrBranch.Update");
     $this->widget('TbGridView',
         array(
             'id' => 'ccbr-branch-grid',
@@ -130,11 +132,12 @@ if((!$ajax || $ajax == 'ccbr-branch-grid') && !empty($modelMain->ccbrBranches)){
                     'buttons' => array(
                         'view' => array('visible' => 'FALSE'),
                         'update' => array('visible' => 'FALSE'),
-                        'delete' => array('visible' => $can_edit?"true":"false"),
+                        'delete' => array('visible' => 'TRUE'),
                     ),
                     'deleteButtonUrl' => 'Yii::app()->controller->createUrl("/d2company/ccbrBranch/delete", array("ccbr_id" => $data->ccbr_id))',
                     'deleteConfirmation'=>Yii::t('D2companyModule.crud_static','Do you want to delete this item?'),   
-                    'deleteButtonOptions'=>array('data-toggle'=>'tooltip'),                    
+                    'deleteButtonOptions'=>array('data-toggle'=>'tooltip'),        
+                    'visible' => Yii::app()->user->checkAccess("D2company.CcbrBranch.Delete"),  
                 ),
             )
         )
@@ -147,7 +150,9 @@ if((!$ajax || $ajax == 'ccbr-branch-grid') && !empty($modelMain->ccbrBranches)){
 ?>
 
 <?php
-if((!$ajax || $ajax == 'ccuc-user-company-grid')){
+if((!$ajax || $ajax == 'ccuc-user-company-grid')
+        && Yii::app()->user->checkAccess("D2company.CcucUserCompany.View")
+){
     Yii::beginProfile('ccuc_ccmp_id.view.grid');
         
     $grid_error = '';
@@ -167,7 +172,7 @@ if((!$ajax || $ajax == 'ccuc-user-company-grid')){
     <?=Yii::t('D2companyModule.crud', 'Ccuc User Company')?>
     <?php    
     // "+" poga noņemta, jo nevar pievienot tukšu ierakstu
-    if($can_edit){            
+    if(Yii::app()->user->checkAccess("D2company.CcucUserCompany.Create")){            
         $this->widget(
             'bootstrap.widgets.TbButton',
             array(
@@ -212,7 +217,7 @@ if((!$ajax || $ajax == 'ccuc-user-company-grid')){
     $model->ccuc_ccmp_id = $modelMain->primaryKey;
 
     // render grid view
-
+    $can_edit = Yii::app()->user->checkAccess("D2company.CcucUserCompany.Update");
     $this->widget('TbGridView',
         array(
             'id' => 'ccuc-user-company-grid',
@@ -226,6 +231,7 @@ if((!$ajax || $ajax == 'ccuc-user-company-grid')){
                 array(
                 'class' => 'editable.EditableColumn',
                 'name' => 'ccuc_person_id',
+                'value' => '!empty($data->ccuc_person_id)?$data->ccucPerson->itemLabel:" - "',
                 'editable' => array(
                     'type' => 'select',
                     'url' => $this->createUrl('//d2company/ccucUserCompany/editableSaver'),
@@ -249,6 +255,7 @@ if((!$ajax || $ajax == 'ccuc-user-company-grid')){
             array(
                 'class' => 'editable.EditableColumn',
                 'name' => 'ccuc_cucp_id',
+                'value' => '!empty($data->ccuc_cucp_id)?$data->ccucCucp->itemLabel:" - "',
                 'editable' => array(
                     'type' => 'select',
                     'url' => $this->createUrl('//d2company/ccucUserCompany/editableSaver'),
@@ -263,11 +270,12 @@ if((!$ajax || $ajax == 'ccuc-user-company-grid')){
                     'buttons' => array(
                         'view' => array('visible' => 'FALSE'),
                         'update' => array('visible' => 'FALSE'),
-                        'delete' => array('visible' => $can_edit?"true":"false"),
+                        'delete' => array('visible' => 'TRUE'),
                     ),
                     'deleteButtonUrl' => 'Yii::app()->controller->createUrl("/d2company/ccucUserCompany/delete", array("ccuc_id" => $data->ccuc_id))',
                     'deleteConfirmation'=>Yii::t('D2companyModule.crud_static','Do you want to delete this item?'),   
-                    'deleteButtonOptions'=>array('data-toggle'=>'tooltip'),                    
+                    'deleteButtonOptions'=>array('data-toggle'=>'tooltip'),        
+                    'visible' => Yii::app()->user->checkAccess("D2company.CcucUserCompany.Delete"),                    
                 ),
             )
         )
@@ -280,7 +288,9 @@ if((!$ajax || $ajax == 'ccuc-user-company-grid')){
 ?>
 
 <?php
-if(!$ajax || $ajax == 'ccxg-company-xgroup-grid'){
+if((!$ajax || $ajax == 'ccxg-company-xgroup-grid')
+        && Yii::app()->user->checkAccess("D2company.CcxgCompanyXGroup.View")
+){
     Yii::beginProfile('ccxg_ccmp_id.view.grid');
         
     $grid_error = '';
@@ -299,7 +309,7 @@ if(!$ajax || $ajax == 'ccxg-company-xgroup-grid'){
 <div class="table-header">
     <?=Yii::t('D2companyModule.crud', 'Ccxg Company Xgroup')?>
     <?php    
-    if($can_edit){        
+    if(Yii::app()->user->checkAccess("D2company.CcxgCompanyXGroup.Update")){        
         $this->widget(
             'bootstrap.widgets.TbButton',
             array(
@@ -344,7 +354,7 @@ if(!$ajax || $ajax == 'ccxg-company-xgroup-grid'){
     $model->ccxg_ccmp_id = $modelMain->primaryKey;
 
     // render grid view
-
+    $can_edit = Yii::app()->user->checkAccess("D2company.CcxgCompanyXGroup.View");
     $this->widget('TbGridView',
         array(
             'id' => 'ccxg-company-xgroup-grid',
@@ -358,6 +368,7 @@ if(!$ajax || $ajax == 'ccxg-company-xgroup-grid'){
                 array(
                 'class' => 'editable.EditableColumn',
                 'name' => 'ccxg_ccgr_id',
+                'value' => '!empty($data->ccxg_ccgr_id)?$data->ccxgCcgr->itemLabel:" - "',
                 'editable' => array(
                     'type' => 'select',
                     'url' => $this->createUrl('//d2company/ccxgCompanyXGroup/editableSaver'),
@@ -372,11 +383,12 @@ if(!$ajax || $ajax == 'ccxg-company-xgroup-grid'){
                     'buttons' => array(
                         'view' => array('visible' => 'FALSE'),
                         'update' => array('visible' => 'FALSE'),
-                        'delete' => array('visible' => $can_edit?"true":"false"),
+                        'delete' => array('visible' => "TRUE"),
                     ),
                     'deleteButtonUrl' => 'Yii::app()->controller->createUrl("/d2company/ccxgCompanyXGroup/delete", array("ccxg_id" => $data->ccxg_id))',
                     'deleteConfirmation'=>Yii::t('D2companyModule.crud_static','Do you want to delete this item?'),   
                     'deleteButtonOptions'=>array('data-toggle'=>'tooltip'),                    
+                    'visible' => Yii::app()->user->checkAccess("D2company.CcxgCompanyXGroup.Delete"),
                 ),
             )
         )
