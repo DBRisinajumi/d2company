@@ -113,7 +113,7 @@ $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
                             //'placement' => 'right',
                         ),
                         true
-                    ):$model->ccmpCcnt->itemLabel,
+                    ):(!empty($model->ccmp_ccnt_id)?$model->ccmpCcnt->itemLabel:''),
                 ),
 
                 array(
@@ -418,6 +418,43 @@ $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
                     'can_edit' => $can_edit,
                     )); ?>    </div>
 </div>
+<?php
+ if (Yii::app()->hasModule('d2messages')) {
+    $this->widget('D2Mail', array(
+        'model_name' => get_class($model), //optional - filter messages by model name
+        'model_id' => $model->primaryKey, //can not write mail
+        'write_mail' => array(
+            'label' => Yii::t('D2companyModule.crud', 'Write message'),
+        ),
+        'left_tabs' => array(
+            array(
+                'label' => Yii::t('D2companyModule.crud', 'Messages'),
+                'tab_code' => 'messages',
+                'icon' => 'icon-inbox',
+                'icon_color' => 'blue',
+                'active' => true,
+                'url' => array('d2messages/ajax/List'),
+            ),
+        ),
+        'messages_format' => array(
+            //show columns in messages list
+            'columns' => array(
+                'unread',
+                'sender',
+                'subject',
+                'summary',
+                'time',
+                'model_label',
+                'model_name',
+            ),
+        ),
+        //mesage list title big
+        'title_big' => Yii::t('D2companyModule.crud', 'Messages'),
+            )
+    );
+}
+?>
+
 <br />
 <?php 
 $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
