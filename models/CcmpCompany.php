@@ -152,7 +152,7 @@ class CcmpCompany extends BaseCcmpCompany
 
     public function beforeSave()
     {
-        if(!$this->isNewRecord && !CbpcCode::model()->findByPk($this->primaryKey)){
+        if(!$this->isNewRecord && !CcmpCompany::model()->findByPk($this->primaryKey)){
             return false;
         }
         
