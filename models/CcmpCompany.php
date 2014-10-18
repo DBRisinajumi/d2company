@@ -7,7 +7,7 @@ Yii::import('CcmpCompany.*');
 
 class CcmpCompany extends BaseCcmpCompany
 {
-
+    public $ccxg_ccgr_id;
     // Add your model-specific methods here. This file will not be overriden by gtc except you force it.
     public static function model($className = __CLASS__)
     {
@@ -19,6 +19,15 @@ class CcmpCompany extends BaseCcmpCompany
         return parent::init();
     }
 
+    public function rules()
+    {
+        return array_merge(
+            parent::rules(), array(
+                array('ccxg_ccgr_id', 'safe', 'on' => 'search'),
+            )
+        );
+    }    
+    
     public function getItemLabel()
     {
         return parent::getItemLabel();
@@ -43,16 +52,6 @@ class CcmpCompany extends BaseCcmpCompany
         return $behaviors;
     }
     
-    public function rules()
-    {
-        return array_merge(
-            parent::rules()
-        /* , array(
-          array('column1, column2', 'rule1'),
-          array('column3', 'rule2'),
-          ) */
-        );
-    }
     public function relations()
     {
         return array_merge(
@@ -79,13 +78,10 @@ class CcmpCompany extends BaseCcmpCompany
     }        
     
     public function getCssClass() {
-        
-      
+        if(empty($this->ccmp_statuss)){
+            return '';
+        }
         return "row-".strtolower($this->ccmp_statuss);
-        
-           
-           
-        
     }
     
     
@@ -246,6 +242,59 @@ class CcmpCompany extends BaseCcmpCompany
        
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $this->searchCriteria($criteria),
+             'sort'=>array('defaultOrder'=>'ccmp_name'),
+             'pagination'=>array('pageSize'=>50),
+
+        ));        
+    } 
+
+    /**
+     * special search for company list. Main model:CcxgCompanyXGroup
+     * @param CDbCriteria $criteria
+     * @return \CActiveDataProvider
+     */
+    public function searchForList($criteria = null)
+    {
+        if (is_null($criteria)) {
+            $criteria = new CDbCriteria;
+        }
+
+        $criteria->compare('ccmp_id', $this->ccmp_id);
+        $criteria->compare('ccmp_name', $this->ccmp_name, true);
+        $criteria->compare('ccmp_ccnt_id', $this->ccmp_ccnt_id);
+        $criteria->compare('ccmp_registrtion_no', $this->ccmp_registrtion_no, true);
+        $criteria->compare('ccmp_vat_registrtion_no', $this->ccmp_vat_registrtion_no, true);
+        $criteria->compare('ccmp_registration_date', $this->ccmp_registration_date);
+        $criteria->compare('ccmp_registration_address', $this->ccmp_registration_address, true);
+        $criteria->compare('ccmp_official_ccit_id', $this->ccmp_official_ccit_id);
+        $criteria->compare('ccmp_official_address', $this->ccmp_official_address, true);
+        $criteria->compare('ccmp_official_zip_code', $this->ccmp_official_zip_code, true);
+        $criteria->compare('ccmp_office_ccit_id', $this->ccmp_office_ccit_id);
+        $criteria->compare('ccmp_office_address', $this->ccmp_office_address, true);
+        $criteria->compare('ccmp_office_zip_code', $this->ccmp_office_zip_code, true);
+        $criteria->compare('ccmp_statuss', $this->ccmp_statuss);
+        $criteria->compare('ccmp_description', $this->ccmp_description, true);
+        $criteria->compare('ccmp_office_phone', $this->ccmp_office_phone, true);
+        $criteria->compare('ccmp_office_email', $this->ccmp_office_email, true);
+        $criteria->compare('ccmp_agreement_nr', $this->ccmp_agreement_nr, true);
+        $criteria->compare('ccmp_agreement_date', $this->ccmp_agreement_date);
+        $criteria->compare('ccmp_sys_ccmp_id', $this->ccmp_sys_ccmp_id);        
+        $criteria->compare('ccxg_ccgr_id', $this->ccxg_ccgr_id);        
+        
+        $criteria->addCondition('not ccxg_ccmp_id is null');
+        $criteria->addCondition('not ccxg_ccgr_id is null');
+        
+        $criteria->with = array(
+            "ccxgCcmp" => array(
+                'joinType' => 'INNER JOIN',
+            ),
+            "ccxgCcgr");
+        $criteria->together = TRUE;
+        $criteria->together = TRUE;
+        $criteria->limit = 1;
+
+        return new CActiveDataProvider('CcxgCompanyXGroup', array(
+            'criteria' => $criteria,
              'sort'=>array('defaultOrder'=>'ccmp_name'),
              'pagination'=>array('pageSize'=>50),
 

@@ -44,23 +44,31 @@ Yii::app()->clientScript->registerScript('export', "
     <?php $this->renderPartial('_export', array('model' => $model,)); ?>
 </div>
 
-
 <?php
 $visible_columns = false;
 if (isset(Yii::app()->getModule('d2company')->options['admin_columns'])) {
     $visible_columns = Yii::app()->getModule('d2company')->options['admin_columns'];
 }
 
+$criteria = new CDbCriteria;
+if(isset(Yii::app()->params['ccgr_group_sys_company'])){
+    $criteria->addNotInCondition('ccgr_id',array(Yii::app()->params['ccgr_group_sys_company']));
+}        
+$criteria->order = 'ccgr_name';
+$group_filter = CHtml::listData(CcgrGroup::model()->findAll($criteria), 'ccgr_id', 'ccgr_name');
+
 $grid_columns = array(
     array(
         'name' => 'ccmp_name',
         'header' => Yii::t('D2companyModule.crud', 'Name'),
+        //'value' => '$data->ccxgCcmp->ccmp_name',
+        'value' => 'CHtml::value($data,\'ccxgCcmp.ccmp_name\')',        
         'visible' => !$visible_columns || in_array('ccmp_name', $visible_columns),
     ),
     array(
         'name' => 'ccmp_ccnt_id',
         'header' => Yii::t('D2companyModule.crud', 'Country'),
-        'value' => 'CHtml::value($data,\'ccmpCcnt.itemLabel\')',
+        'value' => 'CHtml::value($data->ccxgCcmp,\'ccmpCcnt.itemLabel\')',
         'filter' => CHtml::listData(CcntCountry::model()->findAll(array('limit' => 1000)), 'ccnt_id', 'itemLabel'),
         'htmlOptions' => array('style' => 'width:100px;'),
         'visible' => !$visible_columns || in_array('ccmp_ccnt_id', $visible_columns),
@@ -68,25 +76,38 @@ $grid_columns = array(
     array(
         'name' => 'ccmp_office_ccit_id',
         'header' => Yii::t('D2companyModule.crud', 'City'),
-        'value' => 'CHtml::value($data,\'ccmpOfficeCcit.itemLabel\')',
+        'value' => 'CHtml::value($data->ccxgCcmp,\'ccmpOfficeCcit.itemLabel\')',
         'filter' => CHtml::listData(CcitCity::model()->findAll(array('limit' => 1000)), 'ccit_id', 'itemLabel'),
         'visible' => !$visible_columns || in_array('ccmp_office_ccit_id', $visible_columns),
     ),
     array(
         'name' => 'ccmp_registrtion_no',
+        'value' => 'CHtml::value($data->ccxgCcmp,\'CcmpCompany.ccmp_registrtion_no\')',
         'header' => Yii::t('D2companyModule.crud', 'Registration Nr'),
         'visible' => !$visible_columns || in_array('ccmp_registrtion_no', $visible_columns),
     ),
     array(
         'name' => 'ccmp_registration_address',
         'header' => Yii::t('D2companyModule.crud', 'Registration Address'),
+        'value' => 'CHtml::value($data->ccxgCcmp,\'CcmpCompany.ccmp_registration_address\')',                
         'visible' => !$visible_columns || in_array('ccmp_registration_address', $visible_columns),
     ),
     array(
         'name' => 'ccmp_statuss',
         'header' => Yii::t('D2companyModule.crud', 'State'),
+        'value' => 'CHtml::value($data->ccxgCcmp,\'CcmpCompany.ccmp_statuss\')',                        
         'visible' => !$visible_columns || in_array('ccmp_statuss', $visible_columns),
-        ));
+        ),
+    array(
+        'name' => 'ccxg_ccgr_id',
+        'header' => Yii::t('D2companyModule.crud', 'Group'),
+        'filter' => $group_filter,        
+        //'value' => 'CHtml::value($data->ccxgCcgr,\'CcgrGroup.ccgr_name\')',                        
+        'value' => '$data->ccxgCcgr->ccgr_name',                        
+        'visible' => !$visible_columns || in_array('ccxg_ccgr_id', $visible_columns),
+        ),
+
+    );
 
 if (isset(Yii::app()->getModule('d2company')->options['admin_add_columns'])) {
     foreach(Yii::app()->getModule('d2company')->options['admin_add_columns'] as $add_column){
@@ -107,8 +128,8 @@ $grid_columns[] = array(
             . '                            || Yii::app()->user->checkAccess("D2company.CcmpCompany.Update")'),
         'delete' => array('visible' => 'FALSE'),
     ),
-    'viewButtonUrl' => 'Yii::app()->controller->createUrl("view", array("ccmp_id" => $data->ccmp_id))',
-    'updateButtonUrl' => 'Yii::app()->controller->createUrl("updateExtended", array("ccmp_id" => $data->ccmp_id))',
+    'viewButtonUrl' => 'Yii::app()->controller->createUrl("view", array("ccmp_id" => $data->ccxg_ccmp_id))',
+    'updateButtonUrl' => 'Yii::app()->controller->createUrl("updateExtended", array("ccmp_id" => $data->ccxg_ccmp_id))',
     'deleteButtonUrl' => null,
     'viewButtonOptions' => array('data-toggle' => 'tooltip'),
     'updateButtonOptions' => array('data-toggle' => 'tooltip'),
@@ -118,10 +139,10 @@ $grid_columns[] = array(
 $this->widget('TbGridView', array(
     'id' => 'ccmp-company-grid',
     'type' => 'bordered condensed',
-    'dataProvider' => $model->search(),
+    'dataProvider' => $model->searchForList(),
     'filter' => $model,
     'template' => '{items}{summary}{pager}',
-    'rowCssClassExpression' => '$data->cssclass',
+    'rowCssClassExpression' => '!empty($data->ccxgCcmp)?$data->ccxgCcmp->cssclass:""',
     'pager' => array(
         'class' => 'TbPager',
         'displayFirstAndLast' => true,
