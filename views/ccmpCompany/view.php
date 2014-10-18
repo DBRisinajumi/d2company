@@ -422,7 +422,7 @@ $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
  if (Yii::app()->hasModule('d2messages')) {
     $this->widget('D2Mail', array(
         'model_name' => get_class($model), //optional - filter messages by model name
-        'model_id' => $model->primaryKey, //can not write mail
+        'model_id' => $model->primaryKey, 
         'write_mail' => array(
             'label' => Yii::t('D2companyModule.crud', 'Write message'),
         ),
@@ -444,8 +444,8 @@ $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
                 'subject',
                 'summary',
                 'time',
-                'model_label',
-                'model_name',
+                //'model_label',
+                //'model_name',
             ),
         ),
         //mesage list title big
