@@ -77,4 +77,20 @@ class CcxgCompanyXGroup extends BaseCcxgCompanyXGroup
 
     }    
     
+    protected function afterSave()
+    {
+        parent::afterSave();
+        
+        //if added syscomany group, add company as SYS to person in ccuc
+        if(isset(Yii::app()->params['ccgr_group_sys_company']) 
+                && $this->ccxg_ccgr_id == Yii::app()->params['ccgr_group_sys_company'])
+        {
+            $ccuc = new CcucUserCompany();
+            $ccuc->ccuc_ccmp_id = $this->ccxg_ccmp_id;
+            $ccuc->ccuc_person_id = Yii::app()->getModule('user')->user()->profile->person_id;
+            $ccuc->ccuc_status = CcucUserCompany::CCUC_STATUS_SYS;
+            $ccuc->save();
+        }        
+    }
+    
 }
