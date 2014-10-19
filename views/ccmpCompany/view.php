@@ -42,7 +42,6 @@ $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
                         ),
                     ));        
                     $this->widget("bootstrap.widgets.TbButton", array(
-                        "label"=>Yii::t("D2companyModule.crud","Audit Trail"),
                         'type'=>'info',
                         "size"=>"large",
                         "url"=>array(
@@ -51,20 +50,13 @@ $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
                             'model_id' => $model->getPrimaryKey(),
                         ),
                         "icon"=>"icon-info-sign",
+                        "htmlOptions" => array(
+                            "class" => "search-button",
+                            "data-toggle" => "tooltip",
+                            "title" => Yii::t("D2companyModule.crud", "Audit Trail"),
+                        )                              
                     ));                        
                 }                
-            $this->widget("bootstrap.widgets.TbButton", array(
-                "label"=>Yii::t("D2companyModule.crud_static","Delete"),
-                "type"=>"danger",
-                "icon"=>"icon-trash icon-white",
-                "size"=>"large",
-                "htmlOptions"=> array(
-                    "submit"=>array("delete","ccmp_id"=>$model->{$model->tableSchema->primaryKey}, "returnUrl"=>(Yii::app()->request->getParam("returnUrl"))?Yii::app()->request->getParam("returnUrl"):$this->createUrl("admin")),
-                    "confirm"=>Yii::t("D2companyModule.crud_static","Do you want to delete this item?")
-                ),
-                "visible"=> Yii::app()->request->getParam("ccmp_id") 
-                            && Yii::app()->user->checkAccess("D2person.PprsPerson.Delete"), 
-            ));
             ?>
         </div>
     </div>

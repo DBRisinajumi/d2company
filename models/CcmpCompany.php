@@ -283,15 +283,16 @@ class CcmpCompany extends BaseCcmpCompany
         
         $criteria->addCondition('not ccxg_ccmp_id is null');
         $criteria->addCondition('not ccxg_ccgr_id is null');
+
+        $criteria->join  = " 
+        INNER JOIN ccmp_company 
+            ON ccxg_ccmp_id = ccmp_id 
+        INNER JOIN ccgr_group 
+            ON ccxg_ccgr_id = ccgr_id 
+                   
+        ";
+        $criteria->compare('ccmp_sys_ccmp_id',Yii::app()->sysCompany->getActiveCompany());
         
-        $criteria->with = array(
-            "ccxgCcmp" => array(
-                'joinType' => 'INNER JOIN',
-            ),
-            "ccxgCcgr");
-        $criteria->together = TRUE;
-        $criteria->together = TRUE;
-        $criteria->limit = 1;
 
         return new CActiveDataProvider('CcxgCompanyXGroup', array(
             'criteria' => $criteria,
