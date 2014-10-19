@@ -45,10 +45,7 @@ abstract class BaseCcbrBranch extends CActiveRecord
 
     public function getItemLabel()
     {
-        if(empty($this->ccbrCcmp)){
-            return (string)'';
-        }
-        return (string) $this->ccbrCcmp->ccmp_name . ' ' . $this->ccbr_name ;
+        return (string) $this->ccbr_name ;
     }
 
     public function behaviors()

@@ -20,7 +20,10 @@ class CcbrBranch extends BaseCcbrBranch
 
     public function getItemLabel()
     {
-        return parent::getItemLabel();
+        if(empty($this->ccbrCcmp)){
+            return (string)'';
+        }
+        return (string) $this->ccbrCcmp->ccmp_name . ' ' . $this->ccbr_name ;
     }
 
     public function behaviors() {
