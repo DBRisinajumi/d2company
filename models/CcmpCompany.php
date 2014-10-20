@@ -7,7 +7,11 @@ Yii::import('CcmpCompany.*');
 
 class CcmpCompany extends BaseCcmpCompany
 {
+    //for filter
     public $ccxg_ccgr_id;
+    
+    //for list
+    public $ccgr_name;
     // Add your model-specific methods here. This file will not be overriden by gtc except you force it.
     public static function model($className = __CLASS__)
     {
@@ -148,6 +152,8 @@ class CcmpCompany extends BaseCcmpCompany
 
     public function beforeSave()
     {
+        
+        //validate acces rights
         if(!$this->isNewRecord && !CcmpCompany::model()->findByPk($this->primaryKey)){
             return false;
         }
@@ -259,6 +265,7 @@ class CcmpCompany extends BaseCcmpCompany
             $criteria = new CDbCriteria;
         }
 
+        $criteria->select = "t.*,ccgr_name,ccxg_ccgr_id";
         $criteria->compare('ccmp_id', $this->ccmp_id);
         $criteria->compare('ccmp_name', $this->ccmp_name, true);
         $criteria->compare('ccmp_ccnt_id', $this->ccmp_ccnt_id);
@@ -280,21 +287,16 @@ class CcmpCompany extends BaseCcmpCompany
         $criteria->compare('ccmp_agreement_date', $this->ccmp_agreement_date);
         $criteria->compare('ccmp_sys_ccmp_id', $this->ccmp_sys_ccmp_id);        
         $criteria->compare('ccxg_ccgr_id', $this->ccxg_ccgr_id);        
-        
-        $criteria->addCondition('not ccxg_ccmp_id is null');
-        $criteria->addCondition('not ccxg_ccgr_id is null');
 
         $criteria->join  = " 
-        INNER JOIN ccmp_company 
+        LEFT OUTER JOIN ccxg_company_x_group 
             ON ccxg_ccmp_id = ccmp_id 
-        INNER JOIN ccgr_group 
+        LEFT OUTER JOIN ccgr_group 
             ON ccxg_ccgr_id = ccgr_id 
                    
         ";
-        $criteria->compare('ccmp_sys_ccmp_id',Yii::app()->sysCompany->getActiveCompany());
-        
 
-        return new CActiveDataProvider('CcxgCompanyXGroup', array(
+        return new CActiveDataProvider('CcmpCompany', array(
             'criteria' => $criteria,
              'sort'=>array('defaultOrder'=>'ccmp_name'),
              'pagination'=>array('pageSize'=>50),
