@@ -354,7 +354,7 @@ if((!$ajax || $ajax == 'ccxg-company-xgroup-grid')
     $model->ccxg_ccmp_id = $modelMain->primaryKey;
 
     // render grid view
-    $can_edit = Yii::app()->user->checkAccess("D2company.CcxgCompanyXGroup.View");
+    $can_edit = Yii::app()->user->checkAccess("D2company.CcxgCompanyXGroup.Update");
     $this->widget('TbGridView',
         array(
             'id' => 'ccxg-company-xgroup-grid',

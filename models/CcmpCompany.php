@@ -178,6 +178,9 @@ class CcmpCompany extends BaseCcmpCompany
     
    protected function beforeFind()
    {
+       //spec defined access to companies 
+       $uc = false;
+       
         //get defined user positions in companies
         $sql = " 
             SELECT DISTINCT 
@@ -224,6 +227,41 @@ class CcmpCompany extends BaseCcmpCompany
             $criteria->compare('ccmp_id', $uc);
         }
        
+        if(Yii::app()->getModule('d2company')->access){
+            if($uc === false){
+                $uc = array();
+                $uc[] = 0; //for avoiding error if empty user company list
+            }
+            
+            $user_roles = Authassignment::model()->getUserRoles(Yii::app()->user->id);
+            foreach(Yii::app()->getModule('d2company')->access as $access){
+                
+                //validate roles
+                $intersect = array_intersect($user_roles,$access['roles']);
+                if(empty($intersect)){
+                    continue;
+                }                
+                
+                //get group companies
+                $sql = " 
+                        SELECT 
+                            ccxg_ccmp_id 
+                        FROM 
+                            ccxg_company_x_group 
+                        WHERE 
+                            ccxg_ccgr_id IN (".implode(',',$access['ccgr_id']).")";
+                            
+                $ccmp_id_list = Yii::app()->db->createCommand($sql)->queryAll(); 
+                if($ccmp_id_list){
+                    foreach($ccmp_id_list as $row){
+                        $uc[] = $row['ccxg_ccmp_id'];
+                    }
+                }
+            }
+            
+            
+        }
+        
         //filter by syscomapny
         
         if( Yii::app()->hasComponent('sysCompany') && Yii::app()->sysCompany->getActiveCompany()){

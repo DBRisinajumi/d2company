@@ -21,6 +21,12 @@ class D2companyModule extends CWebModule
         'audittrail' => false,
     );
     
+    /**
+     * specific acces right definition
+     * @var type 
+     */
+    public $access = false;
+    
 	public function init()
 	{
 		// this method is called when the module is being created
