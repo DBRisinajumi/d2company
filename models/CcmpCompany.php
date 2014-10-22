@@ -224,7 +224,6 @@ class CcmpCompany extends BaseCcmpCompany
                 $uc[] = $v['ccuc_ccmp_id'];
             }            
 
-            $criteria->compare('ccmp_id', $uc);
         }
        
         if(Yii::app()->getModule('d2company')->access){
@@ -252,7 +251,7 @@ class CcmpCompany extends BaseCcmpCompany
                             ccxg_ccgr_id IN (".implode(',',$access['ccgr_id']).")";
                             
                 $ccmp_id_list = Yii::app()->db->createCommand($sql)->queryAll(); 
-                if($ccmp_id_list){
+                if(!empty($ccmp_id_list)){
                     foreach($ccmp_id_list as $row){
                         $uc[] = $row['ccxg_ccmp_id'];
                     }
@@ -260,6 +259,10 @@ class CcmpCompany extends BaseCcmpCompany
             }
             
             
+        }
+        
+        if($uc !== false){
+            $criteria->compare('ccmp_id', $uc);
         }
         
         //filter by syscomapny
