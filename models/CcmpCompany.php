@@ -215,9 +215,6 @@ class CcmpCompany extends BaseCcmpCompany
             $user_companies = Yii::app()->db->createCommand($sql)->queryAll();            
 
             //add to criteria user companies
-            if(!$criteria){
-                $criteria = new CDbCriteria;
-            }            
             $uc = array();
             $uc[] = 0; //for avoiding error if empty user company list
             foreach($user_companies as $v){
@@ -262,6 +259,9 @@ class CcmpCompany extends BaseCcmpCompany
         }
         
         if($uc !== false){
+            if(!$criteria){
+                $criteria = new CDbCriteria;
+            }                
             $criteria->compare('ccmp_id', $uc);
         }
         
