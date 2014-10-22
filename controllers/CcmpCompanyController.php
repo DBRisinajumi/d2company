@@ -112,18 +112,6 @@ class CcmpCompanyController extends Controller {
 
                 if ($model->save()) {
                     
-                    // new Custom Data
-                    $custom = new BaseCccdCompanyData;
-                    $custom->cccd_ccmp_id = $model->ccmp_id;
-                    $custom->save();
-
-                    if (Yii::app()->sysCompany->getActiveCompany()){
-                        $postCcxg = new CcxgCompanyXGroup;
-                        $postCcxg->ccxg_ccmp_id = $model->ccmp_id;
-                        $postCcxg->ccxg_ccgr_id = 3; //customer
-                        $postCcxg->save();                        
-                    }
-
                  if (isset($_GET['returnUrl'])) {
                     $this->redirect($_GET['returnUrl']);
                 } else {

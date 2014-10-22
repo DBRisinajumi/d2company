@@ -224,10 +224,6 @@ class CcmpCompany extends BaseCcmpCompany
         }
        
         if(Yii::app()->getModule('d2company')->access){
-            if($uc === false){
-                $uc = array();
-                $uc[] = 0; //for avoiding error if empty user company list
-            }
             
             $user_roles = Authassignment::model()->getUserRoles(Yii::app()->user->id);
             foreach(Yii::app()->getModule('d2company')->access as $access){
@@ -249,6 +245,10 @@ class CcmpCompany extends BaseCcmpCompany
                             
                 $ccmp_id_list = Yii::app()->db->createCommand($sql)->queryAll(); 
                 if(!empty($ccmp_id_list)){
+                    if($uc === false){
+                        $uc = array();
+                        $uc[] = 0; //for avoiding error if empty user company list
+                    }                    
                     foreach($ccmp_id_list as $row){
                         $uc[] = $row['ccxg_ccmp_id'];
                     }
@@ -345,6 +345,71 @@ class CcmpCompany extends BaseCcmpCompany
         ));        
     } 
   
+    protected function afterSave()
+    {
+        
+        if(empty($this->cccdCustomData)){
+            // new Custom Data record, always must be
+            $custom = new BaseCccdCompanyData;
+            $custom->cccd_ccmp_id = $this->ccmp_id;
+            $custom->save();
+        }
+        
+        if(Yii::app()->getModule('d2company')->on_create){
+            $on_create = Yii::app()->getModule('d2company')->on_create;
+ 
+            $user_roles = Authassignment::model()->getUserRoles(Yii::app()->user->id);
+            $user_roles[] = '*'; //all roles
+
+            if(isset($on_create['add_ccuc'])){
+            
+                //add ccuc (User company record)
+                $pprs_id = Yii::app()->getModule('user')->user()->profile->person_id;
+                foreach($on_create['add_ccuc'] as $rule){
+                    
+                    //has user in rule defined role?
+                    $intersect = array_intersect($user_roles,$rule['roles']);
+                    if(empty($intersect)){
+                        continue;
+                    }                
+                    
+                    foreach($rule['cucp_id'] as $cucp_id){
+                        $ccuc = new CcucUserCompany();
+                        $ccuc->ccuc_ccmp_id = $this->ccmp_id;
+                        $ccuc->ccuc_person_id = $pprs_id;
+                        $ccuc->ccuc_status = CcucUserCompany::CCUC_STATUS_PERSON;
+                        $ccuc->ccuc_cucp_id = $cucp_id;
+                        $ccuc->save();
+                    }
+
+                    
+                }
+            }
+            if(isset($on_create['add_ccxg'])){
+            
+                //add ccxg (User company record)
+                foreach($on_create['add_ccxg'] as $rule){
+                    
+                    //has user in rule defined role?
+                    $intersect = array_intersect($user_roles,$rule['roles']);
+                    if(empty($intersect)){
+                        continue;
+                    }                
+                    
+                    foreach($rule['ccgr_id'] as $ccgr_id){
+                        $ccxg = new CcxgCompanyXGroup();
+                        $ccxg->ccxg_ccmp_id = $this->ccmp_id;
+                        $ccxg->ccxg_ccgr_id = $ccgr_id;
+                        $ccxg->save();
+                    }
+
+                    
+                }
+            }
+        }
+        
+        parent::afterSave();
+    }
    
     
 }

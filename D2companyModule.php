@@ -27,6 +27,12 @@ class D2companyModule extends CWebModule
      */
     public $access = false;
     
+    /**
+     * spec rules on creating company
+     * @var type 
+     */
+    public $on_create = false;
+    
 	public function init()
 	{
 		// this method is called when the module is being created
