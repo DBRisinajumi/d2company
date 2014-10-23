@@ -109,20 +109,18 @@ class CcmpCompanyController extends Controller {
             $model->attributes = $_POST['CcmpCompany'];
 
             try {
-
                 if ($model->save()) {
-                    
-                 if (isset($_GET['returnUrl'])) {
-                    $this->redirect($_GET['returnUrl']);
-                } else {
-                    $this->redirect(array('updateExtended', 'ccmp_id' => $model->ccmp_id));
+                    if (isset($_GET['returnUrl'])) {
+                        $this->redirect($_GET['returnUrl']);
+                    } else {
+                        if(Yii::app()->user->checkAccess('Company.fullcontrol')
+                                || Yii::app()->user->checkAccess('D2company.CcmpCompany.*')){
+                            $this->redirect(array('updateExtended', 'ccmp_id' => $model->ccmp_id));
+                        }else{
+                            $this->redirect(array('view', 'ccmp_id' => $model->ccmp_id));
+                        }
+                    }
                 }
-                
-                }
-
-
-
-               
             } catch (Exception $e) {
                 $model->addError('ccmp_id', $e->getMessage());
             }
