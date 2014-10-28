@@ -55,5 +55,15 @@ class CcbrBranch extends BaseCcbrBranch
           ) */
         );
     }
+    
+    public function beforeFind(){
+
+        $criteria = new CDbCriteria;
+        $criteria->compare('ccmp_sys_ccmp_id', Yii::app()->sysCompany->getActiveCompany());
+        $criteria->with = 'ccbrCcmp';
+        $this->dbCriteria->mergeWith($criteria);
+        
+        parent::beforeFind();
+    }   
 
 }
