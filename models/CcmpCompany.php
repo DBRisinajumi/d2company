@@ -361,7 +361,7 @@ class CcmpCompany extends BaseCcmpCompany
             $user_roles = Authassignment::model()->getUserRoles(Yii::app()->user->id);
             $user_roles[] = '*'; //all roles
 
-            if(isset($on_create['add_ccuc'])){
+            if(isset($on_create['add_ccuc']) && empty($this->ccucUserCompany)){
             
                 //add ccuc (User company record)
                 $pprs_id = Yii::app()->getModule('user')->user()->profile->person_id;
@@ -385,7 +385,8 @@ class CcmpCompany extends BaseCcmpCompany
                     
                 }
             }
-            if(isset($on_create['add_ccxg'])){
+            
+            if(isset($on_create['add_ccxg']) && empty($this->ccxgCompanyXGroups)){
             
                 //add ccxg (User company record)
                 foreach($on_create['add_ccxg'] as $rule){
