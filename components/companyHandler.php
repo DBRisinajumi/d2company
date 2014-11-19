@@ -42,6 +42,14 @@ class companyHandler extends CApplicationComponent
      */
     public function init()
     {
+        //user model required
+        if(!Yii::app()->hasModule('user')){
+            return false;
+        }
+        
+        if(!Yii::app()->getModule('user')->user()){
+            return false;
+        }        
         // parsing needed if urlFormat 'path'
         Yii::app()->urlManager->parseUrl(Yii::app()->getRequest());
 
@@ -92,6 +100,10 @@ class companyHandler extends CApplicationComponent
      * @return boolean
      */
     public function getActiveCompany(){
+        //user model required
+        if(!Yii::app()->hasModule('user')){
+            return false;
+        }        
         if($this->_activeCompany){
             return $this->_activeCompany;
         }
@@ -100,6 +112,9 @@ class companyHandler extends CApplicationComponent
             return false;
         }
 
+        if(!Yii::app()->getModule('user')->user()){
+            return false;
+        }
         $cmmp_id = Yii::app()->getModule('user')->user()->profile->{$this->profiles_ccmp_field};
 
         if(!$cmmp_id){
