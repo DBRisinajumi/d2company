@@ -28,6 +28,7 @@
  * Relations of table "ccmp_company" available as properties of the model:
  * @property CcbrBranch[] $ccbrBranches
  * @property CccdCustomData $cccdCustomData
+ * @property CcdpDepartment[] $ccdpDepartments
  * @property CcntCountry $ccmpCcnt
  * @property CcitCity $ccmpOfficialCcit
  * @property CcitCity $ccmpOfficeCcit
@@ -42,6 +43,8 @@ abstract class BaseCcmpCompany extends CActiveRecord
     const CCMP_STATUSS_ACTIVE = 'ACTIVE';
     const CCMP_STATUSS_CLOSED = 'CLOSED';
     const CCMP_STATUSS_POTENTIAL = 'POTENTIAL';
+    
+    var $enum_labels = false;  
 
     public static function model($className = __CLASS__)
     {
@@ -63,10 +66,10 @@ abstract class BaseCcmpCompany extends CActiveRecord
                 array('ccmp_name, ccmp_registration_address, ccmp_official_address, ccmp_office_address', 'length', 'max' => 200),
                 array('ccmp_registrtion_no, ccmp_vat_registrtion_no, ccmp_official_zip_code, ccmp_office_zip_code', 'length', 'max' => 20),
                 array('ccmp_official_ccit_id, ccmp_office_ccit_id, ccmp_sys_ccmp_id', 'length', 'max' => 10),
-                array('ccmp_statuss', 'length', 'max' => 9),
                 array('ccmp_office_phone, ccmp_agreement_nr', 'length', 'max' => 45),
                 array('ccmp_office_email', 'length', 'max' => 100),
                 array('ccmp_description, ccmp_agreement_date,ccmp_registration_date', 'safe'),
+                array('ccmp_statuss', 'in', 'range' => array(self::CCMP_STATUSS_ACTIVE, self::CCMP_STATUSS_CLOSED, self::CCMP_STATUSS_POTENTIAL)),
                 array('ccmp_id, ccmp_name, ccmp_ccnt_id, ccmp_registrtion_no, ccmp_vat_registrtion_no, ccmp_registration_date,ccmp_registration_address, ccmp_official_ccit_id, ccmp_official_address, ccmp_official_zip_code, ccmp_office_ccit_id, ccmp_office_address, ccmp_office_zip_code, ccmp_statuss, ccmp_description, ccmp_office_phone, ccmp_office_email, ccmp_agreement_nr, ccmp_agreement_date, ccmp_sys_ccmp_id', 'safe', 'on' => 'search'),
             )
         );
@@ -93,6 +96,7 @@ abstract class BaseCcmpCompany extends CActiveRecord
         return array_merge(
             parent::relations(), array(
                 'ccbrBranches' => array(self::HAS_MANY, 'CcbrBranch', 'ccbr_ccmp_id'),
+                'ccdpDepartments' => array(self::HAS_MANY, 'CcdpDepartment', 'ccdp_ccmp_id'),
                 'ccmpCcnt' => array(self::BELONGS_TO, 'CcntCountry', 'ccmp_ccnt_id'),
                 'ccmpOfficialCcit' => array(self::BELONGS_TO, 'CcitCity', 'ccmp_official_ccit_id'),
                 'ccmpOfficeCcit' => array(self::BELONGS_TO, 'CcitCity', 'ccmp_office_ccit_id'),
@@ -128,13 +132,17 @@ abstract class BaseCcmpCompany extends CActiveRecord
 
     public function enumLabels()
     {
-        return array(
+        if($this->enum_labels){
+            return $this->enum_labels;
+        }    
+        $this->enum_labels =  array(
            'ccmp_statuss' => array(
                self::CCMP_STATUSS_ACTIVE => Yii::t('D2companyModule.crud', 'CCMP_STATUSS_ACTIVE'),
                self::CCMP_STATUSS_CLOSED => Yii::t('D2companyModule.crud', 'CCMP_STATUSS_CLOSED'),
                self::CCMP_STATUSS_POTENTIAL => Yii::t('D2companyModule.crud', 'CCMP_STATUSS_POTENTIAL'),
            ),
             );
+         return $this->enum_labels;
     }
 
     public function getEnumFieldLabels($column){
@@ -158,7 +166,11 @@ abstract class BaseCcmpCompany extends CActiveRecord
         return $aLabels[$column][$value];
     }
 
-
+    public function getEnumColumnLabel($column){
+        return $this->getEnumLabel($column,$this->$column);
+    }
+    
+    
     public function searchCriteria($criteria = null)
     {
         if (is_null($criteria)) {

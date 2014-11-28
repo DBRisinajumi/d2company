@@ -399,4 +399,114 @@ if((!$ajax || $ajax == 'ccxg-company-xgroup-grid')
     Yii::endProfile('ccxg_ccmp_id.view.grid');
 }    
 
+if((!$ajax || $ajax == 'ccdp-department-grid')
+        && Yii::app()->user->checkAccess("D2company.CcdpDepartment.View")){
+    $can_create = Yii::app()->user->checkAccess("D2company.CcdpDepartment.Create");
+    
+    Yii::beginProfile('ccdp_ccmp_id.view.grid');
+        
+    $grid_error = '';
+    $grid_warning = '';
+
+    $model = false;
+    if (empty($modelMain->ccdpDepartments) && $can_create) {
+        $model = new CcdpDepartment;
+        $model->ccdp_ccmp_id = $modelMain->primaryKey;
+        if(!$model->save()){
+            $grid_error .= implode('<br/>',$model->errors);
+        }
+    }     
+?>
+
+<div class="table-header">
+    <?=Yii::t('D2companyModule.crud', 'Ccdp Department')?>
+    <?php    
+        
+    $this->widget(
+        'bootstrap.widgets.TbButton',
+        array(
+            'buttonType' => 'ajaxButton', 
+            'type' => 'primary', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+            'size' => 'mini',
+            'icon' => 'icon-plus',
+            'url' => array(
+                '//d2company/ccdpDepartment/ajaxCreate',
+                'field' => 'ccdp_ccmp_id',
+                'value' => $modelMain->primaryKey,
+                'ajax' => 'ccdp-department-grid',
+            ),
+            'ajaxOptions' => array(
+                    'success' => 'function(html) {$.fn.yiiGridView.update(\'ccdp-department-grid\');}'
+                    ),
+            'htmlOptions' => array(
+                'title' => Yii::t('D2companyModule.crud', 'Add new record'),
+                'data-toggle' => 'tooltip',
+            ),                 
+            'visible' => $can_create,
+        )
+    );        
+    ?>
+</div>
+ 
+<?php 
+
+    if(!empty($grid_error)){
+        ?>
+        <div class="alert alert-error"><?php echo $grid_error?></div>
+        <?php
+    }  
+
+    if(!empty($grid_warning)){
+        ?>
+        <div class="alert alert-warning"><?php echo $grid_warning?></div>
+        <?php
+    }  
+
+    if (!empty($modelMain->ccdpDepartments) || $model !== false) {
+        $model = new CcdpDepartment();
+        $model->ccdp_ccmp_id = $modelMain->primaryKey;
+
+        // render grid view
+
+        $this->widget('TbGridView',
+            array(
+                'id' => 'ccdp-department-grid',
+                'dataProvider' => $model->search(),
+                'template' => '{summary}{items}',
+                'summaryText' => '&nbsp;',
+                'htmlOptions' => array(
+                    'class' => 'rel-grid-view'
+                ),            
+                'columns' => array(
+                    array(
+                    //varchar(50)
+                    'class' => 'editable.EditableColumn',
+                    'name' => 'ccdp_name',
+                    'editable' => array(
+                        'url' => $this->createUrl('//d2company/ccdpDepartment/editableSaver'),
+                        'apply' => Yii::app()->user->checkAccess("D2company.CcdpDepartment.Update")
+                    )
+                ),
+
+                    array(
+                        'class' => 'TbButtonColumn',
+                        'buttons' => array(
+                            'view' => array('visible' => 'FALSE'),
+                            'update' => array('visible' => 'FALSE'),
+                            'delete' => array('visible' => 'Yii::app()->user->checkAccess("D2company.CcdpDepartment.Delete")'),
+                        ),
+                        'deleteButtonUrl' => 'Yii::app()->controller->createUrl("/d2company/ccdpDepartment/delete", array("ccdp_id" => $data->ccdp_id))',
+                        'deleteConfirmation'=>Yii::t('D2companyModule.crud','Do you want to delete this item?'),   
+                        'deleteButtonOptions'=>array('data-toggle'=>'tooltip'),                    
+                    ),
+                )
+            )
+        );
+    }
+    ?>
+
+<?php
+    Yii::endProfile('ccdp_ccmp_id.view.grid');
+}     
+
 $this->widget('d2FilesWidget',array('module'=>$this->module->id, 'model'=>$modelMain));
