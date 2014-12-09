@@ -118,6 +118,34 @@ class CcucUserCompany extends BaseCcucUserCompany
         ));
     }
     
+    public function searchPersonsForRel()
+    {
+        //$this->ccuc_status = self::CCUC_STATUS_PERSON;
+        
+        $criteria = new CDbCriteria;        
+        $criteria->select = '
+                ccuc_ccmp_id,
+                ccuc_person_id,
+                ccmp_company.ccmp_name, 
+                pprs_person.pprs_second_name,
+                pprs_person.pprs_first_name
+                ';        
+        
+        $criteria->join  = " 
+                INNER JOIN ccmp_company 
+                    ON ccuc_ccmp_id = ccmp_id 
+                INNER JOIN pprs_person
+                    ON ccuc_person_id = pprs_id                     
+
+            ";
+        
+        $criteria->compare('ccuc_status',  CcucUserCompany::CCUC_STATUS_PERSON);
+
+        return new CActiveDataProvider(get_class($this), array(
+            'criteria' => $this->searchCriteria($criteria),
+        ));
+    }
+    
     /**
      * get user companies by user and status
      * @param type $user_id
