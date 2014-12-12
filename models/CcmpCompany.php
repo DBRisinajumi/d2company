@@ -411,6 +411,5 @@ class CcmpCompany extends BaseCcmpCompany
         
         parent::afterSave();
     }
-   
     
 }

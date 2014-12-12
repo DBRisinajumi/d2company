@@ -54,17 +54,17 @@ class CcmpCompanyController extends Controller {
                 'actions' => array('delete'),
                 'roles' => array('D2company.CcmpCompany.Delete'),
             ),            
-//            array(
-//                'allow',
-//                'actions' => array( 'view', 'view4CustomerOffice','export','editableSaver'
-//                ),
-//                'roles' => array(DbrUser::RoleCustomerOffice),
-//            ),
-//            array(
-//                'allow',
-//                'actions' => array('view', 'editableSaver'),
-//                'roles' => array(DbrUser::RoleCustomerOffice),
-//            ),            
+            array(
+                'allow',
+                'actions' => array( 'view', 'view4CustomerOffice','export','editableSaver'
+                ),
+                'roles' => array(Yii::app()->getModule('user')->customerUser['role']),
+            ),
+            array(
+                'allow',
+                'actions' => array('view', 'editableSaver'),
+                'roles' => array(Yii::app()->getModule('user')->customerUser['role']),
+            ),            
             array(
                 'deny',
                 'users' => array('*'),
@@ -93,8 +93,14 @@ class CcmpCompanyController extends Controller {
      * customer office 
      */
     public function actionView4CustomerOffice() {
-        $ccmp_id = Yii::app()->userCompany->getActiveCompany();
-        $model = $this->loadModel($ccmp_id);
+
+        $pprs_id = Yii::app()->getModule('user')->user()->profile->person_id;
+        $customer_companies = ccucUserCompany::model()->getPersonCompnies($pprs_id, CcucUserCompany::CCUC_STATUS_PERSON);
+        if(empty($customer_companies)){
+            throw new CHttpException(404, Yii::t('D2companyModule.crud_static', 'The requested page does not exist.'));
+        }
+
+        $model = $this->loadModel($customer_companies[0]->ccuc_ccmp_id);
         $this->layout='//layouts/main';
         $this->render('view4CustomerOffice', array('model' => $model,));
     }

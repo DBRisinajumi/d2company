@@ -158,5 +158,17 @@ class CcucUserCompany extends BaseCcucUserCompany
         $criteria->condition = 'p.user_id = ' . $user_id;
         return CcucUserCompany::model()->findAll($criteria);
     }
+
+    /**
+     * get person companies by person and status
+     * @param type $pprs_id - person
+     * @param type $status - statuss
+     * @return type
+     */
+    public function getPersonCompnies($pprs_id,$status) {
+        $criteria = new CDbCriteria;
+        $criteria->condition = "t.ccuc_person_id = " . $pprs_id . " and t.ccuc_status = '".$status."'";
+        return CcucUserCompany::model()->findAll($criteria);
+    }
     
 }
