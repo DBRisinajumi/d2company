@@ -15,6 +15,10 @@ class CcmpCompanyController extends Controller {
     }
 
     public function accessRules() {
+        $customer_user_role = array();
+        if (isset(Yii::app()->getModule('user')->customerUser['role'])){
+            $customer_user_role = array(Yii::app()->getModule('user')->customerUser['role']);
+        }
         return array(
             array(
                 'allow',
@@ -58,12 +62,12 @@ class CcmpCompanyController extends Controller {
                 'allow',
                 'actions' => array( 'view', 'view4CustomerOffice','export','editableSaver'
                 ),
-                'roles' => array(Yii::app()->getModule('user')->customerUser['role']),
+                'roles' => $customer_user_role,
             ),
             array(
                 'allow',
                 'actions' => array('view', 'editableSaver'),
-                'roles' => array(Yii::app()->getModule('user')->customerUser['role']),
+                'roles' => $customer_user_role,
             ),            
             array(
                 'deny',
