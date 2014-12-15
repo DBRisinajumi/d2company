@@ -221,7 +221,7 @@ if((!$ajax || $ajax == 'ccuc-user-company-grid')
     $this->widget('TbGridView',
         array(
             'id' => 'ccuc-user-company-grid',
-            'dataProvider' => $model->search(),
+            'dataProvider' => $model->searchPersonsForRel(),
             'template' => '{summary}{items}',
             'summaryText' => '&nbsp;',
             'htmlOptions' => array(
@@ -231,7 +231,7 @@ if((!$ajax || $ajax == 'ccuc-user-company-grid')
                 array(
                 'class' => 'editable.EditableColumn',
                 'name' => 'ccuc_person_id',
-                'value' => '!empty($data->ccuc_person_id)?$data->ccucPerson->itemLabel:" - "',
+                'value' => '$data->pprs_second_name . " " . $data->pprs_first_name',
                 'editable' => array(
                     'type' => 'select',
                     'url' => $this->createUrl('//d2company/ccucUserCompany/editableSaver'),
@@ -255,7 +255,7 @@ if((!$ajax || $ajax == 'ccuc-user-company-grid')
             array(
                 'class' => 'editable.EditableColumn',
                 'name' => 'ccuc_cucp_id',
-                'value' => '!empty($data->ccuc_cucp_id)?$data->ccucCucp->itemLabel:" - "',
+                'value' => '$data->cucp_name',
                 'editable' => array(
                     'type' => 'select',
                     'url' => $this->createUrl('//d2company/ccucUserCompany/editableSaver'),
