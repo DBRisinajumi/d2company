@@ -37,6 +37,22 @@ class CcmpCompany extends BaseCcmpCompany
         return parent::getItemLabel();
     }
 
+    public function getNameAsFirstUpperCase()
+    {
+        if(empty($this->ccmp_name)){
+            return '';
+        }
+        $a = explode(' ', $this->ccmp_name);
+        $name =  '';
+        foreach($a as $s){
+                $name .= $s[0];
+        }
+
+        return $name;
+    }
+
+    
+    
     public function behaviors() {
         
         $behaviors = parent::behaviors();

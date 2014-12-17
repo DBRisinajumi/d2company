@@ -136,7 +136,7 @@ class companyHandler extends CApplicationComponent
          if($this->_aUserCompanies === FALSE){
             //$this->_aUserCompanies = CcucUserCompany::model()->getUserCompnies(Yii::app()->getModule('user')->user()->id,$this->ccuc_status);
                  $sql = "
-                        SELECT 
+                        SELECT DISTINCT
                           ccmp_id,
                           ccmp_name 
                         FROM
