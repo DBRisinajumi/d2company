@@ -23,25 +23,48 @@ Yii::app()->clientScript->registerScript('export', "
     ");
 ?>
 
-<table class="toolbar">
-    <tr>  
-        <td>  
-            <h2>
-                <?php echo Yii::t('D2companyModule.crud', 'Companies'); ?>
-                <small><?php echo Yii::t('D2companyModule.crud_static', 'List'); ?></small>
-            </h2>    
-        </td>  
-        <td>
-            <?php $this->renderPartial("_toolbar", array("model" => $model)); ?>
-        </td>
-    </tr> 
-</table>    
+<div class="clearfix">
+    <div class="btn-toolbar pull-left">
+        <div class="btn-group">
+        <?php 
+        $this->widget('bootstrap.widgets.TbButton', array(
+             'label'=>Yii::t('D2companyModule.crud_static','Create'),
+             'icon'=>'icon-plus',
+             'size'=>'large',
+             'type'=>'success',
+             'url'=>array('create'),
+             'visible'=>(Yii::app()->user->checkAccess('Company.*') 
+                     || Yii::app()->user->checkAccess('D2company.CcmpCompany.Create'))
+        )); 
+        ?>
+        </div>
+        <div class="btn-group">
+            <h1>
+                <i class="icon-building"></i>
+                <?php echo Yii::t('D2companyModule.crud', 'Companies'); ?>           
+            </h1>
+        </div>
+        <div class="btn-group">
+        <?php 
+//        $this->widget("bootstrap.widgets.TbButton", array(
+//            "label" => Yii::t("D2companyModule.crud_static", "Export"),
+//            "url" => array("admin","export" => " xls"),
+//            'size'=>'large',
+//            'type'=>'success',
+//            "visible" => Yii::app()->user->checkAccess("Company.*"),
+//            //"htmlOptions"=>array("class"=>"export-button")
+//         ));
+        ?>
+        </div>        
+    </div>
+</div>
+ 
 
 <div class="search-form" style="display:none">
     <?php $this->renderPartial('_search', array('model' => $model,)); ?>
 </div>
 <div class="export-form" style="display:none">
-    <?php $this->renderPartial('_export', array('model' => $model,)); ?>
+    <?php //$this->renderPartial('_export', array('model' => $model,)); ?>
 </div>
 
 <?php

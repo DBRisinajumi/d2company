@@ -25,7 +25,7 @@ $cancel_buton = $this->widget("bootstrap.widgets.TbButton", array(
         <div class="btn-group"><?php echo $cancel_buton;?></div>
         <div class="btn-group">
             <h1>
-                <i class=""></i>
+                <i class="icon-building"></i>
                 <?php echo Yii::t('D2companyModule.crud','Company Data');?>
             </h1>
         </div>
