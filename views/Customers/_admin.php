@@ -2,11 +2,11 @@
 
 Yii::beginProfile('Person.view.grid'); 
 
-$this->widget('EFancyboxWidget',array(
-    'selector'=>'a[href*=\'audittrail/show/fancybox\']',
-    'options'=>array(
-    ),
-));    
+//$this->widget('EFancyboxWidget',array(
+//    'selector'=>'a[href*=\'audittrail/show/fancybox\']',
+//    'options'=>array(
+//    ),
+//));    
 
 $this->widget('TbGridView',
     array(
@@ -88,26 +88,26 @@ $this->widget('TbGridView',
                 ),
 
             ),
-        array(
-                'template' => '{info}',
-                'class' => 'TbButtonColumn',
-                'buttons' => array(
-                    'info' => array(
-                        'label' => '<i class="icon-info-sign"></i>',
-                        //'imageUrl' => false,
-                        'url'=>"array(
-                                '/audittrail/show/fancybox',
-                                'model_name' => 'Person',
-                                'model_id' => \$data->ccuc_person_id,
-                            )",
-                        'options' =>  array(
-                            'title' => Yii::t('D2companyModule.crud', 'Show record history'),
-                         ),                        
-                        //'visible' => '(isset($data->bfrf_fiit_id))'
-                    ),                                
-                ),
-
-            ),
+//        array(
+//                'template' => '{info}',
+//                'class' => 'TbButtonColumn',
+//                'buttons' => array(
+//                    'info' => array(
+//                        'label' => '<i class="icon-info-sign"></i>',
+//                        //'imageUrl' => false,
+//                        'url'=>"array(
+//                                '/audittrail/show/fancybox',
+//                                'model_name' => 'Person',
+//                                'model_id' => \$data->ccuc_person_id,
+//                            )",
+//                        'options' =>  array(
+//                            'title' => Yii::t('D2companyModule.crud', 'Show record history'),
+//                         ),                        
+//                        //'visible' => '(isset($data->bfrf_fiit_id))'
+//                    ),                                
+//                ),
+//
+//            ),
         )
     )
 );
