@@ -61,7 +61,7 @@ abstract class BaseCcmpCompany extends CActiveRecord
         return array_merge(
             parent::rules(), array(
                 array('ccmp_name', 'required'),
-                array('ccmp_ccnt_id,ccmp_registrtion_no,ccmp_registration_date ccmp_vat_registrtion_no, ccmp_registration_address, ccmp_official_ccit_id, ccmp_official_address, ccmp_official_zip_code, ccmp_office_ccit_id, ccmp_office_address, ccmp_office_zip_code, ccmp_statuss, ccmp_description, ccmp_agreement_nr, ccmp_agreement_date, ccmp_sys_ccmp_id', 'default', 'setOnEmpty' => true, 'value' => null),
+                array('ccmp_ccnt_id,ccmp_registrtion_no,ccmp_registration_date, ccmp_vat_registrtion_no, ccmp_registration_address, ccmp_official_ccit_id, ccmp_official_address, ccmp_official_zip_code, ccmp_office_ccit_id, ccmp_office_address, ccmp_office_zip_code, ccmp_statuss, ccmp_description, ccmp_agreement_nr, ccmp_agreement_date, ccmp_sys_ccmp_id', 'default', 'setOnEmpty' => true, 'value' => null),
                 array('ccmp_ccnt_id', 'numerical', 'integerOnly' => true),
                 array('ccmp_name, ccmp_registration_address, ccmp_official_address, ccmp_office_address', 'length', 'max' => 200),
                 array('ccmp_registrtion_no, ccmp_vat_registrtion_no, ccmp_official_zip_code, ccmp_office_zip_code', 'length', 'max' => 20),
