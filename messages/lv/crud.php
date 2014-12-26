@@ -52,7 +52,7 @@ return array (
   'Disabled user' => '',
   'Do you want to delete this item?' => '',
   'FLOAT' => '',
-  'Group' => '',
+  'Group' => 'Grupa',
   'INTEGER' => '',
   'Invalid request. Please do not repeat this request again.' => '',
   'No user' => '',

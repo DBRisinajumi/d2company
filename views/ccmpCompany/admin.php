@@ -121,14 +121,13 @@ $grid_columns = array(
     array(
         'name' => 'ccmp_statuss',
         'header' => Yii::t('D2companyModule.crud', 'State'),
-        //'value' => 'CHtml::value($data->ccxgCcmp,\'CcmpCompany.ccmp_statuss\')',                        
+        'value' => '$data->getEnumColumnLabel(\'ccmp_statuss\')',                        
         'visible' => !$visible_columns || in_array('ccmp_statuss', $visible_columns),
         ),
     array(
         'name' => 'ccxg_ccgr_id',
         'header' => Yii::t('D2companyModule.crud', 'Group'),
         'filter' => $group_filter,        
-        //'value' => 'CHtml::value($data->ccxgCcgr,\'CcgrGroup.ccgr_name\')',                        
         'value' => '$data->ccgr_name',                        
         'visible' => !$visible_columns || in_array('ccxg_ccgr_id', $visible_columns),
         ),
