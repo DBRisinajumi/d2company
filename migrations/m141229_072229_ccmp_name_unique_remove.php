@@ -5,7 +5,7 @@ class m141229_072229_ccmp_name_unique_remove extends EDbMigration
 	public function up()
 	{
         $this->execute("
-            ALTER TABLE `kls`.`ccmp_company`   
+            ALTER TABLE `ccmp_company`   
                 DROP INDEX `ccmp_name_UNIQUE`,
                 ADD  INDEX `ccmp_name_UNIQUE` (`ccmp_name`(4));
         ");        
