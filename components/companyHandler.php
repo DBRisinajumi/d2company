@@ -55,7 +55,7 @@ class companyHandler extends CApplicationComponent
 
 		// 1. get language preference
 		$preferred = null;
-		if (isset($_GET[$this->data_key])) {
+		if (isset($_GET[$this->data_key]) && preg_match('/^\d+$/',$_GET[$this->data_key])) {
 
 			// use company from URL
 			$preferred = $_GET[$this->data_key];
@@ -145,6 +145,8 @@ class companyHandler extends CApplicationComponent
                             ON ccmp_id = ccuc_ccmp_id 
                         WHERE ccuc_person_id = ".Yii::app()->getModule('user')->user()->profile->person_id."
                           AND ccuc_status = '".$this->ccuc_status."' 
+                        ORDER BY 
+                          ccmp_name 
                     ";
             $this->_aUserCompanies = Yii::app()->db->createCommand($sql)->queryAll();            
          }
