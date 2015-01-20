@@ -10,7 +10,7 @@ class CcucUserCompany extends BaseCcucUserCompany
     public $pprs_second_name;
     public $pprs_first_name;
     public $ccmp_name;
-    public $itemname;
+    //public $itemname;
     public $cucp_name;
 
     // Add your model-specific methods here. This file will not be overriden by gtc except you force it.
@@ -93,25 +93,26 @@ class CcucUserCompany extends BaseCcucUserCompany
                 ccuc_person_id,
                 ccmp_company.ccmp_name, 
                 pprs_person.pprs_second_name,
-                pprs_person.pprs_first_name,
-                authassignment.itemname ';        
+                pprs_person.pprs_first_name ';
+                //authassignment.itemname ';        
         
         $criteria->join  = " 
                 INNER JOIN ccmp_company 
                     ON ccuc_ccmp_id = ccmp_id 
                 INNER JOIN pprs_person
                     ON ccuc_person_id = pprs_id                     
-                LEFT OUTER JOIN `profiles`
-                    ON ccuc_person_id = `profiles`.person_id 
-                LEFT OUTER JOIN `authassignment`
-                    ON `profiles`.user_id  = authassignment.userid 
-            ";
+                " ;    
+//                LEFT OUTER JOIN `profiles`
+//                    ON ccuc_person_id = `profiles`.person_id 
+//                LEFT OUTER JOIN `authassignment`
+//                    ON `profiles`.user_id  = authassignment.userid 
+//            ";
         
         $criteria->compare('pprs_status',  PprsPerson::PPRS_STATUS_ACTIVE);
         $criteria->compare('pprs_second_name',$this->pprs_second_name,true);
         $criteria->compare('pprs_first_name',$this->pprs_first_name,true);
         $criteria->compare('ccmp_name',$this->ccmp_name,true);
-        $criteria->compare('itemname',$this->itemname);
+//        $criteria->compare('itemname',$this->itemname);
         $criteria->compare('ccmp_sys_ccmp_id',Yii::app()->sysCompany->getActiveCompany());
 
         return new CActiveDataProvider(get_class($this), array(
