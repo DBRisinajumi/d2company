@@ -428,4 +428,30 @@ class CcmpCompany extends BaseCcmpCompany
         parent::afterSave();
     }
     
+    /**
+     * get all syscomanies array without access control
+     * @param int $ccgr_id
+     * @return array [
+     *      ['ccmp_id' => 1, ccmp_name=>'company name1'],
+     *      ['ccmp_id' => 2, ccmp_name=>'company name2'],
+     * ]
+     */
+    public static function getAllGroupCompanies($ccgr_id) {
+        $sql = "
+              SELECT 
+                ccmp_id,
+                ccmp_name 
+              FROM
+                ccxg_company_x_group 
+                INNER JOIN ccmp_company 
+                  ON ccxg_ccmp_id = ccmp_id 
+              WHERE ccxg_ccgr_id = :ccgr_id
+              ORDER BY ccmp_name
+            ";
+        return Yii::app()->db
+                        ->createCommand($sql)
+                        ->bindParam(":ccgr_id", $ccgr_id, PDO::PARAM_INT)
+                        ->queryAll();
+    }
+
 }

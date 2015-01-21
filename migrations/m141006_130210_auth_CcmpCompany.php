@@ -11,7 +11,7 @@ class m141006_130210_auth_CcmpCompany extends CDbMigration
             INSERT INTO `authitem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES('D2company.CcmpCompany.View','0','D2company.CcmpCompany module view',NULL,'N;');
             INSERT INTO `authitem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES('D2company.CcmpCompany.Update','0','D2company.CcmpCompany module update',NULL,'N;');
             INSERT INTO `authitem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES('D2company.CcmpCompany.Delete','0','D2company.CcmpCompany module delete',NULL,'N;');
-            INSERT INTO `authitem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES('D2company.CcmpCompany.Menu','0','D2company.CcmpCompany module delete',NULL,'N;');
+            INSERT INTO `authitem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES('D2company.CcmpCompany.Menu','0','D2company.CcmpCompany menu',NULL,'N;');
         ");
     }
 
