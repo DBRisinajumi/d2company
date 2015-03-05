@@ -250,7 +250,7 @@ class companyHandler extends CApplicationComponent
 
         $new = Yii::app()->db->createCommand()
            ->select('itemname child')
-           ->from('authassignment')
+           ->from('AuthAssignment')
            ->where('userid = :userid',array(':userid'=>$user_id))
            ->queryAll();             
          
@@ -273,7 +273,7 @@ class companyHandler extends CApplicationComponent
              
             $new = Yii::app()->db->createCommand()
                ->select('child')
-               ->from('authitemchild')
+               ->from('AuthItemChild')
                ->where(array('in', 'parent', $list))
                ->queryAll();             
         }

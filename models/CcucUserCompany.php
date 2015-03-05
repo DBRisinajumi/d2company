@@ -94,7 +94,7 @@ class CcucUserCompany extends BaseCcucUserCompany
                 ccmp_company.ccmp_name, 
                 pprs_person.pprs_second_name,
                 pprs_person.pprs_first_name ';
-                //authassignment.itemname ';        
+                //AuthAssignment.itemname ';        
         
         $criteria->join  = " 
                 INNER JOIN ccmp_company 
@@ -104,8 +104,8 @@ class CcucUserCompany extends BaseCcucUserCompany
                 " ;    
 //                LEFT OUTER JOIN `profiles`
 //                    ON ccuc_person_id = `profiles`.person_id 
-//                LEFT OUTER JOIN `authassignment`
-//                    ON `profiles`.user_id  = authassignment.userid 
+//                LEFT OUTER JOIN `AuthAssignment`
+//                    ON `profiles`.user_id  = AuthAssignment.userid 
 //            ";
         
         $criteria->compare('pprs_status',  PprsPerson::PPRS_STATUS_ACTIVE);
@@ -130,7 +130,7 @@ class CcucUserCompany extends BaseCcucUserCompany
                 ccmp_company.ccmp_name, 
                 pprs_person.pprs_second_name,
                 pprs_person.pprs_first_name,
-                authassignment.itemname,
+                AuthAssignment.itemname,
                 cucp_name';        
         
         $criteria->join  = " 
@@ -140,8 +140,8 @@ class CcucUserCompany extends BaseCcucUserCompany
                     ON ccuc_person_id = pprs_id                     
                 LEFT OUTER JOIN `profiles`
                     ON ccuc_person_id = `profiles`.person_id 
-                LEFT OUTER JOIN `authassignment`
-                    ON `profiles`.user_id  = authassignment.userid 
+                LEFT OUTER JOIN `AuthAssignment`
+                    ON `profiles`.user_id  = AuthAssignment.userid 
                 LEFT OUTER JOIN `cucp_user_company_position`
                     ON  ccuc_cucp_id = cucp_id                     
             ";

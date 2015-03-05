@@ -205,7 +205,7 @@ class CcmpCompany extends BaseCcmpCompany
               AuthItem ai 
               INNER JOIN cucp_user_company_position 
                 ON ai.name = cucp_role 
-              INNER JOIN authassignment aa 
+              INNER JOIN AuthAssignment aa 
                 ON ai.name = aa.itemname 
             WHERE aa.userid = ".Yii::app()->user->id."                 
                 ";
