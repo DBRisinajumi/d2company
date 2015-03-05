@@ -152,17 +152,17 @@ class m140917_191401_init_2 extends CDbMigration
 
            SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 
-            insert into `authitem` (`name`, `type`, `description`, `bizrule`, `data`) values('Company.*','0','Company full access',NULL,'N;');
-            insert into `authitem` (`name`, `type`, `description`, `bizrule`, `data`) values('Company.edit','0','Company module edit',NULL,'N;');
-            insert into `authitem` (`name`, `type`, `description`, `bizrule`, `data`) values('Company.fullcontrol','0','Company module full control',NULL,'N;');
-            insert into `authitem` (`name`, `type`, `description`, `bizrule`, `data`) values('Company.readonly','0','Company module readonly',NULL,'N;');
-            insert into `authitem` (`name`, `type`, `description`, `bizrule`, `data`) values('Company.menu','0','Show company menu',NULL,'N;');
+            insert into `AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) values('Company.*','0','Company full access',NULL,'N;');
+            insert into `AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) values('Company.edit','0','Company module edit',NULL,'N;');
+            insert into `AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) values('Company.fullcontrol','0','Company module full control',NULL,'N;');
+            insert into `AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) values('Company.readonly','0','Company module readonly',NULL,'N;');
+            insert into `AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) values('Company.menu','0','Show company menu',NULL,'N;');
             
-            INSERT INTO `authitem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES('D2company.CcntCountry.*','0','D2company.CcntCountry',NULL,'N;');
-            INSERT INTO `authitem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES('D2company.CcntCountry.Create','0','D2company.CcntCountry module create',NULL,'N;');
-            INSERT INTO `authitem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES('D2company.CcntCountry.View','0','D2company.CcntCountry module view',NULL,'N;');
-            INSERT INTO `authitem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES('D2company.CcntCountry.Update','0','D2company.CcntCountry module update',NULL,'N;');
-            INSERT INTO `authitem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES('D2company.CcntCountry.Delete','0','D2company.CcntCountry module delete',NULL,'N;');
+            INSERT INTO `AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES('D2company.CcntCountry.*','0','D2company.CcntCountry',NULL,'N;');
+            INSERT INTO `AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES('D2company.CcntCountry.Create','0','D2company.CcntCountry module create',NULL,'N;');
+            INSERT INTO `AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES('D2company.CcntCountry.View','0','D2company.CcntCountry module view',NULL,'N;');
+            INSERT INTO `AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES('D2company.CcntCountry.Update','0','D2company.CcntCountry module update',NULL,'N;');
+            INSERT INTO `AuthItem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES('D2company.CcntCountry.Delete','0','D2company.CcntCountry module delete',NULL,'N;');
                 
 
         ");

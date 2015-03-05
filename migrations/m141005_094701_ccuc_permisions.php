@@ -12,7 +12,7 @@ class m141005_094701_ccuc_permisions extends CDbMigration
     public function up()
     {
         $this->execute("
-            INSERT INTO `authitem` (`name`, `type`, `description`) VALUES ('D2company.CcucUserCompany.*', '0', 'D2company.CcucUserCompany.*');                 
+            INSERT INTO `AuthItem` (`name`, `type`, `description`) VALUES ('D2company.CcucUserCompany.*', '0', 'D2company.CcucUserCompany.*');                 
             INSERT INTO `authitemchild` (`parent`, `child`) VALUES ('Company.edit', 'D2company.CcucUserCompany.*'); 
             INSERT INTO `authitemchild` (`parent`, `child`) VALUES ('Company.fullcontrol', 'D2company.CcucUserCompany.*'); 
         ");

@@ -202,7 +202,7 @@ class CcmpCompany extends BaseCcmpCompany
             SELECT DISTINCT 
               cucp_id 
             FROM
-              authitem ai 
+              AuthItem ai 
               INNER JOIN cucp_user_company_position 
                 ON ai.name = cucp_role 
               INNER JOIN authassignment aa 
