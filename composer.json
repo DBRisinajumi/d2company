@@ -13,7 +13,7 @@
     "require": {
         "php": ">=5.3.2",
         "dbrisinajumi/audittrail": "2.1.2",
-        "pentium10/yii-remember-filters-gridview": "1.0.2",
-        "pentium10/yii-clear-filters-gridview": "1.2.2"
+        "pentium10/yii-remember-filters-gridview": "1.2.2",
+        "pentium10/yii-clear-filters-gridview": "1.0.2"
     }
 }
