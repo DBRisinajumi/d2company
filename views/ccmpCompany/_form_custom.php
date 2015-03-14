@@ -39,6 +39,8 @@
 			echo $widgetEdit;
 		} elseif ($field->range) {
 			echo $form->dropDownList($model,$field->varname,BaseCccdCompanyData::range($field->range));
+                } elseif ($field->field_type =="BOOL") {
+			echo $form->checkBox($model,$field->varname);        
 		} elseif ($field->field_type=="TEXT") {
 			echo CHtml::activeTextArea($model,$field->varname,array('rows'=>6, 'cols'=>50));
 		} else {
