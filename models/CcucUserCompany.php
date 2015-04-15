@@ -176,7 +176,7 @@ class CcucUserCompany extends BaseCcucUserCompany
                 ';        
         
         $criteria->join  = " 
-                INNER JOIN ccmp_company 
+                LEFT OUTER JOIN ccmp_company 
                     ON ccuc_ccmp_id = ccmp_id 
                 LEFT OUTER JOIN pprs_person
                     ON ccuc_person_id = pprs_id                     
