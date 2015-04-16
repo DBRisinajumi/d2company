@@ -43,6 +43,9 @@
 			echo $form->checkBox($model,$field->varname);        
 		} elseif ($field->field_type=="TEXT") {
 			echo CHtml::activeTextArea($model,$field->varname,array('rows'=>6, 'cols'=>50));
+		} elseif ($field->field_type=="ListBox") {
+            $list_data   = json_decode($field->widgetparams, true);
+            echo $form->listBox($model,$field->varname, $list_data);
 		} else {
 			echo $form->textField($model,$field->varname,array('size'=>60,'maxlength'=>(($field->field_size)?$field->field_size:255)));
 		}
