@@ -26,7 +26,7 @@ class CcmpCompanyController extends Controller {
                     , 'view', 'updateccbr', 'manageccbr', 'updateGroup', 'updatemanager', 'export',
                     'createccbr', 'updateExtended', 'updateCustom', 'AdminManagers',
                     'UpdateManagers', 'CreateManager', 'adminCars','adminCustomers','updateFiles',
-                    'upload','deleteFile','downloadFile','resetPersonPassword',
+                    'upload','deleteFile','downloadFile','resetPersonPassword', 'select2ajax'
                     ),
                 'roles' => array('Company.fullcontrol','D2company.CcmpCompany.*'),
             ),
@@ -811,6 +811,28 @@ class CcmpCompanyController extends Controller {
             Yii::app()->end();
         }
     }
+    
+    
+    public function actionSelect2ajax(){
+        
+        if(isset($_GET['q'])){
+            $queryterm  = $_GET['q'];
+
+
+            $criteria = new CDbCriteria;
+            $criteria->order = 'ccit_name';
+            $criteria->condition = 'ccit_name LIKE :name';
+            $criteria->params = array(':name' => $queryterm . '%');
+
+
+            $cities    = CcitCity::model()->findAll($criteria);
+
+            $data       = CHtml::listData($cities, 'ccit_id', 'ccit_name') ;
+            echo CJSON::encode($data);
+        } else echo '{}';
+    
+        Yii::app()->end();
+}
 
 //    static function isMainTabActive() {
 //        return !self::isCompanyGroupTabActive() && !self::isBrancTabActive();
