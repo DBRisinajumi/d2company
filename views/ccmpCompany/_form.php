@@ -2,9 +2,6 @@
 
     
     <?php
-      //  Yii::app()->bootstrap->registerAssetCss('/select2/select2.css');
-      //  Yii::app()->bootstrap->registerAssetJs('/select2/select2.js');
-    
     
         $city_select2_script = "  $('#CcmpCompany_ccmp_office_ccit_id').select2({
                     width : '200px',   
