@@ -2,9 +2,36 @@
 
     
     <?php
-        Yii::app()->bootstrap->registerAssetCss('../select2/select2.css');
-        Yii::app()->bootstrap->registerAssetJs('../select2/select2.js');
+      //  Yii::app()->bootstrap->registerAssetCss('/select2/select2.css');
+      //  Yii::app()->bootstrap->registerAssetJs('/select2/select2.js');
+    
+    
+        $cityscript = "  $('#CcmpCompany_ccmp_office_ccit_id').select2({
+      width : '200px',   
+      ajax: {
+        url: 'index.php?r=d2company/ccmpCompany/select2ajax&lang=en',
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+          return {
+            q: params.term, 
+            page: params.page
+          };
+        },
+    
+         processResults: function (data) {
+            return {         results: data                }
+            },
+        cache: true
+      },
+      escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+      minimumInputLength: 2
+    });" ;
+    
+        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/select2/select2.js');
+        Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/select2/select2.css');
         Yii::app()->clientScript->registerScript('crud/variant/update','$(".crud-form select").select2();');
+        Yii::app()->clientScript->registerScript('cityselect2',$cityscript);
 
         $form=$this->beginWidget('TbActiveForm', array(
             'id'=>'ccmp-company-form',
@@ -147,34 +174,32 @@
                         </div>
                     </div>
                 
-                
+                <!-- city select2 control -->
                 <div class="control-group">
                         <div class='control-label'>
                             <?php echo $form->labelEx($model,'ccmp_office_ccit_id') ?>
-                        </div>
-                        <div class='controls'>
-                            <?php
-                            $this->widget(
-                        '\GtcRelation',
-                        array(
-                            'model' => $model,
-                            'relation' => 'ccmpOfficeCcit',
-                            'fields' => 'itemLabel',
-                            'allowEmpty' => true,
-                            'style' => 'dropdownlist',
-                            'htmlOptions' => array(
-                                'checkAll' => 'all','style' => 'width: 200px;'),
-                            )
-                        );
-                            echo $form->error($model,'ccmp_office_ccit_id')
-                            ?>
+                        </div>  
+                    
+                         <div class='controls'> 
+                     <!--        <select id="CcmpCompany_ccmp_ccit_id" name="CcmpCompany[ccmp_office_ccit_id]">
+                                 <option></option>
+                             </select>   -->
+                             
+                             <?php 
+                             
+                             $data= array($model->ccmp_office_ccit_id => $model->ccmpOfficeCcit->ccit_name );
+                             echo  $form->dropdownlist($model, 'ccmp_office_ccit_id', $data);   
+                             ?>
+                            
+                         </div>   
+                                   
                             <span class="help-block">
                                 
                                 <?php
                                 echo ($t = Yii::t('crud', 'CcmpCompany.ccmp_office_ccit_id') != 'CcmpCompany.ccmp_office_ccit_id')?$t:''
                                 ?>
                                                             </span>
-                        </div>
+                       
                     </div>
 
                 
@@ -361,3 +386,13 @@
 
     <?php $this->endWidget() ?>
 </div> <!-- form -->
+
+ <script>
+  
+ $(document).ready(function() {
+ 
+
+      
+   
+}  );  
+  </script>
