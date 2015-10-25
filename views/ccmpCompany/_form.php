@@ -184,8 +184,11 @@
                              </select>   -->
                              
                              <?php 
-                             
-                             $data= array($model->ccmp_office_ccit_id => $model->ccmpOfficeCcit->ccit_name );
+       
+                             if (isset($model->ccmp_office_ccit_id))
+                                 $data= array($model->ccmp_office_ccit_id => $model->ccmpOfficeCcit->ccit_name );
+                             else $data = array();
+                                     
                              echo  $form->dropdownlist($model, 'ccmp_office_ccit_id', $data);   
                              ?>
                             
