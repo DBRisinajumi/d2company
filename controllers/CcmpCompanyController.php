@@ -819,15 +819,8 @@ class CcmpCompanyController extends Controller {
             $queryterm  = $_GET['q'];
 
 
-            $criteria = new CDbCriteria;
-            $criteria->order = 'ccit_name';
-            $criteria->condition = 'ccit_name LIKE :name';
-            $criteria->params = array(':name' => $queryterm . '%');
-
-
-            $cities    = CcitCity::model()->findAll($criteria);
-
-            $data       = CHtml::listData($cities, 'ccit_id', 'ccit_name') ;
+                       
+            $data = Yii::app()->db->createCommand("SELECT ccit_id as id, ccit_name as text FROM ccit_city WHERE ccit_name LIKE '$queryterm%'")->queryAll();
             echo CJSON::encode($data);
         } else echo '{}';
     
