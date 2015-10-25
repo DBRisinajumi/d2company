@@ -6,32 +6,30 @@
       //  Yii::app()->bootstrap->registerAssetJs('/select2/select2.js');
     
     
-        $cityscript = "  $('#CcmpCompany_ccmp_office_ccit_id').select2({
-      width : '200px',   
-      ajax: {
-        url: 'index.php?r=d2company/ccmpCompany/select2ajax&lang=en',
-        dataType: 'json',
-        delay: 250,
-        data: function (params) {
-          return {
-            q: params.term, 
-            page: params.page
-          };
-        },
+        $city_select2_script = "  $('#CcmpCompany_ccmp_office_ccit_id').select2({
+                    width : '200px',   
+                    ajax: {
+                    url: 'index.php?r=d2company/ccmpCompany/select2ajax&lang=en',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                    return {
+                        q: params.term, 
+                        page: params.page
+                    };
+                    },
     
-         processResults: function (data) {
-            return {         results: data                }
-            },
-        cache: true
-      },
-      escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
-      minimumInputLength: 2
-    });" ;
-    
-        Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/select2/select2.js');
-        Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/select2/select2.css');
+                    processResults: function (data) {
+                        return {         results: data                }
+                    },
+                    cache: true
+                    },
+                    escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+                    minimumInputLength: 2
+        });" ;
+
         Yii::app()->clientScript->registerScript('crud/variant/update','$(".crud-form select").select2();');
-        Yii::app()->clientScript->registerScript('cityselect2',$cityscript);
+        Yii::app()->clientScript->registerScript('cityselect2',$city_select2_script);
 
         $form=$this->beginWidget('TbActiveForm', array(
             'id'=>'ccmp-company-form',
