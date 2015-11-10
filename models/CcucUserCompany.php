@@ -170,6 +170,7 @@ class CcucUserCompany extends BaseCcucUserCompany
                 ccuc_id,
                 ccuc_ccmp_id,
                 ccuc_person_id,
+                ccuc_cucp_id,
                 ccmp_company.ccmp_name, 
                 pprs_person.pprs_second_name,
                 pprs_person.pprs_first_name
