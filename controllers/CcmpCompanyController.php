@@ -99,7 +99,7 @@ class CcmpCompanyController extends Controller {
     public function actionView4CustomerOffice() {
 
         $pprs_id = Yii::app()->getModule('user')->user()->profile->person_id;
-        $customer_companies = ccucUserCompany::model()->getPersonCompnies($pprs_id, CcucUserCompany::CCUC_STATUS_PERSON);
+        $customer_companies = CcucUserCompany::model()->getPersonCompnies($pprs_id, CcucUserCompany::CCUC_STATUS_PERSON);
         if(empty($customer_companies)){
             throw new CHttpException(404, Yii::t('D2companyModule.crud_static', 'The requested page does not exist.'));
         }
@@ -278,6 +278,13 @@ class CcmpCompanyController extends Controller {
                 if (!$postCcxg->save()) {
                     print_r($postCategory->errors);
                     exit;
+                }
+                //EP change ccmp_sys_ccmp_id for syscompany
+                
+                if ($nType == 1){
+                    $model->ccmp_sys_ccmp_id = $ccmp_id;
+                    $model->save(false);
+                    $this->redirect(array('sys_company' => $ccmp_id));
                 }
             }
 
