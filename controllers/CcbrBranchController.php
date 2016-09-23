@@ -211,11 +211,17 @@ class CcbrBranchController extends Controller
         $model4update = new CcbrBranch();
         $model4update->scenario = $this->scenario;
 
-        if (isset($_POST['CcbrBranch'])) {
-
-            //$this->performAjaxValidation($model4update, 'branch-form');            
+        if (isset($_POST['CcbrBranch']) 
+                && isset($_POST['BfstFuelStation'])
+                && isset($_POST['BfstFuelStation']['bfst_id'])
+                && $bfstId = $_POST['BfstFuelStation']['bfst_id']
+                ) {
 
             $model4update->attributes = $_POST['CcbrBranch'];
+            
+            $bfstModel = BfstFuelStation::model()->findByPk($bfstId);
+            $model4update->ccbr_name = $bfstModel->bfst_name;
+            $model4update->ccbr_bfst_id = $bfstId;
             
             if ($model4update->validate()) {
 
@@ -236,7 +242,10 @@ class CcbrBranchController extends Controller
          $model4new = new CcbrBranch;
          $model4new->ccbr_ccmp_id = $ccmp_id;
 
-         $this->renderPartial("_form_horizontal_ajax", array('ccmp_id' => $ccmp_id, 'model4update' => $model4new)); 
+         $this->renderPartial("_form_horizontal_ajax", array(
+             'ccmp_id' => $ccmp_id, 
+             'model4update' => $model4new,
+             )); 
         //$this->render('view', array('model' => $model, 'model4grid' => $model4grid, 'model4update' => $model4update));
     }
 
